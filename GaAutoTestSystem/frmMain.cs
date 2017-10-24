@@ -50,7 +50,7 @@ namespace GaAutoTestSystem
         private void btnOK_Click(object sender, EventArgs e)
         {
             var population = new Population(RetainRate, SelectionRate, MutationRate, ChromosomeLength,
-                ChromosomeQuantity, SubValueQuantity, SolutionLowerBound, SolutionUpperBound, TestFunction.Function2);
+                ChromosomeQuantity, SubValueQuantity, SolutionLowerBound, SolutionUpperBound, TestFunction.Function1);
             var builder = new StringBuilder();
             //加载参数
             LoadParameters();
@@ -170,7 +170,7 @@ namespace GaAutoTestSystem
                 builder.Append(
                     $"{OutputHelper.DisplayChromosomeBinaryValue(mostFittest)} | {decodedSubValuesString} | fitness: {mostFittest.Fitness}");
                 // builder.Append ($"fitness: {TestFunction.StubbedTriangleTypeTestPathCoverage(a, b, c)} ");
-                builder.Append($" | result: {TestFunction.Function2(decodedSubValues)} ");
+                builder.Append($" | result: {TestFunction.Function1(decodedSubValues)} ");
                 // builder.Append ($"path: {TestFunction.TriangleTypeTestPathCoverage(a, b, c)}");
                 builder.Append(Environment.NewLine);
                 textBox1.AppendText(builder.ToString());
