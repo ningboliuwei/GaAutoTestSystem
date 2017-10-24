@@ -4,12 +4,6 @@ namespace GaAutoTestSystem
 {
     public class TestFunction
     {
-        //解空间的下界
-        public static double LowerBound;
-
-        //解空间的上界
-        public static double UpperBound;
-
         //解空间 [0,1]
         public static double Function1(params double[] paras)
         {

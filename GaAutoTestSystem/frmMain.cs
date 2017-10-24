@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -29,12 +30,13 @@ namespace GaAutoTestSystem
         //随机选择率
         private double SelectionRate = 0.01;
 
+        //演化策略——轮盘赌 / 精英 / 混合
         private Population.SelectType selectType = Population.SelectType.Hybrid;
-
+        //解空间下界
         private double SolutionLowerBound;
-
+        //解空间上界
         private double SolutionUpperBound = 9;
-
+        //子值个数（被测函数参数个数）
         private int SubValueQuantity = 1;
 
         public frmMain()
@@ -47,32 +49,17 @@ namespace GaAutoTestSystem
             cmbStrategy.SelectedIndex = 2;
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void btnGA_Click(object sender, EventArgs e)
         {
             var population = new Population(RetainRate, SelectionRate, MutationRate, ChromosomeLength,
-                ChromosomeQuantity, SubValueQuantity, SolutionLowerBound, SolutionUpperBound, TestFunction.Function1);
+                ChromosomeQuantity, SubValueQuantity, SolutionLowerBound, SolutionUpperBound, TestFunction.Function2);
             var builder = new StringBuilder();
             //加载参数
             LoadParameters();
-            //指定测试函数的解空间上下界
-
             //随机生成染色体
             population.RandomGenerateChromosome();
 
-            #region 随机生成三角形测试数据
-
-            //            var rnd = new Random();
-            //            
-            //            for (int i = 0; i < 1000; i++)
-            //            {
-            //                var x = rnd.Next(1, 10);
-            //                var y = rnd.Next(1, 10);
-            //                var z = rnd.Next(1, 10);
-            //            
-            //                Console.WriteLine($"{x},{y},{z} {TestFunction.TriangleTypeTest(x,y,z)}");
-            //            }
-
-            #endregion
+          
 
             #region 针对分支函数随机生成测试数据
 
@@ -128,7 +115,8 @@ namespace GaAutoTestSystem
 
             #region 进化 N 代
 
-            //
+            txtResult.Clear();
+            TimeSpan totalTimeCost = TimeSpan.Zero;
             for (var i = 0; i < GenerationQuantity; i++)
             {
                 #region 显示本代中所有染色体及适应度
@@ -157,26 +145,17 @@ namespace GaAutoTestSystem
                 //找出拥有每一代最高 Fitnetss 值的那个实际的解
                 var maxFitness = population.Chromosomes.Max(n => n.Fitness);
                 var mostFittest = population.Chromosomes.First(c => Equals(c.Fitness, maxFitness));
-
+                
                 builder.Clear();
-                builder.Append($"after {i + 1:000} envolve(s): ");
-
-                //所有映射到解空间的值（若有级联）
-                var decodedSubValues = mostFittest.SubValues.Select(v =>
-                    mostFittest.GetDecodedValue(v)).ToArray();
-                var decodedSubValuesString = string.Join(" ", decodedSubValues);
-
-                //染色体二进制表示 | 所有子值（即多输入参数拼接） | 适应度
-                builder.Append(
-                    $"{OutputHelper.DisplayChromosomeBinaryValue(mostFittest)} | {decodedSubValuesString} | fitness: {mostFittest.Fitness}");
-                // builder.Append ($"fitness: {TestFunction.StubbedTriangleTypeTestPathCoverage(a, b, c)} ");
-                builder.Append($" | result: {TestFunction.Function1(decodedSubValues)} ");
-                // builder.Append ($"path: {TestFunction.TriangleTypeTestPathCoverage(a, b, c)}");
-                builder.Append(Environment.NewLine);
-                textBox1.AppendText(builder.ToString());
-                textBox1.ScrollToCaret();
+                builder.Append($"after {i + 1:000} envolve(s): timecost: {totalTimeCost.TotalMilliseconds : 0.0000} ms");
+                builder.Append($" | {OutputHelper.GetChromosomeInfo(mostFittest, TestFunction.Function2)}");
+                txtResult.AppendText(builder.ToString());
+                txtResult.ScrollToCaret();
                 //进化过程中不同的选择策略
+                var beginTime = DateTime.Now;
                 population.Envolve(selectType);
+                totalTimeCost += DateTime.Now - beginTime;
+
             }
 
             //            for (var i = 0; i < 100; i++)
@@ -215,8 +194,40 @@ namespace GaAutoTestSystem
                     break;
             }
 
-            SolutionLowerBound = Convert.ToInt32(txtSolutionLowerBound.Text);
-            SolutionUpperBound = Convert.ToInt32(txtSolutionUpperBound.Text);
+            SolutionLowerBound = Convert.ToDouble(txtSolutionLowerBound.Text);
+            SolutionUpperBound = Convert.ToDouble(txtSolutionUpperBound.Text);
+        }
+
+        private void btnRandom_Click(object sender, EventArgs e)
+        {
+            var rnd = new Random();
+            var builder = new StringBuilder();
+            TimeSpan timeCost = TimeSpan.Zero;
+            var beginTime = DateTime.Now;
+
+            LoadParameters();
+            txtResult.Clear();
+
+            for (long i = 0; i < ChromosomeQuantity * GenerationQuantity; i++)
+            {
+                var paras = new List<double>();
+                
+                for (var j = 0; j < SubValueQuantity; j++)
+                {
+                    var value = rnd.NextDouble() * (SolutionUpperBound - SolutionLowerBound) + SolutionLowerBound;
+                    paras.Add(value);
+                }
+                timeCost = DateTime.Now - beginTime;
+                
+                var result = TestFunction.Function2(paras.ToArray());
+
+                builder.Clear();
+                builder.Append($"after {i + 1:0000} time(s): timecost: {timeCost.TotalMilliseconds: 0.0000} ms");
+                builder.Append($" | value: {string.Join(" ", paras.ToArray())} | result: {result}");
+                builder.Append(Environment.NewLine);
+                txtResult.AppendText(builder.ToString());
+                txtResult.ScrollToCaret();
+            }
         }
     }
 }

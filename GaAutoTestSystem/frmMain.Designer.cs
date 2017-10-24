@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtResult = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.btnOK = new System.Windows.Forms.Button();
+            this.btnGA = new System.Windows.Forms.Button();
             this.txtGenerationQuantity = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtSelectionRate = new System.Windows.Forms.TextBox();
@@ -52,6 +52,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.txtSolutionLowerBound = new System.Windows.Forms.TextBox();
             this.txtSolutionUpperBound = new System.Windows.Forms.TextBox();
+            this.btnRandom = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -61,7 +62,7 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300F));
-            this.tableLayoutPanel1.Controls.Add(this.textBox1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.txtResult, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -72,25 +73,26 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(942, 444);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // textBox1
+            // txtResult
             // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(3, 3);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(636, 398);
-            this.textBox1.TabIndex = 0;
+            this.txtResult.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtResult.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtResult.Location = new System.Drawing.Point(3, 3);
+            this.txtResult.Multiline = true;
+            this.txtResult.Name = "txtResult";
+            this.txtResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtResult.Size = new System.Drawing.Size(636, 398);
+            this.txtResult.TabIndex = 0;
             // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.btnRandom, 0, 12);
             this.tableLayoutPanel2.Controls.Add(this.label7, 0, 9);
             this.tableLayoutPanel2.Controls.Add(this.label8, 0, 6);
-            this.tableLayoutPanel2.Controls.Add(this.btnOK, 0, 12);
+            this.tableLayoutPanel2.Controls.Add(this.btnGA, 1, 12);
             this.tableLayoutPanel2.Controls.Add(this.txtGenerationQuantity, 1, 5);
             this.tableLayoutPanel2.Controls.Add(this.label6, 0, 5);
             this.tableLayoutPanel2.Controls.Add(this.txtSelectionRate, 1, 4);
@@ -151,17 +153,16 @@
             this.label8.Text = "子值数量";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // btnOK
+            // btnGA
             // 
-            this.tableLayoutPanel2.SetColumnSpan(this.btnOK, 2);
-            this.btnOK.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnOK.Location = new System.Drawing.Point(3, 361);
-            this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(288, 34);
-            this.btnOK.TabIndex = 1;
-            this.btnOK.Text = "开始(&S)";
-            this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnGA.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnGA.Location = new System.Drawing.Point(123, 361);
+            this.btnGA.Name = "btnGA";
+            this.btnGA.Size = new System.Drawing.Size(168, 34);
+            this.btnGA.TabIndex = 1;
+            this.btnGA.Text = "演化生成(&G)";
+            this.btnGA.UseVisualStyleBackColor = true;
+            this.btnGA.Click += new System.EventHandler(this.btnGA_Click);
             // 
             // txtGenerationQuantity
             // 
@@ -345,6 +346,17 @@
             this.txtSolutionUpperBound.TabIndex = 15;
             this.txtSolutionUpperBound.Text = "9";
             // 
+            // btnRandom
+            // 
+            this.btnRandom.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRandom.Location = new System.Drawing.Point(3, 361);
+            this.btnRandom.Name = "btnRandom";
+            this.btnRandom.Size = new System.Drawing.Size(114, 34);
+            this.btnRandom.TabIndex = 18;
+            this.btnRandom.Text = "随机生成(&R)";
+            this.btnRandom.UseVisualStyleBackColor = true;
+            this.btnRandom.Click += new System.EventHandler(this.btnRandom_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -365,8 +377,8 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.TextBox txtResult;
+        private System.Windows.Forms.Button btnGA;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TextBox txtMutationRate;
         private System.Windows.Forms.Label label4;
@@ -388,6 +400,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtSolutionLowerBound;
         private System.Windows.Forms.TextBox txtSolutionUpperBound;
+        private System.Windows.Forms.Button btnRandom;
     }
 }
 
