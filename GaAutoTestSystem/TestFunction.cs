@@ -20,20 +20,20 @@ namespace GaAutoTestSystem
         }
 
         //简单分支函数
-        public static string BranchTest1(params double[] paras)
+        public static double BranchTest1(params double[] paras)
         {
-            var path = "#";
             var x = paras[0];
             var y = paras[1];
-
+            var result = 0;
+            
             if (x >= 80)
             {
-                path += "a";
+                result = 1;
                 if (y < 50)
-                    path += "b";
+                    result = 2;
             }
 
-            return path;
+            return result;
         }
 
 

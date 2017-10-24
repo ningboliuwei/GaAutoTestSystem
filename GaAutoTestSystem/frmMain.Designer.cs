@@ -146,9 +146,10 @@
             // label8
             // 
             this.label8.AutoSize = true;
+            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label8.Location = new System.Drawing.Point(3, 144);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(53, 12);
+            this.label8.Size = new System.Drawing.Size(114, 24);
             this.label8.TabIndex = 14;
             this.label8.Text = "子值数量";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

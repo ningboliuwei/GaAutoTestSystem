@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GaAutoTestSystem
 {
-    class StubbedFunction
+    internal class StubbedFunction
     {
-        public static double StubbedBranchTest1_A(params double[] paras)
+        public static double StubbedBranchTest1_CodeCoverage(params double[] paras)
         {
-            var path = "#";
             var x = paras[0];
             var y = paras[1];
+            var path = "#";
 
             if (x >= 80)
             {
@@ -57,9 +55,9 @@ namespace GaAutoTestSystem
             var f4 = 0;
             var f5 = 0;
             var k = 1;
-            var x = (int)paras[0];
-            var y = (int)paras[0];
-            var z = (int)paras[0];
+            var x = (int) paras[0];
+            var y = (int) paras[0];
+            var z = (int) paras[0];
 
             if (x + y > z && x + z > y && y + z > x)
             {
@@ -73,23 +71,17 @@ namespace GaAutoTestSystem
                 else
                 {
                     //这里真的是 MAX 吗？
-                    f2 = new List<int> { Math.Abs(x - y), Math.Abs(y - z) }.Sum();
+                    f2 = new List<int> {Math.Abs(x - y), Math.Abs(y - z)}.Sum();
 
                     if (x == y || y == z || x == z)
-                    {
                         f3 = 0;
-                        //                        type = "isosceles triangle";
-                    }
                     else
-                    {
-                        f3 = new List<int> { Math.Abs(x - y), Math.Abs(y - z), Math.Abs(x - z) }.Min();
-                        //                        type = "scalene triangle";
-                    }
+                        f3 = new List<int> {Math.Abs(x - y), Math.Abs(y - z), Math.Abs(x - z)}.Min();
                 }
             }
             else
             {
-                f1 = new List<int> { z - (x + y) + k, y - (x + z) + k, x - (y + z) + k }.Min();
+                f1 = new List<int> {z - (x + y) + k, y - (x + z) + k, x - (y + z) + k}.Min();
                 //                type = "not a triangle";
             }
             return -Math.Abs(f1 + f2 + f3);
@@ -112,15 +104,9 @@ namespace GaAutoTestSystem
                     //这里真的是 MAX 吗？
 
                     if (x == y || y == z || x == z)
-                    {
                         path += "d";
-                        //                        type = "isosceles triangle";
-                    }
                     else
-                    {
                         path += "e";
-                        //                        type = "scalene triangle";
-                    }
                 }
             }
             else
@@ -188,9 +174,7 @@ namespace GaAutoTestSystem
                         if (month == 4 || month == 6 || month == 9 || month == 11)
                         {
                             if (day == 31)
-                            {
                                 return errorMessage;
-                            }
                             if (day == 30)
                             {
                                 day = 1;
@@ -220,20 +204,14 @@ namespace GaAutoTestSystem
                                     else
                                     {
                                         if (year % 4 == 0)
-                                        {
                                             endDay = 29;
-                                        }
                                         else
-                                        {
                                             endDay = 28;
-                                        }
                                     }
                                 }
 
                                 if (day > endDay)
-                                {
                                     return errorMessage;
-                                }
                                 if (day == endDay)
                                 {
                                     day = 1;
