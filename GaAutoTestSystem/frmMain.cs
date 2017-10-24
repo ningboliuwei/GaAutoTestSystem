@@ -12,7 +12,7 @@ namespace GaAutoTestSystem
         private int ChromosomeLength = 11;
 
         //染色体数量
-        private int ChromosomeQuantity = 200;
+        private int ChromosomeQuantity = 1000;
 
         //进化代数
         private int GenerationQuantity = 200;
@@ -31,6 +31,10 @@ namespace GaAutoTestSystem
 
         private Population.SelectType selectType = Population.SelectType.Hybrid;
 
+        private double SolutionLowerBound;
+
+        private double SolutionUpperBound = 9;
+
         private int SubValueQuantity = 1;
 
         public frmMain()
@@ -46,12 +50,12 @@ namespace GaAutoTestSystem
         private void btnOK_Click(object sender, EventArgs e)
         {
             var population = new Population(RetainRate, SelectionRate, MutationRate, ChromosomeLength,
-                ChromosomeQuantity, SubValueQuantity, TestFunction.Function2);
+                ChromosomeQuantity, SubValueQuantity, SolutionLowerBound, SolutionUpperBound, TestFunction.Function2);
             var builder = new StringBuilder();
             //加载参数
             LoadParameters();
             //指定测试函数的解空间上下界
-            TestFunction.SetBound(0, 9);
+
             //随机生成染色体
             population.RandomGenerateChromosome();
 
@@ -210,6 +214,9 @@ namespace GaAutoTestSystem
                     selectType = Population.SelectType.Hybrid;
                     break;
             }
+
+            SolutionLowerBound = Convert.ToInt32(txtSolutionLowerBound.Text);
+            SolutionUpperBound = Convert.ToInt32(txtSolutionUpperBound.Text);
         }
     }
 }

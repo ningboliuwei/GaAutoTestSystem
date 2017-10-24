@@ -46,7 +46,8 @@ namespace TestDataGenerator
         //得到将染色体值转换为在解空间对应的值
         public double GetDecodedValue(double value)
         {
-            return TestFunction.LowerBound + value * (TestFunction.UpperBound - TestFunction.LowerBound) /
+            return Population.SolutionLowerBound + value * (Population.SolutionUpperBound -
+                                                            Population.SolutionLowerBound) /
                    (Math.Pow(2, Convert.ToInt32(Population.ChromosomeLength / Population.SubValueQuantity)) - 1);
         }
     }

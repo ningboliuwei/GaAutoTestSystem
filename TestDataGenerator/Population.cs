@@ -16,7 +16,7 @@ namespace TestDataGenerator
         }
 
         public Population(double retainRate, double selectionRate, double mutationRate, int chromosomeLength,
-            int chromosomeQuantity, int subValueQuantity, FitnessFunctionDelegate fitnessFunction)
+            int chromosomeQuantity, int subValueQuantity, double solutionLowerBound, double solutionUpperBound, FitnessFunctionDelegate fitnessFunction)
         {
             RetainRate = retainRate;
             SelectionRate = selectionRate;
@@ -24,6 +24,8 @@ namespace TestDataGenerator
             ChromosomeLength = chromosomeLength;
             SubValueQuantity = subValueQuantity;
             ChromosomeQuantity = chromosomeQuantity;
+            SolutionLowerBound = solutionLowerBound;
+            SolutionUpperBound = solutionUpperBound;
             FitnessFunction = fitnessFunction;
         }
 
@@ -47,6 +49,12 @@ namespace TestDataGenerator
 
         //染色体长度（总长度）
         public int ChromosomeLength { get; }
+        
+        //解空间下界
+        public double SolutionLowerBound { get; set; }
+
+        //解空间上界
+        public double SolutionUpperBound { get; set; }
 
         //该种群适应度计算函数委托
         public FitnessFunctionDelegate FitnessFunction { get; set; }

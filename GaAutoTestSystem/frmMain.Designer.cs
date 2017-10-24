@@ -31,9 +31,9 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnOK = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.btnOK = new System.Windows.Forms.Button();
             this.txtGenerationQuantity = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtSelectionRate = new System.Windows.Forms.TextBox();
@@ -48,6 +48,10 @@
             this.txtChromosomeQuantity = new System.Windows.Forms.TextBox();
             this.txtSubValueQuantity = new System.Windows.Forms.TextBox();
             this.cmbStrategy = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtSolutionLowerBound = new System.Windows.Forms.TextBox();
+            this.txtSolutionUpperBound = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -84,9 +88,9 @@
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.label7, 0, 7);
+            this.tableLayoutPanel2.Controls.Add(this.label7, 0, 9);
             this.tableLayoutPanel2.Controls.Add(this.label8, 0, 6);
-            this.tableLayoutPanel2.Controls.Add(this.btnOK, 0, 10);
+            this.tableLayoutPanel2.Controls.Add(this.btnOK, 0, 12);
             this.tableLayoutPanel2.Controls.Add(this.txtGenerationQuantity, 1, 5);
             this.tableLayoutPanel2.Controls.Add(this.label6, 0, 5);
             this.tableLayoutPanel2.Controls.Add(this.txtSelectionRate, 1, 4);
@@ -100,11 +104,17 @@
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.txtChromosomeQuantity, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.txtSubValueQuantity, 1, 6);
-            this.tableLayoutPanel2.Controls.Add(this.cmbStrategy, 1, 7);
+            this.tableLayoutPanel2.Controls.Add(this.cmbStrategy, 1, 9);
+            this.tableLayoutPanel2.Controls.Add(this.label9, 0, 7);
+            this.tableLayoutPanel2.Controls.Add(this.label10, 0, 8);
+            this.tableLayoutPanel2.Controls.Add(this.txtSolutionLowerBound, 1, 7);
+            this.tableLayoutPanel2.Controls.Add(this.txtSolutionUpperBound, 1, 8);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(645, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 11;
+            this.tableLayoutPanel2.RowCount = 13;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
@@ -116,8 +126,30 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(294, 398);
             this.tableLayoutPanel2.TabIndex = 2;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label7.Location = new System.Drawing.Point(3, 216);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(114, 24);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "进化策略";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(3, 144);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(53, 12);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "子值数量";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // btnOK
             // 
@@ -130,28 +162,6 @@
             this.btnOK.Text = "开始(&S)";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label7.Location = new System.Drawing.Point(3, 168);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(114, 24);
-            this.label7.TabIndex = 16;
-            this.label7.Text = "进化策略";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label8.Location = new System.Drawing.Point(3, 144);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(114, 24);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "子值数量";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtGenerationQuantity
             // 
@@ -275,7 +285,6 @@
             // 
             // txtSubValueQuantity
             // 
-            this.txtSubValueQuantity.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtSubValueQuantity.Location = new System.Drawing.Point(123, 147);
             this.txtSubValueQuantity.Name = "txtSubValueQuantity";
             this.txtSubValueQuantity.Size = new System.Drawing.Size(168, 21);
@@ -291,10 +300,50 @@
             "轮盘赌",
             "精英",
             "混合"});
-            this.cmbStrategy.Location = new System.Drawing.Point(123, 171);
+            this.cmbStrategy.Location = new System.Drawing.Point(123, 219);
             this.cmbStrategy.Name = "cmbStrategy";
             this.cmbStrategy.Size = new System.Drawing.Size(168, 20);
             this.cmbStrategy.TabIndex = 17;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label9.Location = new System.Drawing.Point(3, 168);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(114, 24);
+            this.label9.TabIndex = 14;
+            this.label9.Text = "解空间下界";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label10.Location = new System.Drawing.Point(3, 192);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(114, 24);
+            this.label10.TabIndex = 14;
+            this.label10.Text = "解空间上界";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtSolutionLowerBound
+            // 
+            this.txtSolutionLowerBound.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtSolutionLowerBound.Location = new System.Drawing.Point(123, 171);
+            this.txtSolutionLowerBound.Name = "txtSolutionLowerBound";
+            this.txtSolutionLowerBound.Size = new System.Drawing.Size(168, 21);
+            this.txtSolutionLowerBound.TabIndex = 15;
+            this.txtSolutionLowerBound.Text = "0";
+            // 
+            // txtSolutionUpperBound
+            // 
+            this.txtSolutionUpperBound.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtSolutionUpperBound.Location = new System.Drawing.Point(123, 195);
+            this.txtSolutionUpperBound.Name = "txtSolutionUpperBound";
+            this.txtSolutionUpperBound.Size = new System.Drawing.Size(168, 21);
+            this.txtSolutionUpperBound.TabIndex = 15;
+            this.txtSolutionUpperBound.Text = "9";
             // 
             // frmMain
             // 
@@ -303,7 +352,7 @@
             this.ClientSize = new System.Drawing.Size(942, 444);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "frmMain";
-            this.Text = "Form1";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -335,6 +384,10 @@
         private System.Windows.Forms.TextBox txtSubValueQuantity;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cmbStrategy;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtSolutionLowerBound;
+        private System.Windows.Forms.TextBox txtSolutionUpperBound;
     }
 }
 

@@ -10,13 +10,6 @@ namespace GaAutoTestSystem
         //解空间的上界
         public static double UpperBound;
 
-
-        public static void SetBound(double lowerBound, double upperBound)
-        {
-            LowerBound = lowerBound;
-            UpperBound = upperBound;
-        }
-
         //解空间 [0,1]
         public static double Function1(params double[] paras)
         {
