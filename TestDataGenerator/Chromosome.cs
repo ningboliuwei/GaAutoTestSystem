@@ -6,12 +6,9 @@ namespace TestDataGenerator
 {
     public class Chromosome
     {
-       
         public Population Population { get; set; }
 
         public long Value { get; set; }
-
-      
 
         public List<int> SubValues
         {
@@ -41,7 +38,7 @@ namespace TestDataGenerator
             get
             {
                 var paras = SubValues.Select(v => GetDecodedValue(v)).ToArray();
-                
+
                 return Population.FitnessFunction(paras);
             }
         }

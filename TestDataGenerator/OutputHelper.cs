@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestDataGenerator
 {
-    class OutputHelper
+    public class OutputHelper
     {
         public static string DisplayChromosomeBinaryValue(Chromosome chromosome)
         {
