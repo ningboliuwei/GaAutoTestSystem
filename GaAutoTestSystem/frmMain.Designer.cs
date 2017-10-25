@@ -263,7 +263,7 @@
             this.txtChromosomeLength.Name = "txtChromosomeLength";
             this.txtChromosomeLength.Size = new System.Drawing.Size(168, 21);
             this.txtChromosomeLength.TabIndex = 3;
-            this.txtChromosomeLength.Text = "11";
+            this.txtChromosomeLength.Text = "10";
             // 
             // label2
             // 

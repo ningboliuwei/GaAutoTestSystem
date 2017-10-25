@@ -17,25 +17,6 @@ namespace TestDataGenerator
             Hybrid
         }
 
-        public Population(double retainRate, double selectionRate, double mutationRate,
-            int chromosomeLengthForOneSubValue,
-            int chromosomeQuantity, int subValueQuantity, double solutionLowerBound, double solutionUpperBound,
-            FitnessFunctionDelegate fitnessFunction, ResultFunctionDelegate resultFunction)
-        {
-            RetainRate = retainRate;
-            SelectionRate = selectionRate;
-            MutationRate = mutationRate;
-            ChromosomeLengthForOneSubValue = chromosomeLengthForOneSubValue;
-            SubValueQuantity = subValueQuantity;
-            ChromosomeQuantity = chromosomeQuantity;
-            SolutionLowerBound = solutionLowerBound;
-            SolutionUpperBound = solutionUpperBound;
-            FitnessFunction = fitnessFunction;
-            ResultFunction = resultFunction;
-            //染色体总长度 = 单个染色体长度 * 子值数
-            ChromosomeLength = ChromosomeLengthForOneSubValue * SubValueQuantity;
-        }
-
         //染色体集合
         public List<Chromosome> Chromosomes { get; private set; } = new List<Chromosome>();
 
@@ -52,13 +33,13 @@ namespace TestDataGenerator
         public double MutationRate { get; set; }
 
         //子值数量（多参数级联情况下）
-        public int SubValueQuantity { get; }
+        public int SubValueQuantity { get; set; }
 
         //染色体长度（总长度）
-        public int ChromosomeLength { get; }
+        public int ChromosomeLength;
 
         //每个子值的染色体长度
-        public int ChromosomeLengthForOneSubValue { get; }
+        public int ChromosomeLengthForOneSubValue { get; set; }
 
         //解空间下界
         public double SolutionLowerBound { get; set; }

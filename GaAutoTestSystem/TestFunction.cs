@@ -63,8 +63,8 @@ namespace GaAutoTestSystem
         {
             var type = "";
             var x = (int) paras[0];
-            var y = (int) paras[0];
-            var z = (int) paras[0];
+            var y = (int) paras[1];
+            var z = (int) paras[2];
 
             if (x + y > z && x + z > y && y + z > x)
                 if (x == y && y == z)
@@ -126,9 +126,12 @@ namespace GaAutoTestSystem
 
 
         //计算下一天的日期
-        public static object NextDate(int year, int month, int day)
+        public static object NextDate(params double[] paras)
         {
             var errorMessage = "Invalid date";
+            var year = (int)paras[0];
+            var month = (int)paras[1];
+            var day = (int)paras[2];
 
             if (year >= 1950 && year < 2050 && month >= 1 && month <= 12 && day >= 1 && day <= 31)
             {

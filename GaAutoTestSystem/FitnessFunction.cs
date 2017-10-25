@@ -4,24 +4,24 @@ using System.Linq;
 
 namespace GaAutoTestSystem
 {
-    internal class StubbedFunction
+    internal class FitnessFunction
     {
         //解空间 [0,1]
-        public static double FitnessFunction1(params double[] paras)
+        public static double Function1(params double[] paras)
         {
             var x = paras[0];
             return x * Math.Sin(10 * Math.PI * x) + 2.0;
         }
 
         //解空间 [0,9]
-        public static double FitnessFunction2(params double[] paras)
+        public static double Function2(params double[] paras)
         {
             var x = paras[0];
 
             return x + 10 * Math.Sin(5 * x) + 7 * Math.Cos(4 * x);
         }
 
-        public static double StubbedBranchTest1_CodeCoverage(params double[] paras)
+        public static double BranchTest1_Coverage(params double[] paras)
         {
             var x = paras[0];
             var y = paras[1];
@@ -34,7 +34,7 @@ namespace GaAutoTestSystem
                     path += "b";
             }
 
-            return path.Length / 3.0;
+            return path.Length / (double) "#ab".Length;
         }
 
 
@@ -62,7 +62,7 @@ namespace GaAutoTestSystem
             return -(f1 + f2);
         }
 
-        public static double StubbedBranchTest2_CodeCoverage(params double[] paras)
+        public static double BranchTest2_Coverage(params double[] paras)
         {
             double k = 0;
             double j = 0;
@@ -87,10 +87,10 @@ namespace GaAutoTestSystem
             j = j % 3;
             path += "c";
 
-            return path.Length / 4.0;
+            return path.Length / (double) "#abc".Length;
         }
 
-        public static double StubbedTriangleTypeTest_B(params double[] paras)
+        public static double TriangleTypeTest_Distance(params double[] paras)
         {
             var f1 = 0;
             var f2 = 0;
@@ -109,11 +109,9 @@ namespace GaAutoTestSystem
                 if (x == y && y == z)
                 {
                     f2 = 0;
-                    //                    type = "equilateral triangle";
                 }
                 else
                 {
-                    //这里真的是 MAX 吗？
                     f2 = new List<int> {Math.Abs(x - y), Math.Abs(y - z)}.Sum();
 
                     if (x == y || y == z || x == z)
@@ -125,26 +123,27 @@ namespace GaAutoTestSystem
             else
             {
                 f1 = new List<int> {z - (x + y) + k, y - (x + z) + k, x - (y + z) + k}.Min();
-                //                type = "not a triangle";
             }
             return -Math.Abs(f1 + f2 + f3);
         }
 
-        public static double StubbedTriangleTypeTestPathCoverage(int x, int y, int z)
+        public static double TriangleTypeTest_Coverage(params double[] paras)
         {
-            var path = "";
+            var path = "#";
+            var x = (int) paras[0];
+            var y = (int) paras[1];
+            var z = (int) paras[2];
+
             if (x + y > z && x + z > y && y + z > x)
             {
                 path += "a";
                 if (x == y && y == z)
                 {
                     path += "b";
-                    //                    type = "equilateral triangle";
                 }
                 else
                 {
                     path += "c";
-                    //这里真的是 MAX 吗？
 
                     if (x == y || y == z || x == z)
                         path += "d";
@@ -156,11 +155,10 @@ namespace GaAutoTestSystem
             {
                 path += "f";
             }
-            //                type = "not a triangle";
-            return path.Length / 6.0;
+            return path.Length / (double) "#abcdef".Length;
         }
 
-        public static string StubbedNextDate(int year, int month, int day)
+        public static double NextDate_CodeCoverage_Fitness(params double[] paras)
         {
             var f1 = 0;
             var f2 = 0;
@@ -178,99 +176,137 @@ namespace GaAutoTestSystem
             var f14 = 0;
             var f15 = 0;
             var f16 = 0;
+            var year = (int) paras[0];
+            var month = (int)paras[1];
+            var day = (int)paras[2];
 
             var errorMessage = "Invalid date";
 
+            var path = "#";
             if (year >= 1950 && year < 2050 && month >= 1 && month <= 12 && day >= 1 && day <= 31)
             {
+                path += "a";
                 f1 = 0;
                 //大月
                 if (month == 12)
                 {
+                    path += "b";
                     if (day == 31)
                     {
+                        path += "c";
                         year++;
                         day = 1;
                         month = 1;
                     }
                     else
                     {
+                        path += "d";
                         day++;
                     }
                 }
                 else
                 {
+                    path += "e";
                     if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10)
                     {
+                        path += "f";
                         if (day == 31)
                         {
+                            path += "g";
                             day = 1;
                             month++;
                         }
                         else
                         {
+                            path += "h";
                             day++;
                         }
                     }
                     else
                     {
+                        path += "i";
                         if (month == 4 || month == 6 || month == 9 || month == 11)
                         {
+                            path += "j";
                             if (day == 31)
-                                return errorMessage;
+                            {
+                                path += "k";
+                                //  return errorMessage;
+                            }
+                            
                             if (day == 30)
                             {
+                                path += "l";
                                 day = 1;
                                 month++;
                             }
                             else
                             {
+                                path += "m";
                                 day++;
                             }
                         }
                         else
                         {
+                            path += "n";
                             if (month == 2)
                             {
+                                path += "o";
                                 var endDay = 0;
 
                                 if (year % 400 == 0)
                                 {
+                                    path += "p";
                                     endDay = 29;
                                 }
                                 else
                                 {
+                                    path += "q";
                                     if (year % 100 == 0)
                                     {
+                                        path += "r";
                                         endDay = 28;
                                     }
                                     else
                                     {
+                                        path += "s";
                                         if (year % 4 == 0)
+                                        {
+                                            path += "t";
                                             endDay = 29;
+                                        }
                                         else
+                                        {
+                                            path += "u";
                                             endDay = 28;
+                                        }
                                     }
                                 }
 
                                 if (day > endDay)
-                                    return errorMessage;
+                                {
+                                    path += "v";
+                                    // return errorMessage;
+                                }
+                                
                                 if (day == endDay)
                                 {
+                                    path += "w";
                                     day = 1;
                                     month++;
                                 }
                                 else
                                 {
+                                    path += "x";
                                     day++;
                                 }
                             }
                         }
                     }
                 }
-                return $"{year}-{month}-{day}";
+                
             }
-            return errorMessage;
+            return path.Length / 25.0;
         }
     }
 }
