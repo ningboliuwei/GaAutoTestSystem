@@ -84,7 +84,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="XmlTemplate\TestSuiteTemplate.xml" />
+    <Content Include="XmlTemplate\TestSuiteTemplate.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TestDataGenerator\TestDataGenerator.csproj">

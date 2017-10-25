@@ -6,6 +6,21 @@ namespace GaAutoTestSystem
 {
     internal class StubbedFunction
     {
+        //解空间 [0,1]
+        public static double FitnessFunction1(params double[] paras)
+        {
+            var x = paras[0];
+            return x * Math.Sin(10 * Math.PI * x) + 2.0;
+        }
+
+        //解空间 [0,9]
+        public static double FitnessFunction2(params double[] paras)
+        {
+            var x = paras[0];
+
+            return x + 10 * Math.Sin(5 * x) + 7 * Math.Cos(4 * x);
+        }
+
         public static double StubbedBranchTest1_CodeCoverage(params double[] paras)
         {
             var x = paras[0];
@@ -45,6 +60,34 @@ namespace GaAutoTestSystem
                     f2 = Math.Abs(50 - y) + k;
 
             return -(f1 + f2);
+        }
+
+        public static double StubbedBranchTest2_CodeCoverage(params double[] paras)
+        {
+            double k = 0;
+            double j = 0;
+            var x = paras[0];
+            var y = paras[1];
+            var z = paras[2];
+            var path = "#";
+
+            if (x > 1 && z < 10)
+            {
+                k = x + z;
+                j = k * k;
+                path += "a";
+            }
+
+            if (y == 4 || z > 1)
+            {
+                j = z * y + 10;
+                path += "b";
+            }
+
+            j = j % 3;
+            path += "c";
+
+            return path.Length / 4.0;
         }
 
         public static double StubbedTriangleTypeTest_B(params double[] paras)

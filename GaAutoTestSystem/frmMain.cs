@@ -10,7 +10,7 @@ namespace GaAutoTestSystem
     public partial class frmMain : Form
     {
         //染色体长度
-        private int ChromosomeLength = 11;
+        private int ChromosomeLengthForOneSubValue = 11;
 
         //染色体数量
         private int ChromosomeQuantity = 1000;
@@ -42,6 +42,8 @@ namespace GaAutoTestSystem
         //子值个数（被测函数参数个数）
         private int SubValueQuantity = 1;
 
+        private Population _population;
+
         public frmMain()
         {
             InitializeComponent();
@@ -56,30 +58,30 @@ namespace GaAutoTestSystem
         {
             LoadParameters();
             
-            var population = new Population(RetainRate, SelectionRate, MutationRate, ChromosomeLength,
-                ChromosomeQuantity, SubValueQuantity, SolutionLowerBound, SolutionUpperBound, StubbedFunction.StubbedBranchTest1_A);
+            _population = new Population(RetainRate, SelectionRate, MutationRate, ChromosomeLengthForOneSubValue,
+                ChromosomeQuantity, SubValueQuantity, SolutionLowerBound, SolutionUpperBound, StubbedFunction.StubbedBranchTest2_CodeCoverage, TestFunction.BranchTest2);
             var builder = new StringBuilder();
             //加载参数
             
             //随机生成染色体
-            population.RandomGenerateChromosome();
+            _population.RandomGenerateChromosome();
 
             txtResult.Clear();
             var totalTimeCost = TimeSpan.Zero;
             for (var i = 0; i < GenerationQuantity; i++)
             {
                 //找出拥有每一代最高 Fitnetss 值的那个实际的解
-                var maxFitness = population.Chromosomes.Max(n => n.Fitness);
-                var mostFittest = population.Chromosomes.First(c => Equals(c.Fitness, maxFitness));
+                var maxFitness = _population.Chromosomes.Max(n => n.Fitness);
+                var mostFittest = _population.Chromosomes.First(c => Equals(c.Fitness, maxFitness));
 
                 builder.Clear();
                 builder.Append($"after {i + 1:000} envolve(s): timecost: {totalTimeCost.TotalMilliseconds: 0.0000} ms");
-                builder.Append($" | {OutputHelper.GetChromosomeInfo(mostFittest, TestFunction.BranchTest1)}");
+                builder.Append($" | {OutputHelper.GetChromosomeInfo(mostFittest)}");
                 txtResult.AppendText(builder.ToString());
                 txtResult.ScrollToCaret();
                 //进化过程中不同的选择策略
                 var beginTime = DateTime.Now;
-                population.Envolve(selectType);
+                _population.Envolve(selectType);
                 totalTimeCost += DateTime.Now - beginTime;
             }
         }
@@ -87,7 +89,7 @@ namespace GaAutoTestSystem
         private void LoadParameters()
         {
             ChromosomeQuantity = Convert.ToInt32(txtChromosomeQuantity.Text);
-            ChromosomeLength = Convert.ToInt32(txtChromosomeLength.Text);
+            ChromosomeLengthForOneSubValue = Convert.ToInt32(txtChromosomeLength.Text);
             RetainRate = Convert.ToDouble(txtRetainRate.Text) / 100;
             MutationRate = Convert.ToDouble(txtMutationRate.Text) / 100;
             SelectionRate = Convert.ToDouble(txtSelectionRate.Text) / 100;
@@ -132,7 +134,7 @@ namespace GaAutoTestSystem
                 }
                 
                 var timeCost = DateTime.Now - beginTime;
-                var result = TestFunction.BranchTest1(paras.ToArray());
+                var result = _population.ResultFunction(paras.ToArray());
 
                 builder.Clear();
                 builder.Append($"after {i + 1:0000} time(s): timecost: {timeCost.TotalMilliseconds: 0.0000} ms");
@@ -142,11 +144,7 @@ namespace GaAutoTestSystem
                 txtResult.AppendText(builder.ToString());
                 txtResult.ScrollToCaret();
 
-                //以下为终止条件
-                if (Math.Abs(result - 2) < 0.000001)
-                {
-                    break;
-                }
+                //以下为随机生成终止条件
             }
         }
     }

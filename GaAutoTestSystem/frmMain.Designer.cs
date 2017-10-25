@@ -31,6 +31,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.txtResult = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnRandom = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.btnGA = new System.Windows.Forms.Button();
@@ -52,7 +53,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.txtSolutionLowerBound = new System.Windows.Forms.TextBox();
             this.txtSolutionUpperBound = new System.Windows.Forms.TextBox();
-            this.btnRandom = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -131,6 +131,17 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(294, 398);
             this.tableLayoutPanel2.TabIndex = 2;
+            // 
+            // btnRandom
+            // 
+            this.btnRandom.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRandom.Location = new System.Drawing.Point(3, 361);
+            this.btnRandom.Name = "btnRandom";
+            this.btnRandom.Size = new System.Drawing.Size(114, 34);
+            this.btnRandom.TabIndex = 18;
+            this.btnRandom.Text = "随机生成(&R)";
+            this.btnRandom.UseVisualStyleBackColor = true;
+            this.btnRandom.Click += new System.EventHandler(this.btnRandom_Click);
             // 
             // label7
             // 
@@ -262,7 +273,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(114, 24);
             this.label2.TabIndex = 2;
-            this.label2.Text = "染色体长度";
+            this.label2.Text = "每个子值染色体长度";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label1
@@ -346,17 +357,6 @@
             this.txtSolutionUpperBound.Size = new System.Drawing.Size(168, 21);
             this.txtSolutionUpperBound.TabIndex = 15;
             this.txtSolutionUpperBound.Text = "9";
-            // 
-            // btnRandom
-            // 
-            this.btnRandom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnRandom.Location = new System.Drawing.Point(3, 361);
-            this.btnRandom.Name = "btnRandom";
-            this.btnRandom.Size = new System.Drawing.Size(114, 34);
-            this.btnRandom.TabIndex = 18;
-            this.btnRandom.Text = "随机生成(&R)";
-            this.btnRandom.UseVisualStyleBackColor = true;
-            this.btnRandom.Click += new System.EventHandler(this.btnRandom_Click);
             // 
             // frmMain
             // 

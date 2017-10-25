@@ -5,14 +5,14 @@ namespace GaAutoTestSystem
     public class TestFunction
     {
         //解空间 [0,1]
-        public static double Function1(params double[] paras)
+        public static object Function1(params double[] paras)
         {
             var x = paras[0];
             return x * Math.Sin(10 * Math.PI * x) + 2.0;
         }
 
         //解空间 [0,9]
-        public static double Function2(params double[] paras)
+        public static object Function2(params double[] paras)
         {
             var x = paras[0];
 
@@ -20,12 +20,12 @@ namespace GaAutoTestSystem
         }
 
         //简单分支函数
-        public static double BranchTest1(params double[] paras)
+        public static object BranchTest1(params double[] paras)
         {
             var x = paras[0];
             var y = paras[1];
             var result = 0;
-            
+
             if (x >= 80)
             {
                 result = 1;
@@ -36,9 +36,30 @@ namespace GaAutoTestSystem
             return result;
         }
 
+        public static object BranchTest2(params double[] paras)
+        {
+            double k = 0;
+            double j = 0;
+            var x = paras[0];
+            var y = paras[1];
+            var z = paras[2];
+
+            if (x > 1 && z < 10)
+            {
+                k = x + z;
+                j = k * k;
+            }
+
+            if (y == 4 || z > 1)
+                j = z * y + 10;
+
+            j = j % 3;
+
+            return j;
+        }
 
         //equilateral —— 等边， isosceles 等腰，scalene 一般
-        public static string TriangleTypeTest(params double[] paras)
+        public static object TriangleTypeTest(params double[] paras)
         {
             var type = "";
             var x = (int) paras[0];
@@ -63,7 +84,7 @@ namespace GaAutoTestSystem
             return type;
         }
 
-        public static string TriangleTypeTestPathCoverage(params double[] paras)
+        public static object TriangleTypeTestPathCoverage(params double[] paras)
         {
             var type = "";
             var path = "";
@@ -105,7 +126,7 @@ namespace GaAutoTestSystem
 
 
         //计算下一天的日期
-        public static string NextDate(int year, int month, int day)
+        public static object NextDate(int year, int month, int day)
         {
             var errorMessage = "Invalid date";
 

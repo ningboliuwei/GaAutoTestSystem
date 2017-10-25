@@ -7,7 +7,9 @@ namespace TestDataGenerator
     public class Population
     {
         public delegate double FitnessFunctionDelegate(params double[] paras);
-        
+
+        public delegate object ResultFunctionDelegate(params double[] paras);
+
         public enum SelectType
         {
             Elite,
@@ -15,18 +17,23 @@ namespace TestDataGenerator
             Hybrid
         }
 
-        public Population(double retainRate, double selectionRate, double mutationRate, int chromosomeLength,
-            int chromosomeQuantity, int subValueQuantity, double solutionLowerBound, double solutionUpperBound, FitnessFunctionDelegate fitnessFunction)
+        public Population(double retainRate, double selectionRate, double mutationRate,
+            int chromosomeLengthForOneSubValue,
+            int chromosomeQuantity, int subValueQuantity, double solutionLowerBound, double solutionUpperBound,
+            FitnessFunctionDelegate fitnessFunction, ResultFunctionDelegate resultFunction)
         {
             RetainRate = retainRate;
             SelectionRate = selectionRate;
             MutationRate = mutationRate;
-            ChromosomeLength = chromosomeLength;
+            ChromosomeLengthForOneSubValue = chromosomeLengthForOneSubValue;
             SubValueQuantity = subValueQuantity;
             ChromosomeQuantity = chromosomeQuantity;
             SolutionLowerBound = solutionLowerBound;
             SolutionUpperBound = solutionUpperBound;
             FitnessFunction = fitnessFunction;
+            ResultFunction = resultFunction;
+            //染色体总长度 = 单个染色体长度 * 子值数
+            ChromosomeLength = ChromosomeLengthForOneSubValue * SubValueQuantity;
         }
 
         //染色体集合
@@ -49,7 +56,10 @@ namespace TestDataGenerator
 
         //染色体长度（总长度）
         public int ChromosomeLength { get; }
-        
+
+        //每个子值的染色体长度
+        public int ChromosomeLengthForOneSubValue { get; }
+
         //解空间下界
         public double SolutionLowerBound { get; set; }
 
@@ -58,6 +68,9 @@ namespace TestDataGenerator
 
         //该种群适应度计算函数委托
         public FitnessFunctionDelegate FitnessFunction { get; set; }
+
+        //该种群计算结果函数委托
+        public ResultFunctionDelegate ResultFunction { get; set; }
 
         //随机生成若干染色体
         public void RandomGenerateChromosome()
@@ -68,15 +81,10 @@ namespace TestDataGenerator
             {
                 var chromosome = new Chromosome {Population = this};
 
-                //先随机生成 N 个片段，再合并
-                for (var j = 0; j < SubValueQuantity; j++)
-                {
-                    //随机生成一个长度为 ChromosomeLength 的 1 / parameterQuantity 的染色体，每位(基因)是 1 或 0
-                    var valueString = "";
-                    for (var k = 0; k < ChromosomeLength; k++)
-                        valueString += Convert.ToInt32(rnd.Next(0, 2)).ToString();
-                    chromosome.Value = Convert.ToInt64(valueString, 2);
-                }
+                var valueString = "";
+                for (var k = 0; k < ChromosomeLength; k++)
+                    valueString += Convert.ToInt32(rnd.Next(0, 2)).ToString();
+                chromosome.Value = Convert.ToInt64(valueString, 2);
 
                 Chromosomes.Add(chromosome);
             }
