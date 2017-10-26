@@ -53,8 +53,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FitnessFunction.cs" />
-    <Compile Include="TestFunction.cs" />
+    <Compile Include="FitnessFunctionLib.cs" />
+    <Compile Include="TestFunctionLib.cs" />
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>

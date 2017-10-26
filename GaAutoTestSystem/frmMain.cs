@@ -70,8 +70,8 @@ namespace GaAutoTestSystem
                 ChromosomeQuantity = _chromosomeQuantity,
                 SolutionLowerBound = _solutionLowerBound,
                 SolutionUpperBound = _solutionUpperBound,
-                FitnessFunction = FitnessFunction.TriangleTypeTest_Distance,
-                ResultFunction = TestFunction.TriangleTypeTest
+                FitnessFunction = FitnessFunctionLib.NextDate_Coverage,
+                ResultFunction = TestFunctionLib.NextDate
             };
             var builder = new StringBuilder();
             var stopwatch = new Stopwatch();
@@ -98,7 +98,7 @@ namespace GaAutoTestSystem
                 _population.Envolve(_selectType);
 
                 //以下为终止条件
-                if ( maxFitness == 1)
+                if ( mostFittest.Result.ToString().Contains("-2-29"))
                     break;
             }
         }
@@ -166,8 +166,8 @@ namespace GaAutoTestSystem
                 txtResult.ScrollToCaret();
 
                 //以下为随机生成终止条件
-                if (fitness == 1)
-                    break;
+//                if (fitness == 0)
+//                    break;
 
                 stopwatch.Start();
             }

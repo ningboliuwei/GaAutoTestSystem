@@ -3,7 +3,7 @@
 <TestSuite Id="TS_001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:noNamespaceSchemaLocation="TestSuiteTemplate.xsd">
   <Name>针对 NextDate 函数的测试套件</Name>
-  <Target>TestFunctions.TriangleTest()</Target>
+  <Target>TestFunctionLibs.TriangleTest()</Target>
   <TestCases>
     <TestCase Id="TC_0001">
       <Name>针对 TriangleTest 的路径覆盖测试用例</Name>

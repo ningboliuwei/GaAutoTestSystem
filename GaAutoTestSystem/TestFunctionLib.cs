@@ -2,7 +2,7 @@
 
 namespace GaAutoTestSystem
 {
-    public class TestFunction
+    public class TestFunctionLib
     {
         //解空间 [0,1]
         public static object Function1(params double[] paras)
@@ -20,7 +20,7 @@ namespace GaAutoTestSystem
         }
 
         //简单分支函数
-        public static object BranchTest1(params double[] paras)
+        public static object Branch1(params double[] paras)
         {
             var x = paras[0];
             var y = paras[1];
@@ -36,13 +36,13 @@ namespace GaAutoTestSystem
             return result;
         }
 
-        public static object BranchTest2(params double[] paras)
+        public static object Branch2(params double[] paras)
         {
             double k = 0;
             double j = 0;
-            var x = paras[0];
-            var y = paras[1];
-            var z = paras[2];
+            var x =(int) paras[0];
+            var y = (int) paras[1];
+            var z = (int) paras[2];
 
             if (x > 1 && z < 10)
             {
