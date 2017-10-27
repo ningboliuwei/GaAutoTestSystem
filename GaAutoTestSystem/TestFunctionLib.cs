@@ -61,7 +61,7 @@ namespace GaAutoTestSystem
         //equilateral —— 等边， isosceles 等腰，scalene 一般
         public static object TriangleTypeTest(params double[] paras)
         {
-            var type = "";
+            string type;
             var x = (int) paras[0];
             var y = (int) paras[1];
             var z = (int) paras[2];

@@ -70,8 +70,8 @@ namespace GaAutoTestSystem
                 ChromosomeQuantity = _chromosomeQuantity,
                 SolutionLowerBound = _solutionLowerBound,
                 SolutionUpperBound = _solutionUpperBound,
-                FitnessFunction = FitnessFunctionLib.NextDate_Coverage,
-                ResultFunction = TestFunctionLib.NextDate
+                FitnessFunction = FitnessFunctionLib.Branch2_BasicPath_Coverage,
+                ResultFunction = TestFunctionLib.Branch2
             };
             var builder = new StringBuilder();
             var stopwatch = new Stopwatch();

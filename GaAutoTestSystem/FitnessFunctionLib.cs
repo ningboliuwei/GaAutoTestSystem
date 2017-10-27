@@ -79,6 +79,35 @@ namespace GaAutoTestSystem
             return path.Length / (double) "#abc".Length;
         }
 
+        public static double Branch2_BasicPath_Coverage(params double[] paras)
+        {
+            var x = (int) paras[0];
+            var y = (int) paras[1];
+            var z = (int) paras[2];
+            var path = "#";
+
+            if (x > 1)
+            {
+                path += "a";
+                if (z < 10)
+                    path += "b";
+            }
+
+            if (y == 4)
+            {
+                path += "c";
+            }
+            else
+            {
+                if (z > 1)
+                    path += "d";
+            }
+
+            path += "e";
+
+            return path.Length / (double) "#abcde".Length;
+        }
+
         public static double Branch2_Distance(params double[] paras)
         {
             var x = (int) paras[0];
