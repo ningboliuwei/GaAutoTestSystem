@@ -6,16 +6,15 @@ namespace TestDataGenerator
 {
     public class Population
     {
-        public delegate double FitnessFunctionDelegate(params double[] paras);
-
-        public delegate object ResultFunctionDelegate(params double[] paras);
-
         public enum SelectType
         {
             Elite,
             Roulette,
             Hybrid
         }
+
+        //染色体长度（总长度）
+        public int ChromosomeLength;
 
         //染色体集合
         public List<Chromosome> Chromosomes { get; private set; } = new List<Chromosome>();
@@ -35,9 +34,6 @@ namespace TestDataGenerator
         //子值数量（多参数级联情况下）
         public int SubValueQuantity { get; set; }
 
-        //染色体长度（总长度）
-        public int ChromosomeLength;
-
         //每个子值的染色体长度
         public int ChromosomeLengthForOneSubValue { get; set; }
 
@@ -48,11 +44,12 @@ namespace TestDataGenerator
         public double SolutionUpperBound { get; set; }
 
         //该种群适应度计算函数委托
-        public FitnessFunctionDelegate FitnessFunction { get; set; }
+//        public FitnessFunctionDelegate FitnessFunction { get; set; }
 
         //该种群计算结果函数委托
-        public ResultFunctionDelegate ResultFunction { get; set; }
+//        public ResultFunctionDelegate ResultFunction { get; set; }
 
+        public AbstractFunction RelatedFunction { get; set; }
         //随机生成若干染色体
         public void RandomGenerateChromosome()
         {

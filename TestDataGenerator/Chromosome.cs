@@ -36,9 +36,9 @@ namespace TestDataGenerator
         {
             get
             {
-                var paras = SubValues.Select(v => GetDecodedValue(v)).ToArray();
-
-                return Population.FitnessFunction(paras);
+                Population.RelatedFunction.Paras = SubValues.Select(v => GetDecodedValue(v)).ToList();
+                
+                return Population.RelatedFunction.GetFitness();
             }
         }
 
@@ -46,9 +46,9 @@ namespace TestDataGenerator
         {
             get
             {
-                var paras = SubValues.Select(v => GetDecodedValue(v)).ToArray();
+                Population.RelatedFunction.Paras = SubValues.Select(v => GetDecodedValue(v)).ToList();
 
-                return Population.ResultFunction(paras);
+                return Population.RelatedFunction.GetResult();
             }
         }
 

@@ -21,7 +21,7 @@ namespace GaAutoTestSystem
 
         //变异率
         private double _mutationRate = 0.3;
-        
+
         //种群
         private Population _population;
 
@@ -31,6 +31,9 @@ namespace GaAutoTestSystem
         //随机选择率
         private double _selectionRate = 0.01;
 
+        //演化策略——轮盘赌 / 精英 / 混合
+        private Population.SelectType _selectType = Population.SelectType.Hybrid;
+
         //解空间下界
         private double _solutionLowerBound;
 
@@ -39,9 +42,6 @@ namespace GaAutoTestSystem
 
         //子值个数（被测函数参数个数）
         private int _subValueQuantity = 1;
-
-        //演化策略——轮盘赌 / 精英 / 混合
-        private Population.SelectType _selectType = Population.SelectType.Hybrid;
 
         public frmMain()
         {
@@ -55,7 +55,6 @@ namespace GaAutoTestSystem
 
         private void btnGA_Click(object sender, EventArgs e)
         {
-          
             //加载参数
             LoadParameters();
             txtResult.Clear();
@@ -71,12 +70,11 @@ namespace GaAutoTestSystem
                 ChromosomeQuantity = _chromosomeQuantity,
                 SolutionLowerBound = _solutionLowerBound,
                 SolutionUpperBound = _solutionUpperBound,
-                FitnessFunction = FitnessFunctionLib.TriangleTypeTest_NodeMatch,
-                ResultFunction = TestFunctionLib.TriangleTypeTest
+                RelatedFunction = new Branch1 {FitnessCaculationType = AbstractFunction.FitnessType.Distance}
             };
             var builder = new StringBuilder();
             var stopwatch = new Stopwatch();
-            
+
             stopwatch.Start();
             //随机生成染色体
             _population.RandomGenerateChromosome();
@@ -99,7 +97,7 @@ namespace GaAutoTestSystem
                 _population.Envolve(_selectType);
 
                 //以下为终止条件
-                if ( mostFittest.Result.ToString().Contains("-2-29"))
+                if (mostFittest.Result.ToString().Contains("-2-29"))
                     break;
             }
         }
@@ -154,8 +152,8 @@ namespace GaAutoTestSystem
                     paras.Add(value);
                 }
 
-                var fitness = _population.FitnessFunction(paras.ToArray());
-                var result = _population.ResultFunction(paras.ToArray());
+                var fitness = new Function1 {Paras = paras}.GetFitness();
+                var result = new Function1 {Paras = paras}.GetResult();
                 stopwatch.Stop();
 
                 builder.Clear();

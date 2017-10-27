@@ -8,6 +8,7 @@ namespace GaAutoTestSystem
         public static object Function1(params double[] paras)
         {
             var x = paras[0];
+            
             return x * Math.Sin(10 * Math.PI * x) + 2.0;
         }
 

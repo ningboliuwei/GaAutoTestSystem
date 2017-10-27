@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractFunction.cs" />
     <Compile Include="CaculationHelper.cs" />
     <Compile Include="Chromosome.cs" />
     <Compile Include="OutputHelper.cs" />
