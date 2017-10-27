@@ -138,6 +138,51 @@ namespace GaAutoTestSystem
             return CaculationHelper.CaculateTotalDistanceFitness(conditions);
         }
 
+        public static double Branch2_PathMatch(params double[] paras)
+        {
+            var x = (int) paras[0];
+            var y = (int) paras[1];
+            var z = (int) paras[2];
+            var path = "#";
+
+            if (x > 1 && z < 10)
+            {
+                path += "a";
+            }
+
+            if (y == 4 || z > 1)
+            {
+                path += "b";
+            }
+
+            path += "c";
+
+            return CaculationHelper.CaculatePathMatchFitness(path, "#abc");
+        }
+
+        public static double Branch2_NodeMatch(params double[] paras)
+        {
+            var x = (int) paras[0];
+            var y = (int) paras[1];
+            var z = (int) paras[2];
+            var path = "#";
+
+            if (x > 1 && z < 10)
+            {
+                path += "a";
+            }
+
+            if (y == 4 || z > 1)
+            {
+                path += "b";
+            }
+
+            path += "c";
+
+            return CaculationHelper.CaculateNodeMatchFitness(path, "#abc");
+        }
+
+
         public static double TriangleTypeTest_Distance(params double[] paras)
         {
             var x = (int) paras[0];
@@ -217,6 +262,68 @@ namespace GaAutoTestSystem
                 path += "f";
             }
             return path.Length / (double) "#abcdef".Length;
+        }
+
+        public static double TriangleTypeTest_PathMatch(params double[] paras)
+        {
+            var path = "#";
+            var x = (int) paras[0];
+            var y = (int) paras[1];
+            var z = (int) paras[2];
+
+            if (x + y > z && x + z > y && y + z > x)
+            {
+                path += "a";
+                if (x == y && y == z)
+                {
+                    path += "b";
+                }
+                else
+                {
+                    path += "c";
+
+                    if (x == y || y == z || x == z)
+                        path += "d";
+                    else
+                        path += "e";
+                }
+            }
+            else
+            {
+                path += "f";
+            }
+            return CaculationHelper.CaculatePathMatchFitness(path, "#ab");
+        }
+
+        public static double TriangleTypeTest_NodeMatch(params double[] paras)
+        {
+            var path = "#";
+            var x = (int) paras[0];
+            var y = (int) paras[1];
+            var z = (int) paras[2];
+
+            if (x + y > z && x + z > y && y + z > x)
+            {
+                path += "a";
+                if (x == y && y == z)
+                {
+                    path += "b";
+                }
+                else
+                {
+                    path += "c";
+
+                    if (x == y || y == z || x == z)
+                        path += "d";
+                    else
+                        path += "e";
+                }
+            }
+            else
+            {
+                path += "f";
+            }
+            return CaculationHelper.CaculateNodeMatchFitness(path, "#ace");
         }
 
         public static double NextDate_Coverage(params double[] paras)

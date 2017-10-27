@@ -55,10 +55,11 @@ namespace GaAutoTestSystem
 
         private void btnGA_Click(object sender, EventArgs e)
         {
+          
             //加载参数
             LoadParameters();
             txtResult.Clear();
-            
+
             _population = new Population
             {
                 RetainRate = _retainRate,
@@ -70,8 +71,8 @@ namespace GaAutoTestSystem
                 ChromosomeQuantity = _chromosomeQuantity,
                 SolutionLowerBound = _solutionLowerBound,
                 SolutionUpperBound = _solutionUpperBound,
-                FitnessFunction = FitnessFunctionLib.Branch2_BasicPath_Coverage,
-                ResultFunction = TestFunctionLib.Branch2
+                FitnessFunction = FitnessFunctionLib.TriangleTypeTest_NodeMatch,
+                ResultFunction = TestFunctionLib.TriangleTypeTest
             };
             var builder = new StringBuilder();
             var stopwatch = new Stopwatch();
