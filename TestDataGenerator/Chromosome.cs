@@ -50,6 +50,17 @@ namespace TestDataGenerator
 
                 return Population.RelatedFunction.GetResult();
             }
+
+        }
+
+        public object ExecutionPath
+        {
+            get
+            {
+                Population.RelatedFunction.Paras = SubValues.Select(v => GetDecodedValue(v)).ToList();
+
+                return Population.RelatedFunction.ExecutionPath;
+            }
         }
 
         //得到将染色体值转换为在解空间对应的值

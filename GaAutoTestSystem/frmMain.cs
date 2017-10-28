@@ -15,6 +15,12 @@ namespace GaAutoTestSystem
 
         //染色体数量
         private int _chromosomeQuantity = 1000;
+        //在此修改不同的被测函数对象
+        private readonly AbstractFunction _function = new NextDate
+        {
+            FitnessCaculationType = AbstractFunction.FitnessType.PathMatch,
+            TargetPath = "#aeinop"
+        };
 
         //进化代数
         private int _generationQuantity = 200;
@@ -70,7 +76,7 @@ namespace GaAutoTestSystem
                 ChromosomeQuantity = _chromosomeQuantity,
                 SolutionLowerBound = _solutionLowerBound,
                 SolutionUpperBound = _solutionUpperBound,
-                RelatedFunction = new Branch1 {FitnessCaculationType = AbstractFunction.FitnessType.Distance}
+                RelatedFunction = _function
             };
             var builder = new StringBuilder();
             var stopwatch = new Stopwatch();
@@ -136,13 +142,13 @@ namespace GaAutoTestSystem
             var rnd = new Random();
             var builder = new StringBuilder();
 
-
             txtResult.Clear();
+
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            for (long i = 0; i < _population.ChromosomeQuantity * _generationQuantity; i++)
+            for (long i = 0; i < _population.ChromosomeQuantity; i++)
             {
                 var paras = new List<double>();
 
@@ -152,14 +158,16 @@ namespace GaAutoTestSystem
                     paras.Add(value);
                 }
 
-                var fitness = new Function1 {Paras = paras}.GetFitness();
-                var result = new Function1 {Paras = paras}.GetResult();
+                var fitness = _function.Fitness;
+                var result = _function.Result;
+                var executionPath = _function.ExecutionPath;
+
                 stopwatch.Stop();
 
                 builder.Clear();
                 builder.Append($"after {i + 1:0000} time(s): timecost: {stopwatch.ElapsedMilliseconds} ms");
                 builder.Append(
-                    $" | value: {string.Join(" ", paras.ToArray())} | fitness: {fitness} | result: {result}");
+                    $" | value: {string.Join(" ", paras.ToArray())} | fitness: {fitness} | execution path: {executionPath} | result: {result}");
                 builder.Append(Environment.NewLine);
                 txtResult.AppendText(builder.ToString());
                 txtResult.ScrollToCaret();

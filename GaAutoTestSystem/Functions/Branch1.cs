@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TestDataGenerator;
 
 namespace GaAutoTestSystem
@@ -21,17 +22,7 @@ namespace GaAutoTestSystem
             return result;
         }
 
-        public override double GetFitness()
-        {
-            if (FitnessCaculationType == FitnessType.Basic)
-                return GetFitnessByCoverageRate();
-            if (FitnessCaculationType == FitnessType.Distance)
-                return GetFitnessByDistance();
-
-            return double.MinValue;
-        }
-
-        private double GetFitnessByCoverageRate()
+        protected override string GetExecutionPath()
         {
             var x = Paras[0];
             var y = Paras[1];
@@ -49,22 +40,24 @@ namespace GaAutoTestSystem
                 }
             }
 
-            return path.Length / (double) "#ab".Length;
+            return path;
+        }
+
+        protected override double GetFitnessByNodeMatch()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override double GetFitnessByCoverageRate()
+        {
+            return GetExecutionPath().Length / (double) "#ab".Length;
         }
 
 
-        public double GetFitnessByDistance()
+        protected override double GetFitnessByDistance()
         {
             var x = Paras[0];
             var y = Paras[1];
-            var result = 0;
-
-            if (x >= 80)
-            {
-                result = 1;
-                if (y < 50)
-                    result = 2;
-            }
 
             var conditions = new List<ConditionInfo>
             {
@@ -73,6 +66,11 @@ namespace GaAutoTestSystem
             };
 
             return CaculationHelper.CaculateTotalDistanceFitness(conditions);
+        }
+
+        protected override double GetFitnessByPathMatch()
+        {
+            throw new NotImplementedException();
         }
     }
 }

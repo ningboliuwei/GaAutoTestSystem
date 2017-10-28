@@ -19,6 +19,7 @@ namespace TestDataGenerator
             //染色体二进制表示 | 所有子值（即多输入参数拼接） | 适应度
             builder.Append(
                 $"{chromosomeBinaryValue} | value(s): {decodedSubValuesString} | fitness: {chromosome.Fitness}");
+            builder.Append($" | execution path: {chromosome.ExecutionPath} ");
             builder.Append($" | result: {chromosome.Result} ");
             builder.Append(Environment.NewLine);
 
