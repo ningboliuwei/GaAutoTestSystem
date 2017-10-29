@@ -19,7 +19,7 @@ namespace GaAutoTestSystem
         private readonly AbstractFunction _function = new NextDate
         {
             FitnessCaculationType = AbstractFunction.FitnessType.PathMatch,
-            TargetPath = "#aeinop"
+            TargetPath = "#a!@$%^einop"
         };
 
         //进化代数
