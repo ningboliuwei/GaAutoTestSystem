@@ -10,17 +10,16 @@ namespace GaAutoTestSystem
 {
     public partial class frmMain : Form
     {
+        private static readonly List<ParaInfo> _paras = new List<ParaInfo>();
+        private static readonly List<string> _targetPaths = new List<string>();
+
+        private static int _currentTargetPathIndex;
+
         //在此修改不同的被测函数对象
-        private readonly AbstractFunction _function = new NextDate
+        private static readonly AbstractFunction _function = new NextDate
         {
             FitnessCaculationType = AbstractFunction.FitnessType.NodeMatch,
-            TargetPath = "#a!@$^inopst",
-            Paras = new List<ParaInfo>
-            {
-                new ParaInfo {LowerBound = 1950, UpperBound = 2050},
-                new ParaInfo {LowerBound = 1, UpperBound = 12},
-                new ParaInfo {LowerBound = 1, UpperBound = 31}
-            }
+            Paras = _paras
         };
 
         //染色体长度
@@ -55,6 +54,10 @@ namespace GaAutoTestSystem
         private void frmMain_Load(object sender, EventArgs e)
         {
             cmbStrategy.SelectedIndex = 2;
+            //为参数类型下拉框添加选项
+            cmbParaDataType.Items.Add("Double");
+            cmbParaDataType.Items.Add("Integer");
+            cmbParaDataType.SelectedIndex = 0;
         }
 
         private void btnGA_Click(object sender, EventArgs e)
@@ -62,6 +65,7 @@ namespace GaAutoTestSystem
             //加载参数
             LoadParameters();
             txtResult.Clear();
+            _function.TargetPath = _targetPaths[0];
 
             _population = new Population
             {
@@ -72,8 +76,9 @@ namespace GaAutoTestSystem
                 ChromosomeLengthForOneSubValue = _chromosomeLengthForOneSubValue,
                 SubValueQuantity = _function.Paras.Count,
                 ChromosomeLength = _chromosomeLengthForOneSubValue * _function.Paras.Count,
-                ChromosomeQuantity = _chromosomeQuantity,
+                ChromosomeQuantity = _chromosomeQuantity
             };
+
             var builder = new StringBuilder();
             var stopwatch = new Stopwatch();
 
@@ -81,26 +86,40 @@ namespace GaAutoTestSystem
             //随机生成染色体
             _population.RandomGenerateChromosome();
 
-            for (var i = 0; i < _generationQuantity; i++)
+            foreach (var targetPath in _targetPaths)
             {
-                //找出拥有每一代最高 Fitnetss 值的那个实际的解
-                var maxFitness = _population.Chromosomes.Max(n => n.Fitness);
-                var mostFittest = _population.Chromosomes.First(c => Equals(c.Fitness, maxFitness));
-//                stopwatch.Stop();
+                txtResult.AppendText(
+                    $"========================{targetPath}========================{Environment.NewLine}");
+                for (var i = 0; i < _generationQuantity; i++)
+                {
+                    //找出拥有每一代最高 Fitnetss 值的那个实际的解
+                    var maxFitness = _population.Chromosomes.Max(n => n.Fitness);
+                    var mostFittest = _population.Chromosomes.First(c => Equals(c.Fitness, maxFitness));
+                    //                stopwatch.Stop();
 
-                builder.Clear();
-                builder.Append($"after {i + 1:000} envolve(s): timecost: {stopwatch.ElapsedMilliseconds} ms");
-                builder.Append($" | {OutputHelper.GetChromosomeInfo(mostFittest)}");
-                txtResult.AppendText(builder.ToString());
-                txtResult.ScrollToCaret();
+                    builder.Clear();
+                    builder.Append($"after {i + 1:000} envolve(s): timecost: {stopwatch.ElapsedMilliseconds} ms");
+                    builder.Append($" | {OutputHelper.GetChromosomeInfo(mostFittest)}");
+                    txtResult.AppendText(builder.ToString());
+                    txtResult.ScrollToCaret();
 
-//                stopwatch.Start();
-                //进化过程中不同的选择策略
-                _population.Envolve(_selectType);
+                    //                stopwatch.Start();
+                    //进化过程中不同的选择策略
+                    _population.Envolve(_selectType);
 
-                //以下为终止条件
-                if (mostFittest.Result.ToString().Contains("-2-29"))
-                    break;
+                    //以下为终止条件
+                    if (mostFittest.ExecutionPath.ToString().Contains(targetPath))
+                    {
+                        if (_currentTargetPathIndex < _targetPaths.Count - 1)
+                        {
+                            _currentTargetPathIndex++;
+                            _function.TargetPath = _targetPaths[_currentTargetPathIndex];
+                        }
+                        txtResult.AppendText(
+                            $"========================FOUND!========================{Environment.NewLine}");
+                        break;
+                    }
+                }
             }
         }
 
@@ -125,6 +144,8 @@ namespace GaAutoTestSystem
                     _selectType = Population.SelectType.Hybrid;
                     break;
             }
+            //得到期望路径
+            GetTargetPaths();
         }
 
         private void btnRandom_Click(object sender, EventArgs e)
@@ -168,6 +189,34 @@ namespace GaAutoTestSystem
 
                 stopwatch.Start();
             }
+        }
+
+        private void AddPara()
+        {
+            var upperBound = Convert.ToDouble(txtParaValueUpperBound.Text.Trim());
+            var lowerBound = Convert.ToDouble(txtParaValueLowerBound.Text.Trim());
+            var paraDataType = (ParaDataType) Enum.Parse(typeof(ParaDataType), cmbParaDataType.Text);
+
+            _paras.Add(new ParaInfo {LowerBound = lowerBound, UpperBound = upperBound, DataType = paraDataType});
+
+            txtParaList.AppendText($"参数 {_paras.Count}：[{lowerBound}, {upperBound}]{Environment.NewLine}");
+        }
+
+        private void btnAddPara_Click(object sender, EventArgs e)
+        {
+            AddPara();
+        }
+
+        private void GetTargetPaths()
+        {
+            foreach (var line in txtTargetPathList.Lines)
+            {
+                _targetPaths.Add(line);
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
         }
     }
 }

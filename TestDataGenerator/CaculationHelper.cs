@@ -60,11 +60,15 @@ namespace TestDataGenerator
         //基于节点匹配（找实际执行路径与期望路径的相同节点个数）
         public static double CaculateNodeMatchFitness(string track, string target)
         {
-            //去掉路径中重复的节点
-            var nodesOfTrack = track.Select(c => c).Distinct();
-            var nodesOfTarget = target.Select(c => c).Distinct();
-            //相同节点个数
-            return nodesOfTarget.Intersect(nodesOfTrack).Count();
+            if (target != null)
+            {
+                //去掉路径中重复的节点
+                var nodesOfTrack = track.Select(c => c).Distinct();
+                var nodesOfTarget = target.Select(c => c).Distinct();
+                //相同节点个数
+                return nodesOfTarget.Intersect(nodesOfTrack).Count();
+            }
+            return 0;
         }
 
         private static int GetLongestCommonSubstringLength(string str1, string str2)

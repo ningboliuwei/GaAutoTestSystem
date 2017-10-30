@@ -37,12 +37,7 @@ namespace TestDataGenerator
         //每个子值的染色体长度
         public int ChromosomeLengthForOneSubValue { get; set; }
 
-        //解空间下界
-        public double SolutionLowerBound { get; set; }
-
-        //解空间上界
-        public double SolutionUpperBound { get; set; }
-
+        //被测函数
         public AbstractFunction RelatedFunction { get; set; }
         //随机生成若干染色体
         public void RandomGenerateChromosome()

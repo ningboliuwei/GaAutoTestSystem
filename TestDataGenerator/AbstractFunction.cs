@@ -16,6 +16,7 @@ namespace TestDataGenerator
         public string ExecutionPath => GetExecutionPath();
         public object Result => GetResult();
         public double Fitness => GetFitness();
+        public string TargetPath { get; set; }
 
         public FitnessType FitnessCaculationType { get; set; } = FitnessType.Basic;
 

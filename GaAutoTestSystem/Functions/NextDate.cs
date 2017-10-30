@@ -5,9 +5,6 @@ namespace GaAutoTestSystem
 {
     internal class NextDate : AbstractFunction
     {
-        //目标执行期望路径
-        public string TargetPath { get; set; }
-
         public override object GetResult()
         {
             var errorMessage = "Invalid date";
@@ -115,143 +112,122 @@ namespace GaAutoTestSystem
             var errorMessage = "Invalid date";
 
             var path = "#";
-            if (year >= 1950)
+            if (year >= 1950 && year <= 2050 && month >= 1 && month <= 12 && day >= 1 && day <= 31)
             {
                 path += "a";
-                if (year < 2050)
+                //大月
+                if (month == 12)
                 {
-                    path += "!";
-                    if (month >= 1)
+                    path += "b";
+                    if (day == 31)
                     {
-                        path += "@";
-                        if (month <= 12)
+                        path += "c";
+                        year++;
+                        day = 1;
+                        month = 1;
+                    }
+                    else
+                    {
+                        path += "d";
+                        day++;
+                    }
+                }
+                else
+                {
+                    path += "e";
+                    if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 ||
+                        month == 10)
+                    {
+                        path += "f";
+                        if (day == 31)
                         {
-                            path += "$";
-                            if (day >= 1)
+                            path += "g";
+                            day = 1;
+                            month++;
+                        }
+                        else
+                        {
+                            path += "h";
+                            day++;
+                        }
+                    }
+                    else
+                    {
+                        path += "i";
+                        if (month == 4 || month == 6 || month == 9 || month == 11)
+                        {
+                            path += "j";
+                            if (day == 31)
+                                path += "k";
+
+                            if (day == 30)
                             {
-                                path += "%";
-                                if (day <= 31)
+                                path += "l";
+                                day = 1;
+                                month++;
+                            }
+                            else
+                            {
+                                path += "m";
+                                day++;
+                            }
+                        }
+                        else
+                        {
+                            path += "n";
+                            if (month == 2)
+                            {
+                                path += "o";
+                                var endDay = 0;
+
+                                if (year % 400 == 0)
                                 {
-                                    path += "^";
-                                    //大月
-                                    if (month == 12)
+                                    path += "p";
+                                    endDay = 29;
+                                }
+                                else
+                                {
+                                    path += "q";
+                                    if (year % 100 == 0)
                                     {
-                                        path += "b";
-                                        if (day == 31)
-                                        {
-                                            path += "c";
-                                            year++;
-                                            day = 1;
-                                            month = 1;
-                                        }
-                                        else
-                                        {
-                                            path += "d";
-                                            day++;
-                                        }
+                                        path += "r";
+                                        endDay = 28;
                                     }
                                     else
                                     {
-                                        path += "e";
-                                        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 ||
-                                            month == 10)
+                                        path += "s";
+                                        if (year % 4 == 0)
                                         {
-                                            path += "f";
-                                            if (day == 31)
-                                            {
-                                                path += "g";
-                                                day = 1;
-                                                month++;
-                                            }
-                                            else
-                                            {
-                                                path += "h";
-                                                day++;
-                                            }
+                                            path += "t";
+                                            endDay = 29;
                                         }
                                         else
                                         {
-                                            path += "i";
-                                            if (month == 4 || month == 6 || month == 9 || month == 11)
-                                            {
-                                                path += "j";
-                                                if (day == 31)
-                                                    path += "k";
-
-                                                if (day == 30)
-                                                {
-                                                    path += "l";
-                                                    day = 1;
-                                                    month++;
-                                                }
-                                                else
-                                                {
-                                                    path += "m";
-                                                    day++;
-                                                }
-                                            }
-                                            else
-                                            {
-                                                path += "n";
-                                                if (month == 2)
-                                                {
-                                                    path += "o";
-                                                    var endDay = 0;
-
-                                                    if (year % 400 == 0)
-                                                    {
-                                                        path += "p";
-                                                        endDay = 29;
-                                                    }
-                                                    else
-                                                    {
-                                                        path += "q";
-                                                        if (year % 100 == 0)
-                                                        {
-                                                            path += "r";
-                                                            endDay = 28;
-                                                        }
-                                                        else
-                                                        {
-                                                            path += "s";
-                                                            if (year % 4 == 0)
-                                                            {
-                                                                path += "t";
-                                                                endDay = 29;
-                                                            }
-                                                            else
-                                                            {
-                                                                path += "u";
-                                                                endDay = 28;
-                                                            }
-                                                        }
-                                                    }
-
-                                                    if (day > endDay)
-                                                        path += "v";
-
-                                                    if (day == endDay)
-                                                    {
-                                                        path += "w";
-                                                        day = 1;
-                                                        month++;
-                                                    }
-                                                    else
-                                                    {
-                                                        path += "x";
-                                                        day++;
-                                                    }
-                                                }
-                                            }
+                                            path += "u";
+                                            endDay = 28;
                                         }
                                     }
+                                }
+
+                                if (day > endDay)
+                                    path += "v";
+
+                                if (day == endDay)
+                                {
+                                    path += "w";
+                                    day = 1;
+                                    month++;
+                                }
+                                else
+                                {
+                                    path += "x";
+                                    day++;
                                 }
                             }
                         }
                     }
                 }
             }
-
             return path;
         }
 
@@ -265,14 +241,12 @@ namespace GaAutoTestSystem
             var x = (int) Paras[0].Value;
             var y = (int) Paras[1].Value;
             var z = (int) Paras[2].Value;
-
             var conditions = new List<ConditionInfo>
             {
                 new ConditionInfo {A = x + y, B = z, Oper = ">"},
                 new ConditionInfo {A = x + z, B = y, Oper = ">"},
                 new ConditionInfo {A = y + z, B = x, Oper = ">"}
             };
-
             conditions.Add(new ConditionInfo
             {
                 A = CaculationHelper.CaculateDistanceFitness(new ConditionInfo
@@ -306,9 +280,9 @@ namespace GaAutoTestSystem
                 B = CaculationHelper.CaculateDistanceFitness(conditions[9]),
                 Oper = "||"
             });
-
             return CaculationHelper.CaculateTotalDistanceFitness(conditions);
         }
+
 
         protected override double GetFitnessByPathMatch()
         {
