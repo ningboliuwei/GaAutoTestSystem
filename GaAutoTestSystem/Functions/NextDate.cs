@@ -11,9 +11,9 @@ namespace GaAutoTestSystem
         public override object GetResult()
         {
             var errorMessage = "Invalid date";
-            var year = (int) Paras[0];
-            var month = (int) Paras[1];
-            var day = (int) Paras[2];
+            var year = (int) Paras[0].Value;
+            var month = (int) Paras[1].Value;
+            var day = (int) Paras[2].Value;
 
             if (year >= 1950 && year < 2050 && month >= 1 && month <= 12 && day >= 1 && day <= 31)
             {
@@ -108,9 +108,9 @@ namespace GaAutoTestSystem
 
         protected override string GetExecutionPath()
         {
-            var year = (int) Paras[0];
-            var month = (int) Paras[1];
-            var day = (int) Paras[2];
+            var year = (int) Paras[0].Value;
+            var month = (int) Paras[1].Value;
+            var day = (int) Paras[2].Value;
 
             var errorMessage = "Invalid date";
 
@@ -262,9 +262,9 @@ namespace GaAutoTestSystem
 
         protected override double GetFitnessByDistance()
         {
-            var x = (int) Paras[0];
-            var y = (int) Paras[1];
-            var z = (int) Paras[2];
+            var x = (int) Paras[0].Value;
+            var y = (int) Paras[1].Value;
+            var z = (int) Paras[2].Value;
 
             var conditions = new List<ConditionInfo>
             {

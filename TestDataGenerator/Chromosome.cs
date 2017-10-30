@@ -36,8 +36,12 @@ namespace TestDataGenerator
         {
             get
             {
-                Population.RelatedFunction.Paras = SubValues.Select(v => GetDecodedValue(v)).ToList();
-                
+                var paras = Population.RelatedFunction.Paras;
+
+                for (var i = 0; i < paras.Count; i++)
+                    paras[i].Value = SubValues.Select(v => GetDecodedValue(v, paras[i].LowerBound, paras[i].UpperBound))
+                        .ToList()[i];
+
                 return Population.RelatedFunction.GetFitness();
             }
         }
@@ -46,28 +50,34 @@ namespace TestDataGenerator
         {
             get
             {
-                Population.RelatedFunction.Paras = SubValues.Select(v => GetDecodedValue(v)).ToList();
+                var paras = Population.RelatedFunction.Paras;
+
+                for (var i = 0; i < paras.Count; i++)
+                    paras[i].Value = SubValues.Select(v => GetDecodedValue(v, paras[i].LowerBound, paras[i].UpperBound))
+                        .ToList()[i];
 
                 return Population.RelatedFunction.GetResult();
             }
-
         }
 
         public object ExecutionPath
         {
             get
             {
-                Population.RelatedFunction.Paras = SubValues.Select(v => GetDecodedValue(v)).ToList();
+                var paras = Population.RelatedFunction.Paras;
+
+                for (var i = 0; i < paras.Count; i++)
+                    paras[i].Value = SubValues.Select(v => GetDecodedValue(v, paras[i].LowerBound, paras[i].UpperBound))
+                        .ToList()[i];
 
                 return Population.RelatedFunction.ExecutionPath;
             }
         }
 
         //得到将染色体值转换为在解空间对应的值
-        public double GetDecodedValue(double value)
+        public double GetDecodedValue(double value, double lowerBound, double upperBound)
         {
-            return Population.SolutionLowerBound + value * (Population.SolutionUpperBound -
-                                                            Population.SolutionLowerBound) /
+            return lowerBound + value * (upperBound - lowerBound) /
                    (Math.Pow(2, Convert.ToInt32(Population.ChromosomeLength / Population.SubValueQuantity)) - 1);
         }
     }

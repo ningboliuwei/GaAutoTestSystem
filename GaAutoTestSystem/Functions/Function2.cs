@@ -11,14 +11,14 @@ namespace GaAutoTestSystem
     {
         public override object GetResult()
         {
-            var x = Paras[0];
+            var x = Paras[0].Value;
 
             return x + 10 * Math.Sin(5 * x) + 7 * Math.Cos(4 * x);
         }
 
         protected override string GetExecutionPath()
         {
-            throw new NotImplementedException();
+            return "not available";
         }
 
         protected override double GetFitnessByCoverageRate()

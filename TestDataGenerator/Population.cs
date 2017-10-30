@@ -43,12 +43,6 @@ namespace TestDataGenerator
         //解空间上界
         public double SolutionUpperBound { get; set; }
 
-        //该种群适应度计算函数委托
-//        public FitnessFunctionDelegate FitnessFunction { get; set; }
-
-        //该种群计算结果函数委托
-//        public ResultFunctionDelegate ResultFunction { get; set; }
-
         public AbstractFunction RelatedFunction { get; set; }
         //随机生成若干染色体
         public void RandomGenerateChromosome()

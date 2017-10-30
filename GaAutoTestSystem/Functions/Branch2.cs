@@ -12,9 +12,9 @@ namespace GaAutoTestSystem
         {
             double k = 0;
             double j = 0;
-            var x = (int) Paras[0];
-            var y = (int) Paras[1];
-            var z = (int) Paras[2];
+            var x = (int) Paras[0].Value;
+            var y = (int) Paras[1].Value;
+            var z = (int) Paras[2].Value;
 
             if (x > 1 && z < 10)
             {
@@ -32,9 +32,9 @@ namespace GaAutoTestSystem
 
         protected override string GetExecutionPath()
         {
-            var x = (int) Paras[0];
-            var y = (int) Paras[1];
-            var z = (int) Paras[2];
+            var x = (int) Paras[0].Value;
+            var y = (int) Paras[1].Value;
+            var z = (int) Paras[2].Value;
             var path = "#";
 
             if (x > 1)
@@ -67,8 +67,8 @@ namespace GaAutoTestSystem
 
         protected override double GetFitnessByDistance()
         {
-            var x = Paras[0];
-            var y = Paras[1];
+            var x = Paras[0].Value;
+            var y = Paras[1].Value;
 
             var conditions = new List<ConditionInfo>
             {

@@ -7,7 +7,7 @@ namespace GaAutoTestSystem
     {
         public override object GetResult()
         {
-            var x = Paras[0];
+            var x = Paras[0].Value;
 
             return x * Math.Sin(10 * Math.PI * x) + 2.0;
         }

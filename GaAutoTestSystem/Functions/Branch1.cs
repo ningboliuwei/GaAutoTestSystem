@@ -8,8 +8,8 @@ namespace GaAutoTestSystem
     {
         public override object GetResult()
         {
-            var x = Paras[0];
-            var y = Paras[1];
+            var x = Paras[0].Value;
+            var y = Paras[1].Value;
             var result = 0;
 
             if (x >= 80)
@@ -24,8 +24,8 @@ namespace GaAutoTestSystem
 
         protected override string GetExecutionPath()
         {
-            var x = Paras[0];
-            var y = Paras[1];
+            var x = Paras[0].Value;
+            var y = Paras[1].Value;
             var result = 0;
             var path = "#";
 
@@ -56,8 +56,8 @@ namespace GaAutoTestSystem
 
         protected override double GetFitnessByDistance()
         {
-            var x = Paras[0];
-            var y = Paras[1];
+            var x = Paras[0].Value;
+            var y = Paras[1].Value;
 
             var conditions = new List<ConditionInfo>
             {

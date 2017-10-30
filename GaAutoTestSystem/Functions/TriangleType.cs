@@ -11,9 +11,9 @@ namespace GaAutoTestSystem
         public override object GetResult()
         {
             string type;
-            var x = (int) Paras[0];
-            var y = (int) Paras[1];
-            var z = (int) Paras[2];
+            var x = (int) Paras[0].Value;
+            var y = (int) Paras[1].Value;
+            var z = (int) Paras[2].Value;
 
             if (x + y > z && x + z > y && y + z > x)
                 if (x == y && y == z)
@@ -37,9 +37,9 @@ namespace GaAutoTestSystem
         {
             var type = "";
             var path = "#";
-            var x = (int) Paras[0];
-            var y = (int) Paras[1];
-            var z = (int) Paras[2];
+            var x = (int) Paras[0].Value;
+            var y = (int) Paras[1].Value;
+            var z = (int) Paras[2].Value;
 
             if (x + y > z && x + z > y && y + z > x)
             {
@@ -79,9 +79,9 @@ namespace GaAutoTestSystem
 
         protected override double GetFitnessByDistance()
         {
-            var x = (int) Paras[0];
-            var y = (int) Paras[1];
-            var z = (int) Paras[2];
+            var x = (int) Paras[0].Value;
+            var y = (int) Paras[1].Value;
+            var z = (int) Paras[2].Value;
 
             var conditions = new List<ConditionInfo>
             {

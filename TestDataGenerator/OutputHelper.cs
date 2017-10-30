@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Text;
 
 namespace TestDataGenerator
@@ -9,10 +9,16 @@ namespace TestDataGenerator
         public static string GetChromosomeInfo(Chromosome chromosome)
         {
             var builder = new StringBuilder();
+            var decodedSubValues = new List<double>();
+            var paras = chromosome.Population.RelatedFunction.Paras;
 
+            for (var i = 0; i < paras.Count; i++)
+            {
+                decodedSubValues.Add(chromosome.GetDecodedValue(chromosome.SubValues[i], paras[i].LowerBound,
+                    paras[i].UpperBound));
+            }
             //所有映射到解空间的值（若有级联）
-            var decodedSubValuesString = string.Join(" ", chromosome.SubValues.Select(v =>
-                chromosome.GetDecodedValue(v)).ToArray());
+            var decodedSubValuesString = string.Join(" ", decodedSubValues.ToArray());
             var chromosomeBinaryValue = Convert.ToString(chromosome.Value, 2)
                 .PadLeft(chromosome.Population.ChromosomeLength, '0');
 

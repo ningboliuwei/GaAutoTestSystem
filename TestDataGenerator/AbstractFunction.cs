@@ -12,7 +12,7 @@ namespace TestDataGenerator
             NodeMatch
         }
 
-        public List<double> Paras { get; set; } = new List<double>();
+        public List<ParaInfo> Paras { get; set; } = new List<ParaInfo>();
         public string ExecutionPath => GetExecutionPath();
         public object Result => GetResult();
         public double Fitness => GetFitness();
