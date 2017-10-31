@@ -32,7 +32,6 @@
             this.txtResult = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnRandom = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
             this.btnGA = new System.Windows.Forms.Button();
             this.txtGenerationQuantity = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -46,21 +45,27 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtChromosomeQuantity = new System.Windows.Forms.TextBox();
-            this.cmbStrategy = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.txtParaValueLowerBound = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.txtParaValueUpperBound = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cmbStrategy = new System.Windows.Forms.ComboBox();
             this.btnAddPara = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
             this.txtParaList = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.cmbParaDataType = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.txtTargetPathList = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ofdSetting = new System.Windows.Forms.OpenFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -70,15 +75,14 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 350F));
             this.tableLayoutPanel1.Controls.Add(this.txtResult, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button1, 1, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 25);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 57F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1125, 703);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1125, 678);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // txtResult
@@ -90,7 +94,7 @@
             this.txtResult.Multiline = true;
             this.txtResult.Name = "txtResult";
             this.txtResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtResult.Size = new System.Drawing.Size(769, 638);
+            this.txtResult.Size = new System.Drawing.Size(769, 670);
             this.txtResult.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -145,13 +149,13 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(344, 638);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(344, 670);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
             // btnRandom
             // 
             this.btnRandom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnRandom.Location = new System.Drawing.Point(3, 608);
+            this.btnRandom.Location = new System.Drawing.Point(3, 640);
             this.btnRandom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnRandom.Name = "btnRandom";
             this.btnRandom.Size = new System.Drawing.Size(134, 26);
@@ -160,21 +164,10 @@
             this.btnRandom.UseVisualStyleBackColor = true;
             this.btnRandom.Click += new System.EventHandler(this.btnRandom_Click);
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label7.Location = new System.Drawing.Point(3, 570);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(134, 34);
-            this.label7.TabIndex = 16;
-            this.label7.Text = "进化策略";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // btnGA
             // 
             this.btnGA.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnGA.Location = new System.Drawing.Point(143, 608);
+            this.btnGA.Location = new System.Drawing.Point(143, 640);
             this.btnGA.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnGA.Name = "btnGA";
             this.btnGA.Size = new System.Drawing.Size(198, 26);
@@ -309,21 +302,6 @@
             this.txtChromosomeQuantity.TabIndex = 1;
             this.txtChromosomeQuantity.Text = "1000";
             // 
-            // cmbStrategy
-            // 
-            this.cmbStrategy.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmbStrategy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbStrategy.FormattingEnabled = true;
-            this.cmbStrategy.Items.AddRange(new object[] {
-            "轮盘赌",
-            "精英",
-            "混合"});
-            this.cmbStrategy.Location = new System.Drawing.Point(143, 574);
-            this.cmbStrategy.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cmbStrategy.Name = "cmbStrategy";
-            this.cmbStrategy.Size = new System.Drawing.Size(198, 25);
-            this.cmbStrategy.TabIndex = 17;
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -334,6 +312,16 @@
             this.label9.TabIndex = 14;
             this.label9.Text = "参数值下界";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtParaValueLowerBound
+            // 
+            this.txtParaValueLowerBound.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtParaValueLowerBound.Location = new System.Drawing.Point(143, 208);
+            this.txtParaValueLowerBound.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtParaValueLowerBound.Name = "txtParaValueLowerBound";
+            this.txtParaValueLowerBound.Size = new System.Drawing.Size(198, 23);
+            this.txtParaValueLowerBound.TabIndex = 15;
+            this.txtParaValueLowerBound.Text = "0";
             // 
             // label10
             // 
@@ -346,16 +334,6 @@
             this.label10.Text = "参数值上界";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // txtParaValueLowerBound
-            // 
-            this.txtParaValueLowerBound.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtParaValueLowerBound.Location = new System.Drawing.Point(143, 208);
-            this.txtParaValueLowerBound.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtParaValueLowerBound.Name = "txtParaValueLowerBound";
-            this.txtParaValueLowerBound.Size = new System.Drawing.Size(198, 23);
-            this.txtParaValueLowerBound.TabIndex = 15;
-            this.txtParaValueLowerBound.Text = "0";
-            // 
             // txtParaValueUpperBound
             // 
             this.txtParaValueUpperBound.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -366,16 +344,31 @@
             this.txtParaValueUpperBound.TabIndex = 15;
             this.txtParaValueUpperBound.Text = "9";
             // 
-            // label8
+            // label7
             // 
-            this.label8.AutoSize = true;
-            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label8.Location = new System.Drawing.Point(3, 306);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(134, 34);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "参数列表";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label7.AutoSize = true;
+            this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label7.Location = new System.Drawing.Point(3, 602);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(134, 34);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "进化策略";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cmbStrategy
+            // 
+            this.cmbStrategy.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmbStrategy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbStrategy.FormattingEnabled = true;
+            this.cmbStrategy.Items.AddRange(new object[] {
+            "轮盘赌",
+            "精英",
+            "混合"});
+            this.cmbStrategy.Location = new System.Drawing.Point(143, 606);
+            this.cmbStrategy.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cmbStrategy.Name = "cmbStrategy";
+            this.cmbStrategy.Size = new System.Drawing.Size(198, 25);
+            this.cmbStrategy.TabIndex = 17;
             // 
             // btnAddPara
             // 
@@ -389,6 +382,17 @@
             this.btnAddPara.UseVisualStyleBackColor = true;
             this.btnAddPara.Click += new System.EventHandler(this.btnAddPara_Click);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label8.Location = new System.Drawing.Point(3, 306);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(134, 34);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "参数列表";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // txtParaList
             // 
             this.tableLayoutPanel2.SetColumnSpan(this.txtParaList, 2);
@@ -398,7 +402,7 @@
             this.txtParaList.Multiline = true;
             this.txtParaList.Name = "txtParaList";
             this.txtParaList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtParaList.Size = new System.Drawing.Size(338, 90);
+            this.txtParaList.Size = new System.Drawing.Size(338, 106);
             this.txtParaList.TabIndex = 22;
             // 
             // label11
@@ -427,7 +431,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label12.Location = new System.Drawing.Point(3, 438);
+            this.label12.Location = new System.Drawing.Point(3, 454);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(134, 34);
             this.label12.TabIndex = 14;
@@ -438,23 +442,49 @@
             // 
             this.tableLayoutPanel2.SetColumnSpan(this.txtTargetPathList, 2);
             this.txtTargetPathList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtTargetPathList.Location = new System.Drawing.Point(3, 476);
+            this.txtTargetPathList.Location = new System.Drawing.Point(3, 492);
             this.txtTargetPathList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtTargetPathList.Multiline = true;
             this.txtTargetPathList.Name = "txtTargetPathList";
             this.txtTargetPathList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtTargetPathList.Size = new System.Drawing.Size(338, 90);
+            this.txtTargetPathList.Size = new System.Drawing.Size(338, 106);
             this.txtTargetPathList.TabIndex = 22;
             // 
-            // button1
+            // menuStrip1
             // 
-            this.button1.Location = new System.Drawing.Point(778, 649);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.设置ToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1125, 25);
+            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // 设置ToolStripMenuItem
+            // 
+            this.设置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveSettingsToolStripMenuItem,
+            this.loadSettingsToolStripMenuItem});
+            this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
+            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.设置ToolStripMenuItem.Text = "设置";
+            // 
+            // saveSettingsToolStripMenuItem
+            // 
+            this.saveSettingsToolStripMenuItem.Name = "saveSettingsToolStripMenuItem";
+            this.saveSettingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveSettingsToolStripMenuItem.Text = "保存设置(&S)";
+            // 
+            // loadSettingsToolStripMenuItem
+            // 
+            this.loadSettingsToolStripMenuItem.Name = "loadSettingsToolStripMenuItem";
+            this.loadSettingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadSettingsToolStripMenuItem.Text = "载入设置(&L)";
+            this.loadSettingsToolStripMenuItem.Click += new System.EventHandler(this.loadSettingsToolStripMenuItem_Click);
+            // 
+            // ofdSetting
+            // 
+            this.ofdSetting.Filter = "*.xml|*.xml";
             // 
             // frmMain
             // 
@@ -462,7 +492,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1125, 703);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "frmMain";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -471,7 +503,10 @@
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -507,7 +542,11 @@
         private System.Windows.Forms.ComboBox cmbParaDataType;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtTargetPathList;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem 设置ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadSettingsToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog ofdSetting;
     }
 }
 

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using TestDataGenerator;
 
 namespace GaAutoTestSystem
@@ -105,7 +106,7 @@ namespace GaAutoTestSystem
 
                     //                stopwatch.Start();
                     //进化过程中不同的选择策略
-                    _population.Envolve(_selectType);
+                    _population.Evolve(_selectType);
 
                     //以下为终止条件
                     if (mostFittest.ExecutionPath.ToString().Contains(targetPath))
@@ -215,8 +216,77 @@ namespace GaAutoTestSystem
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void loadSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            LoadSettings();
+        }
+
+        private void LoadSettings()
+        {
+            if (ofdSetting.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    var filePath = ofdSetting.FileName;
+                    var xdoc = XDocument.Load(filePath);
+                    //染色体个数
+                    txtChromosomeQuantity.Text =
+                        xdoc.Descendants("ChromosomeQuantity").Select(n => n.Value).FirstOrDefault();
+                    //染色体进化代数
+                    txtGenerationQuantity.Text =
+                        xdoc.Descendants("GenerationQuantity").Select(n => n.Value).FirstOrDefault();
+                    //存活率
+                    txtRetainRate.Text = (Convert.ToDouble(
+                                              xdoc.Descendants("RetainRate").Select(n => n.Value)
+                                                  .FirstOrDefault()) * 100).ToString();
+                    //变异率
+                    txtMutationRate.Text = (Convert.ToDouble(
+                                                xdoc.Descendants("MutationRate").Select(n => n.Value)
+                                                    .FirstOrDefault()) * 100).ToString();
+                    //随机选择率
+                    txtSelectionRate.Text =
+                    (Convert.ToDouble(
+                         xdoc.Descendants("SelectionRate").Select(n => n.Value)
+                             .FirstOrDefault()) * 100).ToString();
+                    //演化策略
+                    var evolutionStrategy =
+                        xdoc.Descendants("EvolutionStrategy").Select(n => n.Value).FirstOrDefault();
+
+                    if (evolutionStrategy == "Roulette")
+                    {
+                        cmbStrategy.SelectedIndex = 0;
+                    }
+                    else if (evolutionStrategy == "Elite")
+                    {
+                        cmbStrategy.SelectedIndex = 1;
+                    }
+                    else if (evolutionStrategy == "Hybrid")
+                    {
+                        cmbStrategy.SelectedIndex = 2;
+                    }
+                    //函数参数
+                    var paras = xdoc.Descendants("Parameter").ToList();
+
+                    foreach (var para in paras)
+                    {
+                        txtParaList.AppendText(
+                            $"参数 {paras.IndexOf(para) + 1}：[{para.Element("LowerBound")?.Value}, {para.Element("UpperBound")?.Value}]{Environment.NewLine}");
+                    }
+
+                    //期望路径
+                    var targetPaths =
+                        xdoc.Descendants("TargetPath").Select(n => n.Value).ToList();
+
+                    foreach (var targetPath in targetPaths)
+                    {
+                        txtTargetPathList.AppendText($"{targetPath}{Environment.NewLine}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
     }
 }

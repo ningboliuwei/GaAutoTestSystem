@@ -210,7 +210,7 @@ namespace TestDataGenerator
         }
 
         //当前种群进化
-        public void Envolve(SelectType selectType)
+        public void Evolve(SelectType selectType)
         {
             Population parents = null;
 
