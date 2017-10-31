@@ -81,7 +81,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 678F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1125, 678);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -472,13 +472,13 @@
             // saveSettingsToolStripMenuItem
             // 
             this.saveSettingsToolStripMenuItem.Name = "saveSettingsToolStripMenuItem";
-            this.saveSettingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveSettingsToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.saveSettingsToolStripMenuItem.Text = "保存设置(&S)";
             // 
             // loadSettingsToolStripMenuItem
             // 
             this.loadSettingsToolStripMenuItem.Name = "loadSettingsToolStripMenuItem";
-            this.loadSettingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadSettingsToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.loadSettingsToolStripMenuItem.Text = "载入设置(&L)";
             this.loadSettingsToolStripMenuItem.Click += new System.EventHandler(this.loadSettingsToolStripMenuItem_Click);
             // 

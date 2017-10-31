@@ -32,6 +32,9 @@
 		<TargetPaths>
 			<TargetPath>#abc</TargetPath>
 			<TargetPath>#abd</TargetPath>
+			<TargetPath>#aefg</TargetPath>
+			<TargetPath>#aefh</TargetPath>
+			<TargetPath>#aeinop</TargetPath>
 		</TargetPaths>
 	</FunctionSettings>
 </TestSettings>

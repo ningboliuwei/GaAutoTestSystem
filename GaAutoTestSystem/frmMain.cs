@@ -17,11 +17,7 @@ namespace GaAutoTestSystem
         private static int _currentTargetPathIndex;
 
         //在此修改不同的被测函数对象
-        private static readonly AbstractFunction _function = new NextDate
-        {
-            FitnessCaculationType = AbstractFunction.FitnessType.NodeMatch,
-            Paras = _paras
-        };
+        private static AbstractFunction _function;
 
         //染色体长度
         private int _chromosomeLengthForOneSubValue = 10;
@@ -63,6 +59,13 @@ namespace GaAutoTestSystem
 
         private void btnGA_Click(object sender, EventArgs e)
         {
+            //被测函数
+            _function = new NextDate
+            {
+                FitnessCaculationType = AbstractFunction.FitnessType.NodeMatch,
+                Paras = _paras
+            };
+
             //加载参数
             LoadParameters();
             txtResult.Clear();
@@ -200,7 +203,12 @@ namespace GaAutoTestSystem
 
             _paras.Add(new ParaInfo {LowerBound = lowerBound, UpperBound = upperBound, DataType = paraDataType});
 
-            txtParaList.AppendText($"参数 {_paras.Count}：[{lowerBound}, {upperBound}]{Environment.NewLine}");
+            if (txtParaList.Text.Trim() != "")
+            {
+                txtParaList.AppendText(Environment.NewLine);
+            }
+
+            txtParaList.AppendText($"参数 {_paras.Count}：[{lowerBound}, {upperBound}]({paraDataType})");
         }
 
         private void btnAddPara_Click(object sender, EventArgs e)
@@ -210,6 +218,7 @@ namespace GaAutoTestSystem
 
         private void GetTargetPaths()
         {
+            _targetPaths.Clear();
             foreach (var line in txtTargetPathList.Lines)
             {
                 _targetPaths.Add(line);
@@ -221,6 +230,7 @@ namespace GaAutoTestSystem
             LoadSettings();
         }
 
+        //从 XML 文件载入设置
         private void LoadSettings()
         {
             if (ofdSetting.ShowDialog() == DialogResult.OK)
@@ -266,14 +276,28 @@ namespace GaAutoTestSystem
                     }
                     //函数参数
                     var paras = xdoc.Descendants("Parameter").ToList();
-
+                    txtParaList.Clear();
+                    _paras.Clear();
                     foreach (var para in paras)
                     {
-                        txtParaList.AppendText(
-                            $"参数 {paras.IndexOf(para) + 1}：[{para.Element("LowerBound")?.Value}, {para.Element("UpperBound")?.Value}]{Environment.NewLine}");
-                    }
+                        var paraDataType = (ParaDataType) Enum.Parse(typeof(ParaDataType), cmbParaDataType.Text);
+                        var lowerBound = Convert.ToDouble(para.Element("LowerBound")?.Value);
+                        var upperBound = Convert.ToDouble(para.Element("UpperBound")?.Value);
 
+                        _paras.Add(new ParaInfo
+                        {
+                            LowerBound = lowerBound,
+                            UpperBound = upperBound,
+                            DataType = paraDataType
+                        });
+
+                        txtParaList.AppendText(
+                            $"参数 {paras.IndexOf(para) + 1}：[{lowerBound},{upperBound}]({paraDataType}){Environment.NewLine}");
+                    }
+                    //移除最后的空行
+                    txtParaList.Text = txtParaList.Text.Remove(txtParaList.Text.Length - 2);
                     //期望路径
+                    txtTargetPathList.Clear();
                     var targetPaths =
                         xdoc.Descendants("TargetPath").Select(n => n.Value).ToList();
 
@@ -281,6 +305,8 @@ namespace GaAutoTestSystem
                     {
                         txtTargetPathList.AppendText($"{targetPath}{Environment.NewLine}");
                     }
+                    //移除最后的空行
+                    txtTargetPathList.Text = txtTargetPathList.Text.Remove(txtTargetPathList.Text.Length - 2);
                 }
                 catch (Exception ex)
                 {
