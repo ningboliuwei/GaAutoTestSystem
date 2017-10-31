@@ -12,6 +12,8 @@
 		</ChromosomeSettings>
 	</GaSettings>
 	<FunctionSettings>
+		<FunctionName>NextDate</FunctionName>
+		<FitnessCaculationType>NodeMatch</FitnessCaculationType>
 		<Parameters>
 			<Parameter>
 				<DataType>Double</DataType>

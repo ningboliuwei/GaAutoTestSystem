@@ -31,10 +31,6 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.txtResult = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnRandom = new System.Windows.Forms.Button();
-            this.btnGA = new System.Windows.Forms.Button();
-            this.txtGenerationQuantity = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.txtSelectionRate = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtMutationRate = new System.Windows.Forms.TextBox();
@@ -58,6 +54,14 @@
             this.cmbParaDataType = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.txtTargetPathList = new System.Windows.Forms.TextBox();
+            this.txtGenerationQuantity = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.cmbFunction = new System.Windows.Forms.ComboBox();
+            this.btnRandom = new System.Windows.Forms.Button();
+            this.btnGA = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.cmbFitnessCaculationType = new System.Windows.Forms.ComboBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,10 +106,6 @@
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 140F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.btnRandom, 0, 14);
-            this.tableLayoutPanel2.Controls.Add(this.btnGA, 1, 14);
-            this.tableLayoutPanel2.Controls.Add(this.txtGenerationQuantity, 1, 5);
-            this.tableLayoutPanel2.Controls.Add(this.label6, 0, 5);
             this.tableLayoutPanel2.Controls.Add(this.txtSelectionRate, 1, 4);
             this.tableLayoutPanel2.Controls.Add(this.label5, 0, 4);
             this.tableLayoutPanel2.Controls.Add(this.txtMutationRate, 1, 3);
@@ -116,24 +116,33 @@
             this.tableLayoutPanel2.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.txtChromosomeQuantity, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label9, 0, 6);
-            this.tableLayoutPanel2.Controls.Add(this.txtParaValueLowerBound, 1, 6);
-            this.tableLayoutPanel2.Controls.Add(this.label10, 0, 7);
-            this.tableLayoutPanel2.Controls.Add(this.txtParaValueUpperBound, 1, 7);
-            this.tableLayoutPanel2.Controls.Add(this.label7, 0, 13);
-            this.tableLayoutPanel2.Controls.Add(this.cmbStrategy, 1, 13);
-            this.tableLayoutPanel2.Controls.Add(this.btnAddPara, 1, 9);
-            this.tableLayoutPanel2.Controls.Add(this.label8, 0, 9);
-            this.tableLayoutPanel2.Controls.Add(this.txtParaList, 0, 10);
-            this.tableLayoutPanel2.Controls.Add(this.label11, 0, 8);
-            this.tableLayoutPanel2.Controls.Add(this.cmbParaDataType, 1, 8);
-            this.tableLayoutPanel2.Controls.Add(this.label12, 0, 11);
-            this.tableLayoutPanel2.Controls.Add(this.txtTargetPathList, 0, 12);
+            this.tableLayoutPanel2.Controls.Add(this.label9, 0, 7);
+            this.tableLayoutPanel2.Controls.Add(this.txtParaValueLowerBound, 1, 7);
+            this.tableLayoutPanel2.Controls.Add(this.label10, 0, 8);
+            this.tableLayoutPanel2.Controls.Add(this.txtParaValueUpperBound, 1, 8);
+            this.tableLayoutPanel2.Controls.Add(this.label7, 0, 14);
+            this.tableLayoutPanel2.Controls.Add(this.cmbStrategy, 1, 14);
+            this.tableLayoutPanel2.Controls.Add(this.btnAddPara, 1, 10);
+            this.tableLayoutPanel2.Controls.Add(this.label8, 0, 10);
+            this.tableLayoutPanel2.Controls.Add(this.txtParaList, 0, 11);
+            this.tableLayoutPanel2.Controls.Add(this.label11, 0, 9);
+            this.tableLayoutPanel2.Controls.Add(this.cmbParaDataType, 1, 9);
+            this.tableLayoutPanel2.Controls.Add(this.label12, 0, 12);
+            this.tableLayoutPanel2.Controls.Add(this.txtTargetPathList, 0, 13);
+            this.tableLayoutPanel2.Controls.Add(this.txtGenerationQuantity, 1, 5);
+            this.tableLayoutPanel2.Controls.Add(this.label6, 0, 5);
+            this.tableLayoutPanel2.Controls.Add(this.label13, 0, 6);
+            this.tableLayoutPanel2.Controls.Add(this.cmbFunction, 1, 6);
+            this.tableLayoutPanel2.Controls.Add(this.btnRandom, 0, 16);
+            this.tableLayoutPanel2.Controls.Add(this.btnGA, 1, 16);
+            this.tableLayoutPanel2.Controls.Add(this.label14, 0, 15);
+            this.tableLayoutPanel2.Controls.Add(this.cmbFitnessCaculationType, 1, 15);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(778, 4);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 15;
+            this.tableLayoutPanel2.RowCount = 17;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
@@ -147,55 +156,11 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(344, 670);
             this.tableLayoutPanel2.TabIndex = 2;
-            // 
-            // btnRandom
-            // 
-            this.btnRandom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnRandom.Location = new System.Drawing.Point(3, 640);
-            this.btnRandom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnRandom.Name = "btnRandom";
-            this.btnRandom.Size = new System.Drawing.Size(134, 26);
-            this.btnRandom.TabIndex = 18;
-            this.btnRandom.Text = "随机生成(&R)";
-            this.btnRandom.UseVisualStyleBackColor = true;
-            this.btnRandom.Click += new System.EventHandler(this.btnRandom_Click);
-            // 
-            // btnGA
-            // 
-            this.btnGA.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnGA.Location = new System.Drawing.Point(143, 640);
-            this.btnGA.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnGA.Name = "btnGA";
-            this.btnGA.Size = new System.Drawing.Size(198, 26);
-            this.btnGA.TabIndex = 1;
-            this.btnGA.Text = "演化生成(&G)";
-            this.btnGA.UseVisualStyleBackColor = true;
-            this.btnGA.Click += new System.EventHandler(this.btnGA_Click);
-            // 
-            // txtGenerationQuantity
-            // 
-            this.txtGenerationQuantity.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtGenerationQuantity.Location = new System.Drawing.Point(143, 174);
-            this.txtGenerationQuantity.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtGenerationQuantity.Name = "txtGenerationQuantity";
-            this.txtGenerationQuantity.Size = new System.Drawing.Size(198, 23);
-            this.txtGenerationQuantity.TabIndex = 11;
-            this.txtGenerationQuantity.Text = "200";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Location = new System.Drawing.Point(3, 170);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(134, 34);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "进化代数";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtSelectionRate
             // 
@@ -306,7 +271,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label9.Location = new System.Drawing.Point(3, 204);
+            this.label9.Location = new System.Drawing.Point(3, 238);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(134, 34);
             this.label9.TabIndex = 14;
@@ -316,7 +281,7 @@
             // txtParaValueLowerBound
             // 
             this.txtParaValueLowerBound.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtParaValueLowerBound.Location = new System.Drawing.Point(143, 208);
+            this.txtParaValueLowerBound.Location = new System.Drawing.Point(143, 242);
             this.txtParaValueLowerBound.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtParaValueLowerBound.Name = "txtParaValueLowerBound";
             this.txtParaValueLowerBound.Size = new System.Drawing.Size(198, 23);
@@ -327,7 +292,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label10.Location = new System.Drawing.Point(3, 238);
+            this.label10.Location = new System.Drawing.Point(3, 272);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(134, 34);
             this.label10.TabIndex = 14;
@@ -337,7 +302,7 @@
             // txtParaValueUpperBound
             // 
             this.txtParaValueUpperBound.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtParaValueUpperBound.Location = new System.Drawing.Point(143, 242);
+            this.txtParaValueUpperBound.Location = new System.Drawing.Point(143, 276);
             this.txtParaValueUpperBound.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtParaValueUpperBound.Name = "txtParaValueUpperBound";
             this.txtParaValueUpperBound.Size = new System.Drawing.Size(198, 23);
@@ -348,7 +313,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label7.Location = new System.Drawing.Point(3, 602);
+            this.label7.Location = new System.Drawing.Point(3, 568);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(134, 34);
             this.label7.TabIndex = 16;
@@ -360,11 +325,7 @@
             this.cmbStrategy.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbStrategy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbStrategy.FormattingEnabled = true;
-            this.cmbStrategy.Items.AddRange(new object[] {
-            "轮盘赌",
-            "精英",
-            "混合"});
-            this.cmbStrategy.Location = new System.Drawing.Point(143, 606);
+            this.cmbStrategy.Location = new System.Drawing.Point(143, 572);
             this.cmbStrategy.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbStrategy.Name = "cmbStrategy";
             this.cmbStrategy.Size = new System.Drawing.Size(198, 25);
@@ -373,7 +334,7 @@
             // btnAddPara
             // 
             this.btnAddPara.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAddPara.Location = new System.Drawing.Point(143, 310);
+            this.btnAddPara.Location = new System.Drawing.Point(143, 344);
             this.btnAddPara.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnAddPara.Name = "btnAddPara";
             this.btnAddPara.Size = new System.Drawing.Size(198, 26);
@@ -386,7 +347,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label8.Location = new System.Drawing.Point(3, 306);
+            this.label8.Location = new System.Drawing.Point(3, 340);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(134, 34);
             this.label8.TabIndex = 14;
@@ -397,19 +358,19 @@
             // 
             this.tableLayoutPanel2.SetColumnSpan(this.txtParaList, 2);
             this.txtParaList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtParaList.Location = new System.Drawing.Point(3, 344);
+            this.txtParaList.Location = new System.Drawing.Point(3, 378);
             this.txtParaList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtParaList.Multiline = true;
             this.txtParaList.Name = "txtParaList";
             this.txtParaList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtParaList.Size = new System.Drawing.Size(338, 106);
+            this.txtParaList.Size = new System.Drawing.Size(338, 72);
             this.txtParaList.TabIndex = 22;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label11.Location = new System.Drawing.Point(3, 272);
+            this.label11.Location = new System.Drawing.Point(3, 306);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(134, 34);
             this.label11.TabIndex = 14;
@@ -418,10 +379,9 @@
             // 
             // cmbParaDataType
             // 
-            this.cmbParaDataType.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbParaDataType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbParaDataType.FormattingEnabled = true;
-            this.cmbParaDataType.Location = new System.Drawing.Point(143, 276);
+            this.cmbParaDataType.Location = new System.Drawing.Point(143, 310);
             this.cmbParaDataType.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbParaDataType.Name = "cmbParaDataType";
             this.cmbParaDataType.Size = new System.Drawing.Size(198, 25);
@@ -447,8 +407,95 @@
             this.txtTargetPathList.Multiline = true;
             this.txtTargetPathList.Name = "txtTargetPathList";
             this.txtTargetPathList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtTargetPathList.Size = new System.Drawing.Size(338, 106);
+            this.txtTargetPathList.Size = new System.Drawing.Size(338, 72);
             this.txtTargetPathList.TabIndex = 22;
+            // 
+            // txtGenerationQuantity
+            // 
+            this.txtGenerationQuantity.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtGenerationQuantity.Location = new System.Drawing.Point(143, 174);
+            this.txtGenerationQuantity.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtGenerationQuantity.Name = "txtGenerationQuantity";
+            this.txtGenerationQuantity.Size = new System.Drawing.Size(198, 23);
+            this.txtGenerationQuantity.TabIndex = 11;
+            this.txtGenerationQuantity.Text = "200";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label6.Location = new System.Drawing.Point(3, 170);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(134, 34);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "进化代数";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label13.Location = new System.Drawing.Point(3, 204);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(134, 34);
+            this.label13.TabIndex = 10;
+            this.label13.Text = "被测函数名称";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cmbFunction
+            // 
+            this.cmbFunction.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmbFunction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFunction.FormattingEnabled = true;
+            this.cmbFunction.Location = new System.Drawing.Point(143, 208);
+            this.cmbFunction.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cmbFunction.Name = "cmbFunction";
+            this.cmbFunction.Size = new System.Drawing.Size(198, 25);
+            this.cmbFunction.TabIndex = 17;
+            // 
+            // btnRandom
+            // 
+            this.btnRandom.Location = new System.Drawing.Point(3, 640);
+            this.btnRandom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnRandom.Name = "btnRandom";
+            this.btnRandom.Size = new System.Drawing.Size(134, 26);
+            this.btnRandom.TabIndex = 18;
+            this.btnRandom.Text = "随机生成(&R)";
+            this.btnRandom.UseVisualStyleBackColor = true;
+            this.btnRandom.Click += new System.EventHandler(this.btnRandom_Click);
+            // 
+            // btnGA
+            // 
+            this.btnGA.Location = new System.Drawing.Point(143, 640);
+            this.btnGA.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnGA.Name = "btnGA";
+            this.btnGA.Size = new System.Drawing.Size(198, 26);
+            this.btnGA.TabIndex = 1;
+            this.btnGA.Text = "演化生成(&G)";
+            this.btnGA.UseVisualStyleBackColor = true;
+            this.btnGA.Click += new System.EventHandler(this.btnGA_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label14.Location = new System.Drawing.Point(3, 602);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(134, 34);
+            this.label14.TabIndex = 16;
+            this.label14.Text = "适应度计算方法";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cmbFitnessCaculationType
+            // 
+            this.cmbFitnessCaculationType.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmbFitnessCaculationType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFitnessCaculationType.FormattingEnabled = true;
+            this.cmbFitnessCaculationType.Location = new System.Drawing.Point(143, 606);
+            this.cmbFitnessCaculationType.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cmbFitnessCaculationType.Name = "cmbFitnessCaculationType";
+            this.cmbFitnessCaculationType.Size = new System.Drawing.Size(198, 25);
+            this.cmbFitnessCaculationType.TabIndex = 17;
             // 
             // menuStrip1
             // 
@@ -547,6 +594,10 @@
         private System.Windows.Forms.ToolStripMenuItem saveSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadSettingsToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog ofdSetting;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ComboBox cmbFunction;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox cmbFitnessCaculationType;
     }
 }
 

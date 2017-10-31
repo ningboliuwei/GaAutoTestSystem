@@ -88,6 +88,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="XmlTemplate\TestSettings.xml" />
     <Content Include="XmlTemplate\TestSuiteTemplate.xml">
       <SubType>Designer</SubType>
     </Content>
