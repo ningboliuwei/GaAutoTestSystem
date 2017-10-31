@@ -361,20 +361,13 @@ namespace GaAutoTestSystem
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    throw new Exception(ex.Message);
                 }
             }
         }
 
         private void SaveSettings()
         {
-//            BindTargetPaths();
-//            BindParas();
-
-//            _function.Paras = _paras;
-            //设定被测函数用于匹配的路径为第一条路径
-//            _function.TargetPath = _targetPaths[0];
-
             if (sfdSetting.ShowDialog() == DialogResult.OK)
             {
                 var filePath = sfdSetting.FileName;

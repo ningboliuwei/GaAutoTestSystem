@@ -527,7 +527,7 @@
             // loadSettingsToolStripMenuItem
             // 
             this.loadSettingsToolStripMenuItem.Name = "loadSettingsToolStripMenuItem";
-            this.loadSettingsToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.loadSettingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.loadSettingsToolStripMenuItem.Text = "载入设置(&L)";
             this.loadSettingsToolStripMenuItem.Click += new System.EventHandler(this.loadSettingsToolStripMenuItem_Click);
             // 
