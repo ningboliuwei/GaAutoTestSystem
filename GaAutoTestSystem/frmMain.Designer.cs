@@ -67,6 +67,7 @@
             this.saveSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ofdSetting = new System.Windows.Forms.OpenFileDialog();
+            this.sfdSetting = new System.Windows.Forms.SaveFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -519,8 +520,9 @@
             // saveSettingsToolStripMenuItem
             // 
             this.saveSettingsToolStripMenuItem.Name = "saveSettingsToolStripMenuItem";
-            this.saveSettingsToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.saveSettingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveSettingsToolStripMenuItem.Text = "保存设置(&S)";
+            this.saveSettingsToolStripMenuItem.Click += new System.EventHandler(this.saveSettingsToolStripMenuItem_Click);
             // 
             // loadSettingsToolStripMenuItem
             // 
@@ -532,6 +534,10 @@
             // ofdSetting
             // 
             this.ofdSetting.Filter = "*.xml|*.xml";
+            // 
+            // sfdSetting
+            // 
+            this.sfdSetting.Filter = "*.xml|*.xml";
             // 
             // frmMain
             // 
@@ -598,6 +604,7 @@
         private System.Windows.Forms.ComboBox cmbFunction;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox cmbFitnessCaculationType;
+        private System.Windows.Forms.SaveFileDialog sfdSetting;
     }
 }
 

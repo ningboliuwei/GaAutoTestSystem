@@ -16,12 +16,6 @@ namespace GaAutoTestSystem
         //在此修改不同的被测函数对象
         private static AbstractFunction _function;
 
-        //被测函数参数集合
-        private readonly List<ParaInfo> _paras = new List<ParaInfo>();
-
-        //期望路径集合
-        private readonly List<string> _targetPaths = new List<string>();
-
         //染色体长度
         private int _chromosomeLengthForOneSubValue = 10;
 
@@ -37,6 +31,9 @@ namespace GaAutoTestSystem
         //变异率
         private double _mutationRate = 0.3;
 
+        //被测函数参数集合
+        private List<ParaInfo> _paras = new List<ParaInfo>();
+
         //种群
         private Population _population;
 
@@ -48,6 +45,9 @@ namespace GaAutoTestSystem
 
         //演化策略
         private Population.SelectType _selectType = Population.SelectType.Hybrid;
+
+        //期望路径集合
+        private List<string> _targetPaths = new List<string>();
 
         public frmMain()
         {
@@ -172,7 +172,7 @@ namespace GaAutoTestSystem
             _selectType = (Population.SelectType) Enum.Parse(typeof(Population.SelectType),
                 cmbStrategy.SelectedValue.ToString());
             //读取文本框中所有的期望路径
-            BindTargetPaths();
+            _targetPaths = GetTargetPaths();
             //被测函数
             _function = GetFunction(cmbFunction.SelectedValue.ToString());
             //被测函数适应度计算方法
@@ -181,17 +181,18 @@ namespace GaAutoTestSystem
                 cmbFitnessCaculationType.SelectedValue.ToString());
             //被测函数参数列表（_paras 中的项目由 AddPara() 或 LoadSettings() 添加）
 
-            BindParas();
+            _paras = GetParas();
 
             _function.Paras = _paras;
             //设定被测函数用于匹配的路径为第一条路径
             _function.TargetPath = _targetPaths[0];
         }
+
         //从文本框获取参数信息
-        private void BindParas()
+        private List<ParaInfo> GetParas()
         {
             var pattern = @"\[(\d+),(\d+)\]\((\w+)\)";
-            _paras.Clear();
+            var paras = new List<ParaInfo>();
             foreach (var line in txtParaList.Lines)
             {
                 var match = Regex.Match(line, pattern);
@@ -199,13 +200,14 @@ namespace GaAutoTestSystem
                 var upperBound = Convert.ToDouble(match.Groups[2].Value);
                 var dataType = match.Groups[3].Value;
 
-                _paras.Add(new ParaInfo
+                paras.Add(new ParaInfo
                 {
                     LowerBound = lowerBound,
                     UpperBound = upperBound,
-                    DataType = (ParaDataType) Enum.Parse(typeof(ParaDataType), dataType.ToString())
+                    DataType = (ParaDataType) Enum.Parse(typeof(ParaDataType), dataType)
                 });
             }
+            return paras;
         }
 
         private void btnRandom_Click(object sender, EventArgs e)
@@ -216,7 +218,6 @@ namespace GaAutoTestSystem
             var builder = new StringBuilder();
 
             txtResult.Clear();
-
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -255,14 +256,14 @@ namespace GaAutoTestSystem
         {
             var upperBound = Convert.ToDouble(txtParaValueUpperBound.Text.Trim());
             var lowerBound = Convert.ToDouble(txtParaValueLowerBound.Text.Trim());
-            var paraDataType =cmbParaDataType.SelectedValue.ToString();
+            var paraDataType = cmbParaDataType.SelectedValue.ToString();
             var paraCount = txtParaList.Lines.Length + 1;
 
             if (txtParaList.Text.Trim() != "")
             {
                 txtParaList.AppendText(Environment.NewLine);
             }
-            
+
             txtParaList.AppendText($"参数 {paraCount}：[{lowerBound},{upperBound}]({paraDataType})");
         }
 
@@ -271,13 +272,14 @@ namespace GaAutoTestSystem
             AddPara();
         }
 
-        private void BindTargetPaths()
+        private List<string> GetTargetPaths()
         {
-            _targetPaths.Clear();
+            var targetPaths = new List<string>();
             foreach (var line in txtTargetPathList.Lines)
             {
-                _targetPaths.Add(line);
+                targetPaths.Add(line);
             }
+            return targetPaths;
         }
 
         private void loadSettingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -352,10 +354,64 @@ namespace GaAutoTestSystem
             }
         }
 
+        private void SaveSettings()
+        {
+//            BindTargetPaths();
+//            BindParas();
+
+//            _function.Paras = _paras;
+            //设定被测函数用于匹配的路径为第一条路径
+//            _function.TargetPath = _targetPaths[0];
+
+            if (sfdSetting.ShowDialog() == DialogResult.OK)
+            {
+                var filePath = sfdSetting.FileName;
+                var paras = GetParas();
+                var targetPaths = GetTargetPaths();
+                try
+                {
+                    var xdoc = new XElement("TestSettings",
+                        new XElement("GaSettings",
+                            new XElement("ChromosomeSettings",
+                                new XElement("ChromosomeQuantity", Convert.ToInt32(txtChromosomeQuantity.Text)),
+                                new XElement("GenerationQuantity", Convert.ToInt32(txtGenerationQuantity.Text)),
+                                new XElement("ChromosomeLengthForOneSubValue",
+                                    Convert.ToInt32(txtChromosomeLength.Text)),
+                                new XElement("RetainRate", Convert.ToDouble(txtRetainRate.Text) / 100),
+                                new XElement("MutationRate", Convert.ToDouble(txtMutationRate.Text) / 100),
+                                new XElement("SelectionRate", Convert.ToDouble(txtSelectionRate.Text) / 100),
+                                new XElement("EvolutionStrategy", (Population.SelectType) Enum.Parse(
+                                    typeof(Population.SelectType),
+                                    cmbStrategy.SelectedValue.ToString())))),
+                        new XElement("FunctionSettings",
+                            new XElement("FunctionName", cmbFunction.SelectedValue.ToString()),
+                            new XElement("FitnessCaculationType", (AbstractFunction.FitnessType) Enum.Parse(
+                                typeof(AbstractFunction.FitnessType),
+                                cmbFitnessCaculationType.SelectedValue.ToString())),
+                            new XElement("Parameters", paras.Select(p => new XElement("Parameter",
+                                new XElement("DataType", p.DataType),
+                                new XElement("LowerBound", p.LowerBound),
+                                new XElement("UpperBound", p.UpperBound)))),
+                            new XElement("TargetPaths", targetPaths.Select(p => new XElement("TargetPath", p))
+                            )));
+                    xdoc.Save(filePath);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+        }
+
         private AbstractFunction GetFunction(string functionName)
         {
             var assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
             return ReflectionHelper.CreateInstance<AbstractFunction>($"GaAutoTestSystem.{functionName}", assemblyName);
+        }
+
+        private void saveSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveSettings();
         }
     }
 }
