@@ -222,33 +222,45 @@ namespace GaAutoTestSystem
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            for (long i = 0; i < _population.ChromosomeQuantity; i++)
+            foreach (var targetPath in _targetPaths)
             {
-                var paras = _population.RelatedFunction.Paras;
-                foreach (var para in paras)
+                for (long i = 0; i < _generationQuantity; i++)
                 {
-                    para.Value = rnd.NextDouble() * (para.UpperBound - para.LowerBound) + para.LowerBound;
+                    foreach (var para in _paras)
+                    {
+                        para.Value = rnd.NextDouble() * (para.UpperBound - para.LowerBound) + para.LowerBound;
+                    }
+
+                    var fitness = _function.Fitness;
+                    var result = _function.Result;
+                    var executionPath = _function.ExecutionPath;
+
+                    stopwatch.Stop();
+
+                    builder.Clear();
+                    builder.Append($"after {i + 1:0000} time(s): timecost: {stopwatch.ElapsedMilliseconds} ms");
+                    builder.Append(
+                        $" | value: {string.Join(" ", _paras.Select(p => p.Value).ToArray())} | fitness: {fitness} | execution path: {executionPath} | result: {result}");
+                    builder.Append(Environment.NewLine);
+                    txtResult.AppendText(builder.ToString());
+                    txtResult.ScrollToCaret();
+
+                    //以下为终止条件
+                    //如果当前执行路径包含任何目标路径
+                    if (executionPath.Contains(targetPath))
+                    {
+                        if (_currentTargetPathIndex < _targetPaths.Count - 1)
+                        {
+                            _currentTargetPathIndex++;
+                            _function.TargetPath = _targetPaths[_currentTargetPathIndex];
+                        }
+                        txtResult.AppendText(
+                            $"========================FOUND!========================{Environment.NewLine}");
+                        break;
+                    }
+
+                    stopwatch.Start();
                 }
-
-                var fitness = _function.Fitness;
-                var result = _function.Result;
-                var executionPath = _function.ExecutionPath;
-
-                stopwatch.Stop();
-
-                builder.Clear();
-                builder.Append($"after {i + 1:0000} time(s): timecost: {stopwatch.ElapsedMilliseconds} ms");
-                builder.Append(
-                    $" | value: {string.Join(" ", paras.Select(p => p.Value).ToArray())} | fitness: {fitness} | execution path: {executionPath} | result: {result}");
-                builder.Append(Environment.NewLine);
-                txtResult.AppendText(builder.ToString());
-                txtResult.ScrollToCaret();
-
-                //以下为随机生成终止条件
-//                if (fitness == 0)
-//                    break;
-
-                stopwatch.Start();
             }
         }
 
