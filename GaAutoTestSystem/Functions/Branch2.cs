@@ -5,9 +5,6 @@ namespace GaAutoTestSystem
 {
     internal class Branch2 : AbstractFunction
     {
-        //目标执行期望路径
-        public string TargetPath { get; set; }
-
         public override object GetResult()
         {
             double k = 0;

@@ -12,31 +12,30 @@
     </ChromosomeSettings>
   </GaSettings>
   <FunctionSettings>
-    <FunctionName>NextDate</FunctionName>
-    <FitnessCaculationType>NodeMatch</FitnessCaculationType>
+    <FunctionName>TriangleType</FunctionName>
+    <FitnessCaculationType>PathMatch</FitnessCaculationType>
     <Parameters>
       <Parameter>
-        <DataType>Double</DataType>
-        <LowerBound>1950</LowerBound>
-        <UpperBound>2050</UpperBound>
+        <DataType>Integer</DataType>
+        <LowerBound>1</LowerBound>
+        <UpperBound>10</UpperBound>
       </Parameter>
       <Parameter>
-        <DataType>Double</DataType>
+        <DataType>Integer</DataType>
         <LowerBound>1</LowerBound>
-        <UpperBound>12</UpperBound>
+        <UpperBound>10</UpperBound>
       </Parameter>
       <Parameter>
-        <DataType>Double</DataType>
+        <DataType>Integer</DataType>
         <LowerBound>1</LowerBound>
-        <UpperBound>31</UpperBound>
+        <UpperBound>10</UpperBound>
       </Parameter>
     </Parameters>
     <TargetPaths>
-      <TargetPath>#abc</TargetPath>
-      <TargetPath>#abd</TargetPath>
-      <TargetPath>#aefg</TargetPath>
-      <TargetPath>#aefh</TargetPath>
-      <TargetPath>#aeinop</TargetPath>
+      <TargetPath>#fg</TargetPath>
+      <TargetPath>#abg</TargetPath>
+      <TargetPath>#acdg</TargetPath>
+      <TargetPath>#ae</TargetPath>
     </TargetPaths>
   </FunctionSettings>
 </TestSettings>

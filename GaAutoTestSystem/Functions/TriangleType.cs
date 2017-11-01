@@ -5,9 +5,6 @@ namespace GaAutoTestSystem
 {
     internal class TriangleType : AbstractFunction
     {
-        //目标执行期望路径
-        public string TargetPath { get; set; }
-
         public override object GetResult()
         {
             string type;
@@ -68,6 +65,7 @@ namespace GaAutoTestSystem
                 path += "f";
                 type = "not a triangle";
             }
+            path += "g";
             return path;
         }
 

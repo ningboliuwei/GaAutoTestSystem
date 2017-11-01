@@ -337,8 +337,7 @@ namespace GaAutoTestSystem
                     txtParaList.Clear();
                     foreach (var para in paras)
                     {
-                        var paraDataType = (ParaDataType) Enum.Parse(typeof(ParaDataType),
-                            cmbParaDataType.SelectedValue.ToString());
+                        var paraDataType = (ParaDataType) Enum.Parse(typeof(ParaDataType), para.Element("DataType")?.Value);
                         var lowerBound = Convert.ToDouble(para.Element("LowerBound")?.Value);
                         var upperBound = Convert.ToDouble(para.Element("UpperBound")?.Value);
 
@@ -358,6 +357,8 @@ namespace GaAutoTestSystem
                     }
                     //移除最后的空行
                     txtTargetPathList.Text = txtTargetPathList.Text.Remove(txtTargetPathList.Text.Length - 2);
+                    //期望值计算方法
+                    cmbFitnessCaculationType.SelectedValue = xdoc.Descendants("FitnessCaculationType").Select(n => n.Value).FirstOrDefault();
                 }
                 catch (Exception ex)
                 {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TestDataGenerator;
 
 namespace GaAutoTestSystem
@@ -39,20 +38,15 @@ namespace GaAutoTestSystem
                     path += "b";
                 }
             }
+            path += "c";
 
             return path;
         }
 
-        protected override double GetFitnessByNodeMatch()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override double GetFitnessByCoverageRate()
         {
-            return GetExecutionPath().Length / (double) "#ab".Length;
+            return GetExecutionPath().Length / (double) "#abc".Length;
         }
-
 
         protected override double GetFitnessByDistance()
         {
@@ -70,7 +64,12 @@ namespace GaAutoTestSystem
 
         protected override double GetFitnessByPathMatch()
         {
-            throw new NotImplementedException();
+            return CaculationHelper.CaculatePathMatchFitness(GetExecutionPath(), TargetPath);
+        }
+
+        protected override double GetFitnessByNodeMatch()
+        {
+            return CaculationHelper.CaculateNodeMatchFitness(GetExecutionPath(), TargetPath);
         }
     }
 }

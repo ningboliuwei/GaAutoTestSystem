@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestSettings>
+  <GaSettings>
+    <ChromosomeSettings>
+      <ChromosomeQuantity>1000</ChromosomeQuantity>
+      <GenerationQuantity>200</GenerationQuantity>
+      <ChromosomeLengthForOneSubValue>10</ChromosomeLengthForOneSubValue>
+      <RetainRate>0.2</RetainRate>
+      <MutationRate>0.3</MutationRate>
+      <SelectionRate>0.01</SelectionRate>
+      <EvolutionStrategy>Hybrid</EvolutionStrategy>
+    </ChromosomeSettings>
+  </GaSettings>
+  <FunctionSettings>
+    <FunctionName>Branch2</FunctionName>
+    <FitnessCaculationType>PathMatch</FitnessCaculationType>
+    <Parameters>
+      <Parameter>
+        <DataType>Double</DataType>
+        <LowerBound>0</LowerBound>
+        <UpperBound>20</UpperBound>
+      </Parameter>
+      <Parameter>
+        <DataType>Double</DataType>
+        <LowerBound>0</LowerBound>
+        <UpperBound>20</UpperBound>
+      </Parameter>
+      <Parameter>
+        <DataType>Double</DataType>
+        <LowerBound>0</LowerBound>
+        <UpperBound>20</UpperBound>
+      </Parameter>
+    </Parameters>
+    <TargetPaths>
+      <TargetPath>#f</TargetPath>
+      <TargetPath>#abf</TargetPath>
+      <TargetPath>#cf</TargetPath>
+      <TargetPath>#def</TargetPath>
+    </TargetPaths>
+  </FunctionSettings>
+</TestSettings>

@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.txtResult = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.txtSelectionRate = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -62,12 +61,13 @@
             this.btnGA = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.cmbFitnessCaculationType = new System.Windows.Forms.ComboBox();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.ofdSetting = new System.Windows.Forms.OpenFileDialog();
+            this.sfdSetting = new System.Windows.Forms.SaveFileDialog();
+            this.txtResult = new System.Windows.Forms.TextBox();
             this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ofdSetting = new System.Windows.Forms.OpenFileDialog();
-            this.sfdSetting = new System.Windows.Forms.SaveFileDialog();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -89,18 +89,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 678F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1125, 678);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // txtResult
-            // 
-            this.txtResult.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtResult.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtResult.Location = new System.Drawing.Point(3, 4);
-            this.txtResult.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtResult.Multiline = true;
-            this.txtResult.Name = "txtResult";
-            this.txtResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtResult.Size = new System.Drawing.Size(769, 670);
-            this.txtResult.TabIndex = 0;
             // 
             // tableLayoutPanel2
             // 
@@ -498,6 +486,49 @@
             this.cmbFitnessCaculationType.Size = new System.Drawing.Size(198, 25);
             this.cmbFitnessCaculationType.TabIndex = 17;
             // 
+            // ofdSetting
+            // 
+            this.ofdSetting.Filter = "*.xml|*.xml";
+            // 
+            // sfdSetting
+            // 
+            this.sfdSetting.Filter = "*.xml|*.xml";
+            // 
+            // txtResult
+            // 
+            this.txtResult.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtResult.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtResult.Location = new System.Drawing.Point(3, 4);
+            this.txtResult.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtResult.Multiline = true;
+            this.txtResult.Name = "txtResult";
+            this.txtResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtResult.Size = new System.Drawing.Size(769, 670);
+            this.txtResult.TabIndex = 0;
+            // 
+            // 设置ToolStripMenuItem
+            // 
+            this.设置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveSettingsToolStripMenuItem,
+            this.loadSettingsToolStripMenuItem});
+            this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
+            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(58, 21);
+            this.设置ToolStripMenuItem.Text = "文件(&F)";
+            // 
+            // saveSettingsToolStripMenuItem
+            // 
+            this.saveSettingsToolStripMenuItem.Name = "saveSettingsToolStripMenuItem";
+            this.saveSettingsToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.saveSettingsToolStripMenuItem.Text = "保存设置(&S)";
+            this.saveSettingsToolStripMenuItem.Click += new System.EventHandler(this.saveSettingsToolStripMenuItem_Click);
+            // 
+            // loadSettingsToolStripMenuItem
+            // 
+            this.loadSettingsToolStripMenuItem.Name = "loadSettingsToolStripMenuItem";
+            this.loadSettingsToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.loadSettingsToolStripMenuItem.Text = "载入设置(&L)";
+            this.loadSettingsToolStripMenuItem.Click += new System.EventHandler(this.loadSettingsToolStripMenuItem_Click);
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -507,37 +538,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(1125, 25);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // 设置ToolStripMenuItem
-            // 
-            this.设置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveSettingsToolStripMenuItem,
-            this.loadSettingsToolStripMenuItem});
-            this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
-            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.设置ToolStripMenuItem.Text = "设置";
-            // 
-            // saveSettingsToolStripMenuItem
-            // 
-            this.saveSettingsToolStripMenuItem.Name = "saveSettingsToolStripMenuItem";
-            this.saveSettingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.saveSettingsToolStripMenuItem.Text = "保存设置(&S)";
-            this.saveSettingsToolStripMenuItem.Click += new System.EventHandler(this.saveSettingsToolStripMenuItem_Click);
-            // 
-            // loadSettingsToolStripMenuItem
-            // 
-            this.loadSettingsToolStripMenuItem.Name = "loadSettingsToolStripMenuItem";
-            this.loadSettingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.loadSettingsToolStripMenuItem.Text = "载入设置(&L)";
-            this.loadSettingsToolStripMenuItem.Click += new System.EventHandler(this.loadSettingsToolStripMenuItem_Click);
-            // 
-            // ofdSetting
-            // 
-            this.ofdSetting.Filter = "*.xml|*.xml";
-            // 
-            // sfdSetting
-            // 
-            this.sfdSetting.Filter = "*.xml|*.xml";
             // 
             // frmMain
             // 
@@ -566,7 +566,6 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TextBox txtResult;
         private System.Windows.Forms.Button btnGA;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TextBox txtMutationRate;
@@ -595,16 +594,17 @@
         private System.Windows.Forms.ComboBox cmbParaDataType;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtTargetPathList;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem 设置ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveSettingsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem loadSettingsToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog ofdSetting;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ComboBox cmbFunction;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox cmbFitnessCaculationType;
         private System.Windows.Forms.SaveFileDialog sfdSetting;
+        private System.Windows.Forms.TextBox txtResult;
+        private System.Windows.Forms.ToolStripMenuItem 设置ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadSettingsToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip menuStrip1;
     }
 }
 

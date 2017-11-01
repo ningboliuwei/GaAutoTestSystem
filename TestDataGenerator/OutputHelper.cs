@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace TestDataGenerator
@@ -9,16 +8,23 @@ namespace TestDataGenerator
         public static string GetChromosomeInfo(Chromosome chromosome)
         {
             var builder = new StringBuilder();
-            var decodedSubValues = new List<double>();
             var paras = chromosome.Population.RelatedFunction.Paras;
-
+            var decodedSubValuesString = "";
+            //所有映射到解空间的值（若有级联） 
             for (var i = 0; i < paras.Count; i++)
             {
-                decodedSubValues.Add(chromosome.GetDecodedValue(chromosome.SubValues[i], paras[i].LowerBound,
-                    paras[i].UpperBound));
+                var decodedSubValue = chromosome.GetDecodedValue(chromosome.SubValues[i], paras[i].LowerBound,
+                    paras[i].UpperBound);
+                if (paras[i].DataType == ParaDataType.Double)
+                {
+                    decodedSubValuesString += $" {decodedSubValue}";
+                }
+                else if (paras[i].DataType == ParaDataType.Integer)
+                {
+                    decodedSubValuesString += $" {(long) decodedSubValue}";
+                }
             }
-            //所有映射到解空间的值（若有级联）
-            var decodedSubValuesString = string.Join(" ", decodedSubValues.ToArray());
+
             var chromosomeBinaryValue = Convert.ToString(chromosome.Value, 2)
                 .PadLeft(chromosome.Population.ChromosomeLength, '0');
 
