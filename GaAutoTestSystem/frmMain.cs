@@ -119,6 +119,8 @@ namespace GaAutoTestSystem
                 ChromosomeQuantity = _chromosomeQuantity
             };
 
+            BoundTestHelper.GetBoundTestData(_function);
+
             var builder = new StringBuilder();
             var stopwatch = new Stopwatch();
 

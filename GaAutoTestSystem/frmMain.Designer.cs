@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.txtResult = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.txtSelectionRate = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -63,7 +64,6 @@
             this.cmbFitnessCaculationType = new System.Windows.Forms.ComboBox();
             this.ofdSetting = new System.Windows.Forms.OpenFileDialog();
             this.sfdSetting = new System.Windows.Forms.SaveFileDialog();
-            this.txtResult = new System.Windows.Forms.TextBox();
             this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -89,6 +89,18 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 678F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1125, 678);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // txtResult
+            // 
+            this.txtResult.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtResult.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtResult.Location = new System.Drawing.Point(3, 4);
+            this.txtResult.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtResult.Multiline = true;
+            this.txtResult.Name = "txtResult";
+            this.txtResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtResult.Size = new System.Drawing.Size(769, 670);
+            this.txtResult.TabIndex = 0;
             // 
             // tableLayoutPanel2
             // 
@@ -493,18 +505,6 @@
             // sfdSetting
             // 
             this.sfdSetting.Filter = "*.xml|*.xml";
-            // 
-            // txtResult
-            // 
-            this.txtResult.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtResult.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtResult.Location = new System.Drawing.Point(3, 4);
-            this.txtResult.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtResult.Multiline = true;
-            this.txtResult.Name = "txtResult";
-            this.txtResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtResult.Size = new System.Drawing.Size(769, 670);
-            this.txtResult.TabIndex = 0;
             // 
             // 设置ToolStripMenuItem
             // 
