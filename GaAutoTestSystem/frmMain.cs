@@ -438,7 +438,7 @@ namespace GaAutoTestSystem
                 throw new Exception(ex.Message);
             }
         }
-
+        //根据函数名得到函数对象
         private AbstractFunction GetFunction(string functionName)
         {
             var assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
