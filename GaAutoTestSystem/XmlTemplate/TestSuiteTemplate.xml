@@ -19,8 +19,8 @@
         </Assertion>
         <Assertion Id="TA_002">
           <InputValues>
-            <InputValue Index="0" DataType="double">4.0</InputValue>
-            <InputValue Index="1" DataType="double">3.5</InputValue>
+            <InputValue>4.0</InputValue>
+            <InputValue>3.5</InputValue>
           </InputValues>
           <ExpectedOutput>#</ExpectedOutput>
           <FactOutput>#ab</FactOutput>

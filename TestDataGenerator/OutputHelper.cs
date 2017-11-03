@@ -13,8 +13,7 @@ namespace TestDataGenerator
             //所有映射到解空间的值（若有级联） 
             for (var i = 0; i < paras.Count; i++)
             {
-                var decodedSubValue = chromosome.GetDecodedValue(chromosome.SubValues[i], paras[i].LowerBound,
-                    paras[i].UpperBound);
+                var decodedSubValue = chromosome.DecodedSubValues[i];
                 if (paras[i].DataType == ParaDataType.Double)
                 {
                     decodedSubValuesString += $" {decodedSubValue}";

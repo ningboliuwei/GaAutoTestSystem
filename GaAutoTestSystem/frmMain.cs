@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -13,38 +14,17 @@ namespace GaAutoTestSystem
 {
     public partial class frmMain : Form
     {
-        //在此修改不同的被测函数对象
+        //被测函数对象
         private static AbstractFunction _function;
 
-        //染色体长度
-        private int _chromosomeLengthForOneSubValue = 10;
-
-        //染色体数量
-        private int _chromosomeQuantity = 1000;
+        //遗传算法参数
+        private readonly GaParameterInfo _gaParameters = new GaParameterInfo();
 
         //当前期望路径下标
         private int _currentTargetPathIndex;
 
-        //进化代数
-        private int _generationQuantity = 200;
-
-        //变异率
-        private double _mutationRate = 0.3;
-
         //被测函数参数集合
         private List<ParaInfo> _paras = new List<ParaInfo>();
-
-        //种群
-        private Population _population;
-
-        //存活率
-        private double _retainRate = 0.2;
-
-        //随机选择率
-        private double _selectionRate = 0.01;
-
-        //演化策略
-        private Population.SelectType _selectType = Population.SelectType.Hybrid;
 
         //期望路径集合
         private List<string> _targetPaths = new List<string>();
@@ -103,40 +83,31 @@ namespace GaAutoTestSystem
 
         private void btnGA_Click(object sender, EventArgs e)
         {
+            //路径覆盖测试数据集
+            var pathCoverageAssertions = new List<AssertionInfo>();
+            var bounaryTestAssertions = new List<AssertionInfo>();
+            //种群
             //加载参数
             LoadParameters();
             txtResult.Clear();
             //新建一个种群
-            _population = new Population
-            {
-                RelatedFunction = _function,
-                RetainRate = _retainRate,
-                SelectionRate = _selectionRate,
-                MutationRate = _mutationRate,
-                ChromosomeLengthForOneSubValue = _chromosomeLengthForOneSubValue,
-                SubValueQuantity = _function.Paras.Count,
-                ChromosomeLength = _chromosomeLengthForOneSubValue * _function.Paras.Count,
-                ChromosomeQuantity = _chromosomeQuantity
-            };
-
-            BoundaryTestHelper.GetBoundaryTestDataSet(_function);
-
+            var population = new Population(_gaParameters, _function);
             var builder = new StringBuilder();
             var stopwatch = new Stopwatch();
 
             stopwatch.Start();
             //随机生成染色体
-            _population.RandomGenerateChromosome();
+            population.RandomGenerateChromosome();
 
             foreach (var targetPath in _targetPaths)
             {
                 txtResult.AppendText(
                     $"========================{targetPath}========================{Environment.NewLine}");
-                for (var i = 0; i < _generationQuantity; i++)
+                for (var i = 0; i < _gaParameters.GenerationQuantity; i++)
                 {
                     //找出拥有每一代最高 Fitnetss 值的那个实际的解
-                    var maxFitness = _population.Chromosomes.Max(n => n.Fitness);
-                    var mostFittest = _population.Chromosomes.First(c => Equals(c.Fitness, maxFitness));
+                    var maxFitness = population.Chromosomes.Max(n => n.Fitness);
+                    var mostFittest = population.Chromosomes.First(c => Equals(c.Fitness, maxFitness));
 
                     builder.Clear();
                     builder.Append($"after {i + 1:000} envolve(s): timecost: {stopwatch.ElapsedMilliseconds} ms");
@@ -145,11 +116,16 @@ namespace GaAutoTestSystem
                     txtResult.ScrollToCaret();
 
                     //进化过程中不同的选择策略进行演化
-                    _population.Evolve(_selectType);
+                    population.Evolve(_gaParameters.SelectionType);
 
                     //以下为终止条件
                     if (mostFittest.ExecutionPath.ToString().Contains(targetPath))
                     {
+                        //将找到的数据添加到测试数据集中
+                        var assertion = new AssertionInfo();
+                        assertion.InputValues.AddRange(mostFittest.DecodedSubValues.Select(v => v).ToList());
+                        pathCoverageAssertions.Add(assertion);
+
                         if (_currentTargetPathIndex < _targetPaths.Count - 1)
                         {
                             _currentTargetPathIndex++;
@@ -161,17 +137,29 @@ namespace GaAutoTestSystem
                     }
                 }
             }
+            //得到边界值测试用例集
+            bounaryTestAssertions.AddRange(BoundaryTestHelper.GetBoundaryTestDataSet(_function));
+
+            var testSuite = new TestSuiteInfo
+            {
+                Name = $"针对{cmbFunction.Text}函数的测试套件",
+                Target = $"{GetFunction(cmbFunction.SelectedValue.ToString())}"
+            };
+            testSuite.TestCases.Add(new TestCaseInfo {Name = "路径覆盖测试", Assertions = pathCoverageAssertions});
+            testSuite.TestCases.Add(new TestCaseInfo {Name = "边界值测试", Assertions = bounaryTestAssertions});
+
+            GenerateTestSuiteFile(testSuite);
         }
 
         private void LoadParameters()
         {
-            _chromosomeQuantity = Convert.ToInt32(txtChromosomeQuantity.Text);
-            _chromosomeLengthForOneSubValue = Convert.ToInt32(txtChromosomeLength.Text);
-            _retainRate = Convert.ToDouble(txtRetainRate.Text) / 100;
-            _mutationRate = Convert.ToDouble(txtMutationRate.Text) / 100;
-            _selectionRate = Convert.ToDouble(txtSelectionRate.Text) / 100;
-            _generationQuantity = Convert.ToInt32(txtGenerationQuantity.Text);
-            _selectType = (Population.SelectType) Enum.Parse(typeof(Population.SelectType),
+            _gaParameters.ChromosomeQuantity = Convert.ToInt32(txtChromosomeQuantity.Text);
+            _gaParameters.ChromosomeLengthForOneSubValue = Convert.ToInt32(txtChromosomeLength.Text);
+            _gaParameters.RetainRate = Convert.ToDouble(txtRetainRate.Text) / 100;
+            _gaParameters.MutationRate = Convert.ToDouble(txtMutationRate.Text) / 100;
+            _gaParameters.SelectionRate = Convert.ToDouble(txtSelectionRate.Text) / 100;
+            _gaParameters.GenerationQuantity = Convert.ToInt32(txtGenerationQuantity.Text);
+            _gaParameters.SelectionType = (Population.SelectionType) Enum.Parse(typeof(Population.SelectionType),
                 cmbStrategy.SelectedValue.ToString());
             //读取文本框中所有的期望路径
             _targetPaths = GetTargetPaths();
@@ -181,7 +169,7 @@ namespace GaAutoTestSystem
             _function.FitnessCaculationType = (AbstractFunction.FitnessType) Enum.Parse(
                 typeof(AbstractFunction.FitnessType),
                 cmbFitnessCaculationType.SelectedValue.ToString());
-            //被测函数参数列表（_paras 中的项目由 AddPara() 或 LoadSettings() 添加）
+            //被测函数参数列表（_paras 中的项目由 AddFunctionPara() 或 LoadSettings() 添加）
 
             _paras = GetParas();
 
@@ -226,7 +214,7 @@ namespace GaAutoTestSystem
 
             foreach (var targetPath in _targetPaths)
             {
-                for (long i = 0; i < _generationQuantity; i++)
+                for (long i = 0; i < _gaParameters.GenerationQuantity; i++)
                 {
                     foreach (var para in _paras)
                     {
@@ -266,7 +254,8 @@ namespace GaAutoTestSystem
             }
         }
 
-        private void AddPara()
+        //通过 UI 添加被测函数参数
+        private void AddFunctionPara()
         {
             var upperBound = Convert.ToDouble(txtParaValueUpperBound.Text.Trim());
             var lowerBound = Convert.ToDouble(txtParaValueLowerBound.Text.Trim());
@@ -283,9 +272,10 @@ namespace GaAutoTestSystem
 
         private void btnAddPara_Click(object sender, EventArgs e)
         {
-            AddPara();
+            AddFunctionPara();
         }
 
+        //获取当前期望执行路径列表
         private List<string> GetTargetPaths()
         {
             var targetPaths = new List<string>();
@@ -301,7 +291,7 @@ namespace GaAutoTestSystem
             LoadSettings();
         }
 
-        //从 XML 文件载入设置
+        //从 XML 文件载入设置并显示在 UI 上
         private void LoadSettings()
         {
             if (ofdSetting.ShowDialog() == DialogResult.OK)
@@ -339,7 +329,8 @@ namespace GaAutoTestSystem
                     txtParaList.Clear();
                     foreach (var para in paras)
                     {
-                        var paraDataType = (ParaDataType) Enum.Parse(typeof(ParaDataType), para.Element("DataType")?.Value);
+                        var paraDataType =
+                            (ParaDataType) Enum.Parse(typeof(ParaDataType), para.Element("DataType")?.Value);
                         var lowerBound = Convert.ToDouble(para.Element("LowerBound")?.Value);
                         var upperBound = Convert.ToDouble(para.Element("UpperBound")?.Value);
 
@@ -360,7 +351,8 @@ namespace GaAutoTestSystem
                     //移除最后的空行
                     txtTargetPathList.Text = txtTargetPathList.Text.Remove(txtTargetPathList.Text.Length - 2);
                     //期望值计算方法
-                    cmbFitnessCaculationType.SelectedValue = xdoc.Descendants("FitnessCaculationType").Select(n => n.Value).FirstOrDefault();
+                    cmbFitnessCaculationType.SelectedValue = xdoc.Descendants("FitnessCaculationType")
+                        .Select(n => n.Value).FirstOrDefault();
                 }
                 catch (Exception ex)
                 {
@@ -369,6 +361,7 @@ namespace GaAutoTestSystem
             }
         }
 
+        //将 UI 上的设置保存为 XML 文件
         private void SaveSettings()
         {
             if (sfdSetting.ShowDialog() == DialogResult.OK)
@@ -388,8 +381,8 @@ namespace GaAutoTestSystem
                                 new XElement("RetainRate", Convert.ToDouble(txtRetainRate.Text) / 100),
                                 new XElement("MutationRate", Convert.ToDouble(txtMutationRate.Text) / 100),
                                 new XElement("SelectionRate", Convert.ToDouble(txtSelectionRate.Text) / 100),
-                                new XElement("EvolutionStrategy", (Population.SelectType) Enum.Parse(
-                                    typeof(Population.SelectType),
+                                new XElement("EvolutionStrategy", (Population.SelectionType) Enum.Parse(
+                                    typeof(Population.SelectionType),
                                     cmbStrategy.SelectedValue.ToString())))),
                         new XElement("FunctionSettings",
                             new XElement("FunctionName", cmbFunction.SelectedValue.ToString()),
@@ -408,6 +401,41 @@ namespace GaAutoTestSystem
                 {
                     throw new Exception(ex.Message);
                 }
+            }
+        }
+
+        //生成测试数据文档
+        private void GenerateTestSuiteFile(TestSuiteInfo testSuite)
+        {
+            var outputDir = Application.StartupPath + "\\TestSuiteFiles";
+            var fileName = $"{testSuite.Name}_{DateTime.Now:yyyyMMddHHmmssfff}.xml";
+            var filePath = Path.Combine(outputDir, fileName);
+            try
+            {
+                //若输出文件夹不存在，则创建该文件夹
+                if (!Directory.Exists(outputDir))
+                {
+                    Directory.CreateDirectory(outputDir);
+                }
+
+                var xdoc = new XElement("TestSuite", new XElement("Name", testSuite.Name),
+                    new XElement("Target", $"{testSuite.Target}()"),
+                    new XElement("TestCases", testSuite.TestCases.Select(c => new XElement("TestCase",
+                        new XAttribute("ID", $"TC_{testSuite.TestCases.IndexOf(c) + 1:000}"),
+                        new XElement("Name", c.Name),
+                        new XElement("Assertions",
+                            c.Assertions.Select(a => new XElement("Assertion",
+                                new XAttribute("ID", $"TA_{c.Assertions.IndexOf(a) + 1:0000}"),
+                                new XElement("InputValues",
+                                    a.InputValues.Select(v => new XElement("InputValue", v))),
+                                new XElement("ExpectedOutput", ""),
+                                new XElement("FactOutput", ""),
+                                new XElement("Result", ""))))))));
+                xdoc.Save(filePath);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
 

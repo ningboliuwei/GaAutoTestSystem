@@ -32,6 +32,34 @@ namespace TestDataGenerator
             }
         }
 
+        //解码后的子值
+        public List<double> DecodedSubValues
+        {
+            get
+            {
+                var paras = Population.RelatedFunction.Paras;
+                var decodedSubValues = new List<double>();
+
+                for (var i = 0; i < SubValues.Count; i++)
+                {
+                    var subValue = SubValues[i];
+                    var decodedSubValue = GetDecodedValue(subValue, paras[i].LowerBound,
+                        paras[i].UpperBound);
+
+                    if (paras[i].DataType == ParaDataType.Double)
+                    {
+                        decodedSubValues.Add(decodedSubValue);
+                    }
+                    else if (paras[i].DataType == ParaDataType.Integer)
+                    {
+                        decodedSubValues.Add((int) decodedSubValue);
+                    }
+                }
+
+                return decodedSubValues;
+            }
+        }
+
         public double Fitness
         {
             get

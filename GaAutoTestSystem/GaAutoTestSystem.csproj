@@ -88,7 +88,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="XmlTemplate\TestSettings.xml" />
+    <Content Include="XmlTemplate\NextDateSettings.xml" />
     <Content Include="XmlTemplate\TestSuiteTemplate.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -98,6 +98,9 @@
       <Project>{9EFC07CD-918F-4C2B-A1A4-D7700F5E92A9}</Project>
       <Name>TestDataGenerator</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TestSuiteFiles\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -6,7 +6,7 @@ namespace TestDataGenerator
 {
     public class Population
     {
-        public enum SelectType
+        public enum SelectionType
         {
             Elite,
             Roulette,
@@ -39,6 +39,19 @@ namespace TestDataGenerator
 
         //被测函数
         public AbstractFunction RelatedFunction { get; set; }
+
+        public Population(GaParameterInfo gaParameters, AbstractFunction function)
+        {
+            RelatedFunction = function;
+            RetainRate = gaParameters.RetainRate;
+            SelectionRate = gaParameters.SelectionRate;
+            MutationRate = gaParameters.MutationRate;
+            ChromosomeLengthForOneSubValue = gaParameters.ChromosomeLengthForOneSubValue;
+            SubValueQuantity = function.Paras.Count;
+            ChromosomeLength = gaParameters.ChromosomeLengthForOneSubValue * function.Paras.Count;
+            ChromosomeQuantity = gaParameters.ChromosomeQuantity;
+        }
+
         //随机生成若干染色体
         public void RandomGenerateChromosome()
         {
@@ -210,15 +223,15 @@ namespace TestDataGenerator
         }
 
         //当前种群进化
-        public void Evolve(SelectType selectType)
+        public void Evolve(SelectionType selectionType)
         {
             Population parents = null;
 
-            if (selectType == SelectType.Elite)
+            if (selectionType == SelectionType.Elite)
                 parents = EliteSelect(this);
-            else if (selectType == SelectType.Roulette)
+            else if (selectionType == SelectionType.Roulette)
                 parents = RouletteSelect(this);
-            else if (selectType == SelectType.Hybrid)
+            else if (selectionType == SelectionType.Hybrid)
                 parents = HybridSelect(this);
 
             //crossover 得到子女种群
