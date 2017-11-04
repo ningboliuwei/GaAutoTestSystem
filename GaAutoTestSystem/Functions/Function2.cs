@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestDataGenerator;
 
 namespace GaAutoTestSystem
 {
-    class Function2: AbstractFunction
+    internal class Function2 : AbstractFunction
     {
         public override object GetResult()
         {

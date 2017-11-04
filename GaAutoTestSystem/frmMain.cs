@@ -84,7 +84,7 @@ namespace GaAutoTestSystem
         private void btnGA_Click(object sender, EventArgs e)
         {
             //路径覆盖测试数据集
-            var pathCoverageAssertions = new List<AssertionInfo>();
+            var gaAssertions = new List<AssertionInfo>();
             var bounaryTestAssertions = new List<AssertionInfo>();
             //种群
             //加载参数
@@ -99,56 +99,21 @@ namespace GaAutoTestSystem
             //随机生成染色体
             population.RandomGenerateChromosome();
 
-            foreach (var targetPath in _targetPaths)
-            {
-                txtResult.AppendText(
-                    $"========================{targetPath}========================{Environment.NewLine}");
-                for (var i = 0; i < _gaParameters.GenerationQuantity; i++)
-                {
-                    //找出拥有每一代最高 Fitnetss 值的那个实际的解
-                    var maxFitness = population.Chromosomes.Max(n => n.Fitness);
-                    var mostFittest = population.Chromosomes.First(c => Equals(c.Fitness, maxFitness));
-
-                    builder.Clear();
-                    builder.Append($"after {i + 1:000} envolve(s): timecost: {stopwatch.ElapsedMilliseconds} ms");
-                    builder.Append($" | {OutputHelper.GetChromosomeInfo(mostFittest)}");
-                    txtResult.AppendText(builder.ToString());
-                    txtResult.ScrollToCaret();
-
-                    //进化过程中不同的选择策略进行演化
-                    population.Evolve(_gaParameters.SelectionType);
-
-                    //以下为终止条件
-                    if (mostFittest.ExecutionPath.ToString().Contains(targetPath))
-                    {
-                        //将找到的数据添加到测试数据集中
-                        var assertion = new AssertionInfo();
-                        assertion.InputValues.AddRange(mostFittest.DecodedSubValues.Select(v => v).ToList());
-                        pathCoverageAssertions.Add(assertion);
-
-                        if (_currentTargetPathIndex < _targetPaths.Count - 1)
-                        {
-                            _currentTargetPathIndex++;
-                            _function.TargetPath = _targetPaths[_currentTargetPathIndex];
-                        }
-                        txtResult.AppendText(
-                            $"========================FOUND!========================{Environment.NewLine}");
-                        break;
-                    }
-                }
-            }
-            //得到边界值测试用例集
-            bounaryTestAssertions.AddRange(BoundaryTestHelper.GetBoundaryTestDataSet(_function));
+            //通过遗传算法得到测试数据
+            gaAssertions.AddRange(GaTestDataGenerator.GetAssertions(_gaParameters, _function, _targetPaths));
+            //得到边界值测试数据
+            bounaryTestAssertions.AddRange(BoundaryTestDataGenerator.GetAssertions(_function));
 
             var testSuite = new TestSuiteInfo
             {
                 Name = $"针对{cmbFunction.Text}函数的测试套件",
                 Target = $"{GetFunction(cmbFunction.SelectedValue.ToString())}"
             };
-            testSuite.TestCases.Add(new TestCaseInfo {Name = "路径覆盖测试", Assertions = pathCoverageAssertions});
+            testSuite.TestCases.Add(new TestCaseInfo {Name = "路径覆盖测试", Assertions = gaAssertions});
             testSuite.TestCases.Add(new TestCaseInfo {Name = "边界值测试", Assertions = bounaryTestAssertions});
 
             GenerateTestSuiteFile(testSuite);
+            ShowTestData(gaAssertions.Union(bounaryTestAssertions).ToList());
         }
 
         private void LoadParameters()
@@ -429,7 +394,7 @@ namespace GaAutoTestSystem
                                 new XElement("InputValues",
                                     a.InputValues.Select(v => new XElement("InputValue", v))),
                                 new XElement("ExpectedOutput", ""),
-                                new XElement("FactOutput", ""),
+                                new XElement("ActualOutput", ""),
                                 new XElement("Result", ""))))))));
                 xdoc.Save(filePath);
             }
@@ -438,6 +403,7 @@ namespace GaAutoTestSystem
                 throw new Exception(ex.Message);
             }
         }
+
         //根据函数名得到函数对象
         private AbstractFunction GetFunction(string functionName)
         {
@@ -448,6 +414,14 @@ namespace GaAutoTestSystem
         private void saveSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveSettings();
+        }
+
+        private void ShowTestData(List<AssertionInfo> assertions)
+        {
+            foreach (var assertion in assertions)
+            {
+                txtResult.AppendText($"{string.Join(" ", assertion.InputValues)}{Environment.NewLine}");
+            }
         }
     }
 }

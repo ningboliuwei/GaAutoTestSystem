@@ -74,20 +74,6 @@ namespace TestDataGenerator
             }
         }
 
-        public object Result
-        {
-            get
-            {
-                var paras = Population.RelatedFunction.Paras;
-
-                for (var i = 0; i < paras.Count; i++)
-                    paras[i].Value = SubValues.Select(v => GetDecodedValue(v, paras[i].LowerBound, paras[i].UpperBound))
-                        .ToList()[i];
-
-                return Population.RelatedFunction.GetResult();
-            }
-        }
-
         public object ExecutionPath
         {
             get

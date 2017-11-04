@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9EFC07CD-918F-4C2B-A1A4-D7700F5E92A9}</ProjectGuid>
+    <ProjectGuid>{A76FA2B6-F430-40C7-82D9-B1CA02F3FDE8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestDataGenerator</RootNamespace>
-    <AssemblyName>TestDataGenerator</AssemblyName>
+    <RootNamespace>TestCodeGenerator</RootNamespace>
+    <AssemblyName>TestCodeGenerator</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,23 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbstractFunction.cs" />
-    <Compile Include="GaTestDataGenerator.cs" />
-    <Compile Include="Models\AssertionInfo.cs" />
-    <Compile Include="BoundaryTestDataGenerator.cs" />
-    <Compile Include="CaculationHelper.cs" />
-    <Compile Include="Chromosome.cs" />
-    <Compile Include="Models\GaParameterInfo.cs" />
-    <Compile Include="Utilities\OutputHelper.cs" />
-    <Compile Include="Models\ParaInfo.cs" />
-    <Compile Include="Population.cs" />
+    <Compile Include="FunctionLib.cs" />
+    <Compile Include="NUnitCodeGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\ReflectionHelper.cs" />
-    <Compile Include="Models\TestCaseInfo.cs" />
-    <Compile Include="Models\TestSuiteInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\TestDataGenerator\TestDataGenerator.csproj">
+      <Project>{9EFC07CD-918F-4C2B-A1A4-D7700F5E92A9}</Project>
+      <Name>TestDataGenerator</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="NUnitCodeTemplate.template" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

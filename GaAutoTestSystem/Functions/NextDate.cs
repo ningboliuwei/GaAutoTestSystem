@@ -283,7 +283,6 @@ namespace GaAutoTestSystem
             return CaculationHelper.CaculateTotalDistanceFitness(conditions);
         }
 
-
         protected override double GetFitnessByPathMatch()
         {
             return CaculationHelper.CaculatePathMatchFitness(GetExecutionPath(), TargetPath);

@@ -69,7 +69,6 @@ namespace GaAutoTestSystem
             return path;
         }
 
-
         protected override double GetFitnessByCoverageRate()
         {
             return GetExecutionPath().Length / (double) "#abcde".Length;

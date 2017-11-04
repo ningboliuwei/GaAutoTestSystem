@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace TestDataGenerator
 {
-    public class BoundaryTestHelper
+    public class BoundaryTestDataGenerator
     {
         //得到边界测试数据集
-        public static List<AssertionInfo> GetBoundaryTestDataSet(AbstractFunction function)
+        public static List<AssertionInfo> GetAssertions(AbstractFunction function)
         {
             var boundaryValuesOfAllParas = function.Paras.Select(GetBoundaryValuesOfPara).ToList();
             var middleValues = boundaryValuesOfAllParas.Select(v => v["middle"]).ToList();
@@ -27,7 +28,7 @@ namespace TestDataGenerator
         }
 
         //根据参数得到相关的边界值测试数据
-        public static Dictionary<string, double> GetBoundaryValuesOfPara(ParaInfo para)
+        private static Dictionary<string, double> GetBoundaryValuesOfPara(ParaInfo para)
         {
             var step = para.DataType == ParaDataType.Double ? 0.1 : 1;
             var values = new Dictionary<string, double>
@@ -35,7 +36,12 @@ namespace TestDataGenerator
                 {"lower-", para.LowerBound - step},
                 {"lower", para.LowerBound},
                 {"lower+", para.LowerBound + step},
-                {"middle", (para.LowerBound + para.UpperBound) / 2},
+                {
+                    "middle",
+                    para.DataType == ParaDataType.Double
+                        ? (para.LowerBound + para.UpperBound) / 2
+                        : (int) (para.LowerBound + para.UpperBound) / 2
+                },
                 {"upper-", para.UpperBound - step},
                 {"upper", para.UpperBound},
                 {"upper+", para.UpperBound + step}

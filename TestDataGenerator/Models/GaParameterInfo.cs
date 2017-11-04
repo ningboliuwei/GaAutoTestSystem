@@ -1,6 +1,4 @@
-﻿using TestDataGenerator;
-
-namespace TestDataGenerator
+﻿namespace TestDataGenerator
 {
     public class GaParameterInfo
     {
@@ -24,6 +22,5 @@ namespace TestDataGenerator
 
         //演化策略
         public Population.SelectionType SelectionType { get; set; } = Population.SelectionType.Hybrid;
-
     }
 }

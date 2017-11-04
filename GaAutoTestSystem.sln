@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GaAutoTestSystem", "GaAutoTestSystem\GaAutoTestSystem.csproj", "{0E445EA6-E1A8-46B1-81FB-0C098B0934E0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDataGenerator", "TestDataGenerator\TestDataGenerator.csproj", "{9EFC07CD-918F-4C2B-A1A4-D7700F5E92A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCodeGenerator", "TestCodeGenerator\TestCodeGenerator.csproj", "{A76FA2B6-F430-40C7-82D9-B1CA02F3FDE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCodeGeneratorTests1", "TestCodeGeneratorTests1\TestCodeGeneratorTests1.csproj", "{A4EAB1AA-CB3A-4D94-9E0F-77ACEBD01738}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{9EFC07CD-918F-4C2B-A1A4-D7700F5E92A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EFC07CD-918F-4C2B-A1A4-D7700F5E92A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EFC07CD-918F-4C2B-A1A4-D7700F5E92A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A76FA2B6-F430-40C7-82D9-B1CA02F3FDE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A76FA2B6-F430-40C7-82D9-B1CA02F3FDE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A76FA2B6-F430-40C7-82D9-B1CA02F3FDE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A76FA2B6-F430-40C7-82D9-B1CA02F3FDE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4EAB1AA-CB3A-4D94-9E0F-77ACEBD01738}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4EAB1AA-CB3A-4D94-9E0F-77ACEBD01738}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4EAB1AA-CB3A-4D94-9E0F-77ACEBD01738}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4EAB1AA-CB3A-4D94-9E0F-77ACEBD01738}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -16,6 +16,18 @@ namespace TestDataGenerator
         //染色体长度（总长度）
         public int ChromosomeLength;
 
+        public Population(GaParameterInfo gaParameters, AbstractFunction function)
+        {
+            RelatedFunction = function;
+            RetainRate = gaParameters.RetainRate;
+            SelectionRate = gaParameters.SelectionRate;
+            MutationRate = gaParameters.MutationRate;
+            ChromosomeLengthForOneSubValue = gaParameters.ChromosomeLengthForOneSubValue;
+            SubValueQuantity = function.Paras.Count;
+            ChromosomeLength = gaParameters.ChromosomeLengthForOneSubValue * function.Paras.Count;
+            ChromosomeQuantity = gaParameters.ChromosomeQuantity;
+        }
+
         //染色体集合
         public List<Chromosome> Chromosomes { get; private set; } = new List<Chromosome>();
 
@@ -39,18 +51,6 @@ namespace TestDataGenerator
 
         //被测函数
         public AbstractFunction RelatedFunction { get; set; }
-
-        public Population(GaParameterInfo gaParameters, AbstractFunction function)
-        {
-            RelatedFunction = function;
-            RetainRate = gaParameters.RetainRate;
-            SelectionRate = gaParameters.SelectionRate;
-            MutationRate = gaParameters.MutationRate;
-            ChromosomeLengthForOneSubValue = gaParameters.ChromosomeLengthForOneSubValue;
-            SubValueQuantity = function.Paras.Count;
-            ChromosomeLength = gaParameters.ChromosomeLengthForOneSubValue * function.Paras.Count;
-            ChromosomeQuantity = gaParameters.ChromosomeQuantity;
-        }
 
         //随机生成若干染色体
         public void RandomGenerateChromosome()
@@ -141,7 +141,6 @@ namespace TestDataGenerator
 
             return elitePopulation;
         }
-
 
         //返回由当前种群进行 crossover 后所得到的孩子集合
         public Population Crossover(int childQuantity)

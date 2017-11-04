@@ -1,14 +1,15 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("TestDataGenerator")]
+[assembly: AssemblyTitle("TestCodeGenerator")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TestDataGenerator")]
+[assembly: AssemblyProduct("TestCodeGenerator")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("9efc07cd-918f-4c2b-a1a4-d7700f5e92a9")]
+[assembly: Guid("a76fa2b6-f430-40c7-82d9-b1ca02f3fde8")]
 
 // 程序集的版本信息由下列四个值组成: 
 //

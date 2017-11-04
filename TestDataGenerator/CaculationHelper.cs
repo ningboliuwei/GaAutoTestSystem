@@ -44,6 +44,7 @@ namespace TestDataGenerator
                     return double.MaxValue;
             }
         }
+
         //计算所有条件表达式的总适应度（每个适应度加起来）
         public static double CaculateTotalDistanceFitness(List<ConditionInfo> conditions)
         {
@@ -89,6 +90,7 @@ namespace TestDataGenerator
                         return length;
             return 0;
         }
+
         //获得所有子串（各种长度的）
         private static List<List<string>> GetAllSubstrings(string str)
         {
