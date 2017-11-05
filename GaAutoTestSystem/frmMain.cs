@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using TestDataGenerator;
+using TestCodeGenerator;
 
 namespace GaAutoTestSystem
 {
@@ -113,6 +114,7 @@ namespace GaAutoTestSystem
             testSuite.TestCases.Add(new TestCaseInfo {Name = "边界值测试", Assertions = bounaryTestAssertions});
 
             GenerateTestSuiteFile(testSuite);
+            GenerateUnitTestFile(testSuite);
             ShowTestData(gaAssertions.Union(bounaryTestAssertions).ToList());
         }
 
@@ -397,6 +399,27 @@ namespace GaAutoTestSystem
                                 new XElement("ActualOutput", ""),
                                 new XElement("Result", ""))))))));
                 xdoc.Save(filePath);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public void GenerateUnitTestFile(TestSuiteInfo testSuite)
+        {
+            var outputDir = Application.StartupPath;
+            var fileName = $"nextdatetest.cs";
+            var filePath = Path.Combine(outputDir, fileName);
+            try
+            {
+                //若输出文件夹不存在，则创建该文件夹
+                if (!Directory.Exists(outputDir))
+                {
+                    Directory.CreateDirectory(outputDir);
+                }
+
+               UnitTestCodeGenerator.GenerateNUnitCode(testSuite, filePath);
             }
             catch (Exception ex)
             {

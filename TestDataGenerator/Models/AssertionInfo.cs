@@ -6,6 +6,6 @@ namespace TestDataGenerator
     {
         public List<double> InputValues { get; set; } = new List<double>();
         public object ExpectedOutput { get; set; }
-        public object FactOutput { get; set; }
+        public object ActualOutput { get; set; }
     }
 }

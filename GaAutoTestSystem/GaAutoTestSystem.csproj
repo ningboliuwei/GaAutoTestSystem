@@ -61,6 +61,7 @@
     <Compile Include="Functions\Function2.cs" />
     <Compile Include="Functions\Function1.cs" />
     <Compile Include="Functions\Program.cs" />
+    <Compile Include="nextdatetest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
@@ -98,6 +99,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TestCodeGenerator\TestCodeGenerator.csproj">
+      <Project>{a76fa2b6-f430-40c7-82d9-b1ca02f3fde8}</Project>
+      <Name>TestCodeGenerator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestDataGenerator\TestDataGenerator.csproj">
       <Project>{9EFC07CD-918F-4C2B-A1A4-D7700F5E92A9}</Project>
       <Name>TestDataGenerator</Name>

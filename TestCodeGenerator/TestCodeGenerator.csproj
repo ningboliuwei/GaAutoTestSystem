@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FunctionLib.cs" />
-    <Compile Include="NUnitCodeGenerator.cs" />
+    <Compile Include="UnitTestCodeGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -49,9 +49,6 @@
       <Project>{9EFC07CD-918F-4C2B-A1A4-D7700F5E92A9}</Project>
       <Name>TestDataGenerator</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="NUnitCodeTemplate.template" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
