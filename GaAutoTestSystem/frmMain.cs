@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -22,6 +21,15 @@ namespace GaAutoTestSystem
         //遗传算法参数
         private readonly GaParameterInfo _gaParameters = new GaParameterInfo();
 
+        //默认保存设置的文件夹路径
+        private readonly string _settingFilesDir = $"{Application.StartupPath}\\FunctionSettings";
+
+        //默认保存测试套件的文件夹路径
+        private readonly string _testSutieFilesDir = $"{Application.StartupPath}\\TestSuiteFiles";
+
+        //默认保存单元测试代码的文件夹路径
+        private readonly string _unitTestFilesDir = $"{Application.StartupPath}\\UnitTestFiles";
+
         //当前期望路径下标
         private int _currentTargetPathIndex;
 
@@ -30,12 +38,6 @@ namespace GaAutoTestSystem
 
         //期望路径集合
         private List<string> _targetPaths = new List<string>();
-
-        //默认保存设置的文件夹路径
-        private readonly string _settingFilesDir = $"{Application.StartupPath}\\FunctionSettings";
-
-        //默认保存测试套件的文件夹路径
-        private readonly string _testSutieFilesDir = $"{Application.StartupPath}\\TestSuiteFiles";
 
         public frmMain()
         {
@@ -115,13 +117,12 @@ namespace GaAutoTestSystem
             var testSuite = new TestSuiteInfo
             {
                 Name = $"针对{cmbFunction.Text}函数的测试套件",
-                Target = $"{GetFunction(cmbFunction.SelectedValue.ToString())}"
+                Target = $"{AbstractFunction.CreateInstance(cmbFunction.SelectedValue.ToString())}"
             };
             testSuite.TestCases.Add(new TestCaseInfo {Name = "路径覆盖测试", Assertions = gaAssertions});
             testSuite.TestCases.Add(new TestCaseInfo {Name = "边界值测试", Assertions = bounaryTestAssertions});
 
             GenerateTestSuiteFile(testSuite);
-            GenerateUnitTestFile(testSuite);
             ShowTestData(gaAssertions.Union(bounaryTestAssertions).ToList());
         }
 
@@ -143,8 +144,7 @@ namespace GaAutoTestSystem
             foreach (var testcaseElement in xdoc.XPathSelectElements("/TestSuite/TestCases/TestCase"))
             {
                 var testCase = new TestCaseInfo {Id = testcaseElement.Attribute("ID")?.Value};
-                foreach (var assertionElement in xdoc.XPathSelectElements(
-                    "/TestSuite/TestCases/TestCase/Assertions/Assertion"))
+                foreach (var assertionElement in testcaseElement.XPathSelectElements("Assertions/Assertion"))
                 {
                     var assertion = new AssertionInfo
                     {
@@ -176,7 +176,7 @@ namespace GaAutoTestSystem
             //读取文本框中所有的期望路径
             _targetPaths = GetTargetPaths();
             //被测函数
-            _function = GetFunction(cmbFunction.SelectedValue.ToString());
+            _function = AbstractFunction.CreateInstance(cmbFunction.SelectedValue.ToString());
             //被测函数适应度计算方法
             _function.FitnessCaculationType = (AbstractFunction.FitnessType) Enum.Parse(
                 typeof(AbstractFunction.FitnessType),
@@ -379,8 +379,6 @@ namespace GaAutoTestSystem
             //保存设置前创建 FunctionSettings 文件夹
             try
             {
-              
-
                 if (!Directory.Exists(_settingFilesDir))
                 {
                     Directory.CreateDirectory(_settingFilesDir);
@@ -436,7 +434,7 @@ namespace GaAutoTestSystem
         //生成测试数据文档
         private void GenerateTestSuiteFile(TestSuiteInfo testSuite)
         {
-            var fileName = $"TS_{GetMethodName(testSuite)}_{DateTime.Now:yyyyMMddHHmmss}.xml";
+            var fileName = $"TS_{testSuite.FunctionName}_{DateTime.Now:yyyyMMddHHmmss}.xml";
             var filePath = Path.Combine(_testSutieFilesDir, fileName);
             try
             {
@@ -467,27 +465,17 @@ namespace GaAutoTestSystem
             }
         }
 
-        //得到被测函数名（如：TriangleType）
-        private string GetMethodName(TestSuiteInfo testSuite)
-        {
-            var pattern = @"\.(\w+)";
-            var match = Regex.Match(testSuite.Target, pattern);
-            var methodName = match.Groups[1].Value;
-
-            return methodName;
-        }
-
+        //生成单元测试代码
         public void GenerateUnitTestFile(TestSuiteInfo testSuite)
         {
-            var outputDir = Application.StartupPath;
-            var fileName = $"{GetMethodName(testSuite)}Test.cs";
-            var filePath = Path.Combine(outputDir, fileName);
+            var fileName = $"{testSuite.FunctionName}Test.cs";
+            var filePath = Path.Combine(_unitTestFilesDir, fileName);
             try
             {
-                //若输出文件夹不存在，则创建该文件夹
-                if (!Directory.Exists(outputDir))
+                //若单元测试代码输出文件夹不存在，则创建该文件夹
+                if (!Directory.Exists(_unitTestFilesDir))
                 {
-                    Directory.CreateDirectory(outputDir);
+                    Directory.CreateDirectory(_unitTestFilesDir);
                 }
 
                 UnitTestCodeGenerator.GenerateNUnitCode(testSuite, filePath);
@@ -496,13 +484,6 @@ namespace GaAutoTestSystem
             {
                 throw new Exception(ex.Message);
             }
-        }
-
-        //根据函数名得到函数对象
-        private AbstractFunction GetFunction(string functionName)
-        {
-            var assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
-            return ReflectionHelper.CreateInstance<AbstractFunction>($"GaAutoTestSystem.{functionName}", assemblyName);
         }
 
         private void saveSettingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -520,9 +501,22 @@ namespace GaAutoTestSystem
 
         private void btnExecuteTest_Click(object sender, EventArgs e)
         {
+            ofdFile.InitialDirectory = _testSutieFilesDir;
             if (ofdFile.ShowDialog() == DialogResult.OK)
             {
                 var testSuite = GetTestSuiteInfoFromTestSuiteFile(ofdFile.FileName);
+                _function = AbstractFunction.CreateInstance(testSuite.FunctionName);
+                GenerateUnitTestFile(testSuite);
+                foreach (var assertion in testSuite.TestCases.SelectMany(c => c.Assertions))
+                {
+                    for (var i = 0; i < assertion.InputValues.Count; i++)
+                    {
+                        _function.Paras.Add(new ParaInfo {Value = assertion.InputValues[i]});
+                    }
+                    assertion.ActualOutput = _function.GetResult();
+                    assertion.Result = (assertion.ActualOutput == assertion.ExpectedOutput).ToString();
+                }
+                GenerateTestSuiteFile(testSuite);
             }
         }
     }

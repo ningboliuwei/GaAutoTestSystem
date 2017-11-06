@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GaAutoTestSystem", "GaAutoT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDataGenerator", "TestDataGenerator\TestDataGenerator.csproj", "{9EFC07CD-918F-4C2B-A1A4-D7700F5E92A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCodeGenerator", "TestCodeGenerator\TestCodeGenerator.csproj", "{A76FA2B6-F430-40C7-82D9-B1CA02F3FDE8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestHelper", "TestCodeGenerator\UnitTestHelper.csproj", "{A76FA2B6-F430-40C7-82D9-B1CA02F3FDE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

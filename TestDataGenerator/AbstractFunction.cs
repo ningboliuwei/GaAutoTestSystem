@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Reflection;
 
 namespace TestDataGenerator
 {
@@ -47,6 +48,15 @@ namespace TestDataGenerator
                 return GetFitnessByNodeMatch();
 
             return double.MinValue;
+        }
+
+        //根据函数名得到函数实例
+        public static AbstractFunction CreateInstance(string functionName)
+        {
+            var assemblyName = "GaAutoTestSystem";
+            var namespaceString = "GaAutoTestSystem";
+            
+            return ReflectionHelper.CreateInstance<AbstractFunction>($"{namespaceString}.{functionName}", assemblyName);
         }
     }
 }
