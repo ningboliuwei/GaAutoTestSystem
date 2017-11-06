@@ -8,8 +8,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using TestDataGenerator;
+using System.Xml.XPath;
 using TestCodeGenerator;
+using TestDataGenerator;
 
 namespace GaAutoTestSystem
 {
@@ -29,6 +30,12 @@ namespace GaAutoTestSystem
 
         //期望路径集合
         private List<string> _targetPaths = new List<string>();
+
+        //默认保存设置的文件夹路径
+        private readonly string _settingFilesDir = $"{Application.StartupPath}\\FunctionSettings";
+
+        //默认保存测试套件的文件夹路径
+        private readonly string _testSutieFilesDir = $"{Application.StartupPath}\\TestSuiteFiles";
 
         public frmMain()
         {
@@ -116,6 +123,44 @@ namespace GaAutoTestSystem
             GenerateTestSuiteFile(testSuite);
             GenerateUnitTestFile(testSuite);
             ShowTestData(gaAssertions.Union(bounaryTestAssertions).ToList());
+        }
+
+        private TestSuiteInfo GetTestSuiteInfoFromTestSuiteFile(string filePath)
+        {
+            var testSuite = new TestSuiteInfo();
+            XDocument xdoc;
+            try
+            {
+                xdoc = XDocument.Load(filePath);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            testSuite.Name = xdoc.XPathSelectElement("/TestSuite/Name")?.Value;
+            testSuite.Target = xdoc.XPathSelectElement("/TestSuite/Target")?.Value;
+            foreach (var testcaseElement in xdoc.XPathSelectElements("/TestSuite/TestCases/TestCase"))
+            {
+                var testCase = new TestCaseInfo {Id = testcaseElement.Attribute("ID")?.Value};
+                foreach (var assertionElement in xdoc.XPathSelectElements(
+                    "/TestSuite/TestCases/TestCase/Assertions/Assertion"))
+                {
+                    var assertion = new AssertionInfo
+                    {
+                        Id = assertionElement.Attribute("ID")?.Value,
+                        InputValues = assertionElement.XPathSelectElements("InputValues/InputValue")
+                            .Select(v => Convert.ToDouble(v.Value)).ToList(),
+                        ExpectedOutput = assertionElement.XPathSelectElement("ExpectedOutput")?.Value,
+                        ActualOutput = assertionElement.XPathSelectElement("ActualOutput")?.Value,
+                        Result = assertionElement.XPathSelectElement("Result")?.Value
+                    };
+                    testCase.Assertions.Add(assertion);
+                }
+                testSuite.TestCases.Add(testCase);
+            }
+
+            return testSuite;
         }
 
         private void LoadParameters()
@@ -261,11 +306,11 @@ namespace GaAutoTestSystem
         //从 XML 文件载入设置并显示在 UI 上
         private void LoadSettings()
         {
-            if (ofdSetting.ShowDialog() == DialogResult.OK)
+            if (ofdFile.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    var filePath = ofdSetting.FileName;
+                    var filePath = ofdFile.FileName;
                     var xdoc = XDocument.Load(filePath);
                     //染色体个数
                     txtChromosomeQuantity.Text =
@@ -331,9 +376,26 @@ namespace GaAutoTestSystem
         //将 UI 上的设置保存为 XML 文件
         private void SaveSettings()
         {
-            if (sfdSetting.ShowDialog() == DialogResult.OK)
+            //保存设置前创建 FunctionSettings 文件夹
+            try
             {
-                var filePath = sfdSetting.FileName;
+              
+
+                if (!Directory.Exists(_settingFilesDir))
+                {
+                    Directory.CreateDirectory(_settingFilesDir);
+                }
+
+                sfdFile.InitialDirectory = _settingFilesDir;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            if (sfdFile.ShowDialog() == DialogResult.OK)
+            {
+                var filePath = sfdFile.FileName;
                 var paras = GetParas();
                 var targetPaths = GetTargetPaths();
                 try
@@ -374,19 +436,18 @@ namespace GaAutoTestSystem
         //生成测试数据文档
         private void GenerateTestSuiteFile(TestSuiteInfo testSuite)
         {
-            var outputDir = Application.StartupPath + "\\TestSuiteFiles";
-            var fileName = $"{testSuite.Name}_{DateTime.Now:yyyyMMddHHmmssfff}.xml";
-            var filePath = Path.Combine(outputDir, fileName);
+            var fileName = $"TS_{GetMethodName(testSuite)}_{DateTime.Now:yyyyMMddHHmmss}.xml";
+            var filePath = Path.Combine(_testSutieFilesDir, fileName);
             try
             {
                 //若输出文件夹不存在，则创建该文件夹
-                if (!Directory.Exists(outputDir))
+                if (!Directory.Exists(_testSutieFilesDir))
                 {
-                    Directory.CreateDirectory(outputDir);
+                    Directory.CreateDirectory(_testSutieFilesDir);
                 }
 
                 var xdoc = new XElement("TestSuite", new XElement("Name", testSuite.Name),
-                    new XElement("Target", $"{testSuite.Target}()"),
+                    new XElement("Target", $"{testSuite.Target}"),
                     new XElement("TestCases", testSuite.TestCases.Select(c => new XElement("TestCase",
                         new XAttribute("ID", $"TC_{testSuite.TestCases.IndexOf(c) + 1:000}"),
                         new XElement("Name", c.Name),
@@ -395,9 +456,9 @@ namespace GaAutoTestSystem
                                 new XAttribute("ID", $"TA_{c.Assertions.IndexOf(a) + 1:0000}"),
                                 new XElement("InputValues",
                                     a.InputValues.Select(v => new XElement("InputValue", v))),
-                                new XElement("ExpectedOutput", ""),
-                                new XElement("ActualOutput", ""),
-                                new XElement("Result", ""))))))));
+                                new XElement("ExpectedOutput", a.ExpectedOutput),
+                                new XElement("ActualOutput", a.ActualOutput),
+                                new XElement("Result", a.Result))))))));
                 xdoc.Save(filePath);
             }
             catch (Exception ex)
@@ -406,10 +467,20 @@ namespace GaAutoTestSystem
             }
         }
 
+        //得到被测函数名（如：TriangleType）
+        private string GetMethodName(TestSuiteInfo testSuite)
+        {
+            var pattern = @"\.(\w+)";
+            var match = Regex.Match(testSuite.Target, pattern);
+            var methodName = match.Groups[1].Value;
+
+            return methodName;
+        }
+
         public void GenerateUnitTestFile(TestSuiteInfo testSuite)
         {
             var outputDir = Application.StartupPath;
-            var fileName = $"nextdatetest.cs";
+            var fileName = $"{GetMethodName(testSuite)}Test.cs";
             var filePath = Path.Combine(outputDir, fileName);
             try
             {
@@ -419,7 +490,7 @@ namespace GaAutoTestSystem
                     Directory.CreateDirectory(outputDir);
                 }
 
-               UnitTestCodeGenerator.GenerateNUnitCode(testSuite, filePath);
+                UnitTestCodeGenerator.GenerateNUnitCode(testSuite, filePath);
             }
             catch (Exception ex)
             {
@@ -444,6 +515,14 @@ namespace GaAutoTestSystem
             foreach (var assertion in assertions)
             {
                 txtResult.AppendText($"{string.Join(" ", assertion.InputValues)}{Environment.NewLine}");
+            }
+        }
+
+        private void btnExecuteTest_Click(object sender, EventArgs e)
+        {
+            if (ofdFile.ShowDialog() == DialogResult.OK)
+            {
+                var testSuite = GetTestSuiteInfoFromTestSuiteFile(ofdFile.FileName);
             }
         }
     }

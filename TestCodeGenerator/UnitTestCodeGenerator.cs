@@ -24,7 +24,7 @@ namespace TestCodeGenerator
             builder.AppendLine($"\tpublic class {className}Tests");
             builder.AppendLine("\t{");
             builder.AppendLine("\t\t[Test]");
-            builder.AppendLine($"\t\tpublic class {methodName}Test");
+            builder.AppendLine($"\t\tpublic void {methodName}Test()");
             builder.AppendLine("\t\t{");
             foreach (var assertion in testSuite.TestCases.SelectMany(c => c.Assertions).ToList())
             {

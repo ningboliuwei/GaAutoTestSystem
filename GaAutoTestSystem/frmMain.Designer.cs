@@ -62,12 +62,13 @@
             this.btnGA = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.cmbFitnessCaculationType = new System.Windows.Forms.ComboBox();
-            this.ofdSetting = new System.Windows.Forms.OpenFileDialog();
-            this.sfdSetting = new System.Windows.Forms.SaveFileDialog();
+            this.ofdFile = new System.Windows.Forms.OpenFileDialog();
+            this.sfdFile = new System.Windows.Forms.SaveFileDialog();
             this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.btnExecuteTest = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -138,11 +139,12 @@
             this.tableLayoutPanel2.Controls.Add(this.btnGA, 1, 16);
             this.tableLayoutPanel2.Controls.Add(this.label14, 0, 15);
             this.tableLayoutPanel2.Controls.Add(this.cmbFitnessCaculationType, 1, 15);
+            this.tableLayoutPanel2.Controls.Add(this.btnExecuteTest, 0, 17);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(778, 4);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 17;
+            this.tableLayoutPanel2.RowCount = 18;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
@@ -157,6 +159,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
@@ -314,7 +317,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label7.Location = new System.Drawing.Point(3, 568);
+            this.label7.Location = new System.Drawing.Point(3, 534);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(134, 34);
             this.label7.TabIndex = 16;
@@ -326,7 +329,7 @@
             this.cmbStrategy.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbStrategy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbStrategy.FormattingEnabled = true;
-            this.cmbStrategy.Location = new System.Drawing.Point(143, 572);
+            this.cmbStrategy.Location = new System.Drawing.Point(143, 538);
             this.cmbStrategy.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbStrategy.Name = "cmbStrategy";
             this.cmbStrategy.Size = new System.Drawing.Size(198, 25);
@@ -364,7 +367,7 @@
             this.txtParaList.Multiline = true;
             this.txtParaList.Name = "txtParaList";
             this.txtParaList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtParaList.Size = new System.Drawing.Size(338, 72);
+            this.txtParaList.Size = new System.Drawing.Size(338, 55);
             this.txtParaList.TabIndex = 22;
             // 
             // label11
@@ -392,7 +395,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label12.Location = new System.Drawing.Point(3, 454);
+            this.label12.Location = new System.Drawing.Point(3, 437);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(134, 34);
             this.label12.TabIndex = 14;
@@ -403,12 +406,12 @@
             // 
             this.tableLayoutPanel2.SetColumnSpan(this.txtTargetPathList, 2);
             this.txtTargetPathList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtTargetPathList.Location = new System.Drawing.Point(3, 492);
+            this.txtTargetPathList.Location = new System.Drawing.Point(3, 475);
             this.txtTargetPathList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtTargetPathList.Multiline = true;
             this.txtTargetPathList.Name = "txtTargetPathList";
             this.txtTargetPathList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtTargetPathList.Size = new System.Drawing.Size(338, 72);
+            this.txtTargetPathList.Size = new System.Drawing.Size(338, 55);
             this.txtTargetPathList.TabIndex = 22;
             // 
             // txtGenerationQuantity
@@ -456,7 +459,7 @@
             // 
             // btnRandom
             // 
-            this.btnRandom.Location = new System.Drawing.Point(3, 640);
+            this.btnRandom.Location = new System.Drawing.Point(3, 606);
             this.btnRandom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnRandom.Name = "btnRandom";
             this.btnRandom.Size = new System.Drawing.Size(134, 26);
@@ -467,7 +470,7 @@
             // 
             // btnGA
             // 
-            this.btnGA.Location = new System.Drawing.Point(143, 640);
+            this.btnGA.Location = new System.Drawing.Point(143, 606);
             this.btnGA.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnGA.Name = "btnGA";
             this.btnGA.Size = new System.Drawing.Size(198, 26);
@@ -480,7 +483,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label14.Location = new System.Drawing.Point(3, 602);
+            this.label14.Location = new System.Drawing.Point(3, 568);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(134, 34);
             this.label14.TabIndex = 16;
@@ -492,19 +495,19 @@
             this.cmbFitnessCaculationType.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbFitnessCaculationType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFitnessCaculationType.FormattingEnabled = true;
-            this.cmbFitnessCaculationType.Location = new System.Drawing.Point(143, 606);
+            this.cmbFitnessCaculationType.Location = new System.Drawing.Point(143, 572);
             this.cmbFitnessCaculationType.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbFitnessCaculationType.Name = "cmbFitnessCaculationType";
             this.cmbFitnessCaculationType.Size = new System.Drawing.Size(198, 25);
             this.cmbFitnessCaculationType.TabIndex = 17;
             // 
-            // ofdSetting
+            // ofdFile
             // 
-            this.ofdSetting.Filter = "*.xml|*.xml";
+            this.ofdFile.Filter = "*.xml|*.xml";
             // 
-            // sfdSetting
+            // sfdFile
             // 
-            this.sfdSetting.Filter = "*.xml|*.xml";
+            this.sfdFile.Filter = "*.xml|*.xml";
             // 
             // 设置ToolStripMenuItem
             // 
@@ -538,6 +541,18 @@
             this.menuStrip1.Size = new System.Drawing.Size(1125, 25);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // btnExecuteTest
+            // 
+            this.tableLayoutPanel2.SetColumnSpan(this.btnExecuteTest, 2);
+            this.btnExecuteTest.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnExecuteTest.Location = new System.Drawing.Point(3, 639);
+            this.btnExecuteTest.Name = "btnExecuteTest";
+            this.btnExecuteTest.Size = new System.Drawing.Size(338, 28);
+            this.btnExecuteTest.TabIndex = 23;
+            this.btnExecuteTest.Text = "执行测试(&T)";
+            this.btnExecuteTest.UseVisualStyleBackColor = true;
+            this.btnExecuteTest.Click += new System.EventHandler(this.btnExecuteTest_Click);
             // 
             // frmMain
             // 
@@ -594,17 +609,18 @@
         private System.Windows.Forms.ComboBox cmbParaDataType;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtTargetPathList;
-        private System.Windows.Forms.OpenFileDialog ofdSetting;
+        private System.Windows.Forms.OpenFileDialog ofdFile;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ComboBox cmbFunction;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox cmbFitnessCaculationType;
-        private System.Windows.Forms.SaveFileDialog sfdSetting;
+        private System.Windows.Forms.SaveFileDialog sfdFile;
         private System.Windows.Forms.TextBox txtResult;
         private System.Windows.Forms.ToolStripMenuItem 设置ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadSettingsToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.Button btnExecuteTest;
     }
 }
 
