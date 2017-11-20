@@ -50,6 +50,7 @@
     <Compile Include="CaculationHelper.cs" />
     <Compile Include="Chromosome.cs" />
     <Compile Include="Models\GaParameterInfo.cs" />
+    <Compile Include="RandomTestDataGenerator.cs" />
     <Compile Include="Utilities\OutputHelper.cs" />
     <Compile Include="Models\ParaInfo.cs" />
     <Compile Include="Population.cs" />

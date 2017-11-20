@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TestDataGenerator
 {
     public class GaTestDataGenerator
     {
-        public static List<AssertionInfo> GetAssertions(GaParameterInfo gaParameters, AbstractFunction function, List<string> targetPaths)
+        public static List<AssertionInfo> GetAssertions(GaParameterInfo gaParameters, AbstractFunction function,
+            List<string> targetPaths)
         {
             //新建一个种群
             var population = new Population(gaParameters, function);
             var assertions = new List<AssertionInfo>();
 
+            // 写文件的准备
+            const string logPath = @"c:\#GA_DEMO\log.txt";
+            var writer = new StreamWriter(logPath);
             //随机生成染色体
             population.RandomGenerateChromosome();
 
@@ -22,11 +23,14 @@ namespace TestDataGenerator
             {
                 for (var i = 0; i < gaParameters.GenerationQuantity; i++)
                 {
-                    var maxFitness = population.Chromosomes.Max(n => n.Fitness);
-                    var mostFittest = population.Chromosomes.First(c => Equals(c.Fitness, maxFitness));
-                
-                    population.Evolve(gaParameters.SelectionType);
-
+                    var mostFittest = population.Chromosomes.First(c =>
+                        Equals(c.Fitness, population.Chromosomes.Max(n => n.Fitness)));
+                    // 将当前信息写入文件
+                    var line =
+                        $"value(s): {string.Join(" ", mostFittest.DecodedSubValues.Select(v => v).ToArray())} | target path: {targetPath} | execution path: {mostFittest.ExecutionPath} | fitness: {mostFittest.Fitness} | result: {mostFittest.Result}";
+                    writer.WriteLine(line);
+                    // 以上为写文件操作
+                    
                     //以下为终止条件
                     if (mostFittest.ExecutionPath.ToString().Contains(targetPath))
                     {
@@ -34,11 +38,18 @@ namespace TestDataGenerator
                         var assertion = new AssertionInfo();
                         assertion.InputValues.AddRange(mostFittest.DecodedSubValues.Select(v => v).ToList());
                         assertions.Add(assertion);
-                      
-                        break;
+
+                        writer.WriteLine("-----------------FOUND-----------------");
+
+//                        break;
                     }
+
+                    //进化
+                    population.Evolve(gaParameters.SelectionType);
                 }
             }
+
+            writer.Close();
 
             return assertions;
         }

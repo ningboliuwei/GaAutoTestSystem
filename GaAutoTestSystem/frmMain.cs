@@ -101,29 +101,29 @@ namespace GaAutoTestSystem
             LoadParameters();
             txtResult.Clear();
             //新建一个种群
-            var population = new Population(_gaParameters, _function);
             var builder = new StringBuilder();
             var stopwatch = new Stopwatch();
-
+            //开始计时
             stopwatch.Start();
             //随机生成染色体
-            population.RandomGenerateChromosome();
-
             //通过遗传算法得到测试数据
             gaAssertions.AddRange(GaTestDataGenerator.GetAssertions(_gaParameters, _function, _targetPaths));
+            //停止计时
+            stopwatch.Stop();
             //得到边界值测试数据
-            bounaryTestAssertions.AddRange(BoundaryTestDataGenerator.GetAssertions(_function));
+//            bounaryTestAssertions.AddRange(BoundaryTestDataGenerator.GetAssertions(_function));
 
-            var testSuite = new TestSuiteInfo
-            {
-                Name = $"针对{cmbFunction.Text}函数的测试套件",
-                Target = $"{AbstractFunction.CreateInstance(cmbFunction.SelectedValue.ToString())}"
-            };
-            testSuite.TestCases.Add(new TestCaseInfo {Name = "路径覆盖测试", Assertions = gaAssertions});
-            testSuite.TestCases.Add(new TestCaseInfo {Name = "边界值测试", Assertions = bounaryTestAssertions});
-
-            GenerateTestSuiteFile(testSuite);
-            ShowTestData(gaAssertions.Union(bounaryTestAssertions).ToList());
+//            var testSuite = new TestSuiteInfo
+//            {
+//                Name = $"针对{cmbFunction.Text}函数的测试套件",
+//                Target = $"{AbstractFunction.CreateInstance(cmbFunction.SelectedValue.ToString())}"
+//            };
+//            testSuite.TestCases.Add(new TestCaseInfo {Name = "路径覆盖测试", Assertions = gaAssertions});
+//            testSuite.TestCases.Add(new TestCaseInfo {Name = "边界值测试", Assertions = bounaryTestAssertions});
+//
+//            GenerateTestSuiteFile(testSuite);
+//            ShowTestData(gaAssertions.Union(bounaryTestAssertions).ToList());
+            ShowAssertions(gaAssertions);
         }
 
         private TestSuiteInfo GetTestSuiteInfoFromTestSuiteFile(string filePath)
@@ -215,55 +215,13 @@ namespace GaAutoTestSystem
         private void btnRandom_Click(object sender, EventArgs e)
         {
             LoadParameters();
-
-            var rnd = new Random();
-            var builder = new StringBuilder();
-
             txtResult.Clear();
 
+            var randomAssertions = new List<AssertionInfo>();
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-
-            foreach (var targetPath in _targetPaths)
-            {
-                for (long i = 0; i < _gaParameters.GenerationQuantity; i++)
-                {
-                    foreach (var para in _paras)
-                    {
-                        para.Value = rnd.NextDouble() * (para.UpperBound - para.LowerBound) + para.LowerBound;
-                    }
-
-                    var fitness = _function.Fitness;
-                    var result = _function.Result;
-                    var executionPath = _function.ExecutionPath;
-
-                    stopwatch.Stop();
-
-                    builder.Clear();
-                    builder.Append($"after {i + 1:0000} time(s): timecost: {stopwatch.ElapsedMilliseconds} ms");
-                    builder.Append(
-                        $" | value: {string.Join(" ", _paras.Select(p => p.Value).ToArray())} | fitness: {fitness} | execution path: {executionPath} | result: {result}");
-                    builder.Append(Environment.NewLine);
-                    txtResult.AppendText(builder.ToString());
-                    txtResult.ScrollToCaret();
-
-                    //以下为终止条件
-                    //如果当前执行路径包含任何目标路径
-                    if (executionPath.Contains(targetPath))
-                    {
-                        if (_currentTargetPathIndex < _targetPaths.Count - 1)
-                        {
-                            _currentTargetPathIndex++;
-                            _function.TargetPath = _targetPaths[_currentTargetPathIndex];
-                        }
-                        txtResult.AppendText(
-                            $"========================FOUND!========================{Environment.NewLine}");
-                        break;
-                    }
-
-                    stopwatch.Start();
-                }
-            }
+            randomAssertions.AddRange(RandomTestDataGenerator.GetAssertions(_gaParameters, _function, _targetPaths));
+            stopwatch.Stop();
         }
 
         //通过 UI 添加被测函数参数
@@ -491,12 +449,28 @@ namespace GaAutoTestSystem
             SaveSettings();
         }
 
-        private void ShowTestData(List<AssertionInfo> assertions)
+        private void ShowAssertions(List<AssertionInfo> assertions)
         {
             foreach (var assertion in assertions)
             {
-                txtResult.AppendText($"{string.Join(" ", assertion.InputValues)}{Environment.NewLine}");
+                ShowAssertion(assertion);
             }
+        }
+
+        public void ShowAssertion(AssertionInfo assertion)
+        {
+            var builder = new StringBuilder();
+            foreach (var para in _function.Paras)
+            {
+                para.Value = assertion.InputValues[_function.Paras.IndexOf(para)];
+            }
+
+            builder.Clear();
+            builder.Append(
+                $"value(s): {string.Join(" ", assertion.InputValues.Select(v => v).ToArray())} |  execution path: {_function.ExecutionPath} | result: {_function.Result}");
+            builder.Append(Environment.NewLine);
+            txtResult.AppendText(builder.ToString());
+            txtResult.ScrollToCaret();
         }
 
         private void btnExecuteTest_Click(object sender, EventArgs e)

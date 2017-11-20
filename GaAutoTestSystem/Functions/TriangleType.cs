@@ -7,65 +7,92 @@ namespace GaAutoTestSystem
     {
         public override object GetResult()
         {
-            string type;
             var x = (int) Paras[0].Value;
             var y = (int) Paras[1].Value;
             var z = (int) Paras[2].Value;
 
-            if (x + y > z && x + z > y && y + z > x)
-                if (x == y && y == z)
+            string type;
+
+            if (x >= 1 && x <= 10 && y >= 1 && y <= 10 && z >= 1 && z <= 10)
+            {
+                if (x + y > z && x + z > y && y + z > x)
                 {
-                    type = "equilateral triangle";
+                    if (x == y && y == z)
+                    {
+                        type = "equilateral triangle";
+                    }
+                    else
+                    {
+                        if (x == y || y == z || x == z)
+                        {
+                            type = "isosceles triangle";
+                        }
+                        else
+                        {
+                            type = "scalene triangle";
+                        }
+                    }
                 }
                 else
                 {
-                    if (x == y || y == z || x == z)
-                        type = "isosceles triangle";
-                    else
-                        type = "scalene triangle";
+                    type = "not a triangle";
                 }
+            }
             else
-                type = "not a triangle";
+            {
+                type = "invalid value(s)";
+            }
 
             return type;
         }
 
         protected override string GetExecutionPath()
         {
-            var type = "";
-            var path = "#";
             var x = (int) Paras[0].Value;
             var y = (int) Paras[1].Value;
             var z = (int) Paras[2].Value;
 
-            if (x + y > z && x + z > y && y + z > x)
+            // string type;
+            var path = "a";
+
+            if (x >= 1 && x <= 10 && y >= 1 && y <= 10 && z >= 1 && z <= 10)
             {
-                path += "a";
-                if (x == y && y == z)
-                {
-                    path += "b";
-                }
-                else
+                path += "b";
+                if (x + y > z && x + z > y && y + z > x)
                 {
                     path += "c";
-                    if (x == y || y == z || x == z)
+                    if (x == y && y == z)
                     {
                         path += "d";
-                        type = "isosceles triangle";
+                        // type = "equilateral triangle";
                     }
                     else
                     {
                         path += "e";
-                        type = "scalene triangle";
+                        if (x == y || y == z || x == z)
+                        {
+                            path += "f";
+                            // type = "isosceles triangle";
+                        }
+                        else
+                        {
+                            path += "g";
+                            // type = "scalene triangle";
+                        }
                     }
+                }
+                else
+                {
+                    path += "h";
+                    // type = "not a triangle";
                 }
             }
             else
             {
-                path += "f";
-                type = "not a triangle";
+                path += "i";
+                // type = "invalid value(s)";
             }
-            path += "g";
+            path += "j";
             return path;
         }
 

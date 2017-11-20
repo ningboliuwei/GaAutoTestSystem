@@ -32,10 +32,11 @@
       </Parameter>
     </Parameters>
     <TargetPaths>
-      <TargetPath>#fg</TargetPath>
-      <TargetPath>#abg</TargetPath>
-      <TargetPath>#acdg</TargetPath>
-      <TargetPath>#ae</TargetPath>
+      <TargetPath>abcdj</TargetPath>
+      <TargetPath>abcefj</TargetPath>
+      <TargetPath>abcegj</TargetPath>
+      <TargetPath>abhj</TargetPath>
+      <TargetPath>aij</TargetPath>
     </TargetPaths>
   </FunctionSettings>
 </TestSettings>
