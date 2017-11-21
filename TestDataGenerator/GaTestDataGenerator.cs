@@ -12,7 +12,6 @@ namespace TestDataGenerator
             //新建一个种群
             var population = new Population(gaParameters, function);
             var assertions = new List<AssertionInfo>();
-
             // 写文件的准备
             const string logPath = @"c:\#GA_DEMO\log.txt";
             var writer = new StreamWriter(logPath);
@@ -38,13 +37,11 @@ namespace TestDataGenerator
                         var assertion = new AssertionInfo();
                         assertion.InputValues.AddRange(mostFittest.DecodedSubValues.Select(v => v).ToList());
                         assertions.Add(assertion);
-                   
+
                         writer.WriteLine("-----------------FOUND-----------------");
-                     
 
                         break;
                     }
-
                     //进化
                     population.Evolve(gaParameters.SelectionType);
                 }

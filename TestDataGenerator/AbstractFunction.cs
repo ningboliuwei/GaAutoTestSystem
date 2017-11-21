@@ -28,10 +28,6 @@ namespace TestDataGenerator
 
         protected abstract double GetFitnessByDistance();
 
-        protected abstract double GetFitnessByPathMatch();
-
-        protected abstract double GetFitnessByNodeMatch();
-
         protected virtual double GetFitness()
         {
             if (FitnessCaculationType == FitnessType.Basic)
@@ -52,18 +48,20 @@ namespace TestDataGenerator
         //根据函数名得到函数实例
         public static AbstractFunction CreateInstance(string functionName)
         {
-            var assemblyName = "GaAutoTestSystem";
+            const string assemblyName = "GaAutoTestSystem";
             const string namespaceString = "GaAutoTestSystem";
 
             return ReflectionHelper.CreateInstance<AbstractFunction>($"{namespaceString}.{functionName}", assemblyName);
         }
 
-        public void SetParaValues(params double[] values)
+        protected double GetFitnessByPathMatch()
         {
-            foreach (var para in Paras)
-            {
-                para.Value = values[Paras.IndexOf(para)];
-            }
+            return CaculationHelper.CaculatePathMatchFitness(GetExecutionPath(), TargetPath);
+        }
+
+        protected double GetFitnessByNodeMatch()
+        {
+            return CaculationHelper.CaculateNodeMatchFitness(GetExecutionPath(), TargetPath);
         }
     }
 }

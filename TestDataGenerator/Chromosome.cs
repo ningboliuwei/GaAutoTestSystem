@@ -64,12 +64,7 @@ namespace TestDataGenerator
         {
             get
             {
-                var paras = Population.RelatedFunction.Paras;
-                var decodedValues = SubValues.Select(v =>
-                        GetDecodedValue(v, paras[SubValues.IndexOf(v)].LowerBound,
-                            paras[SubValues.IndexOf(v)].UpperBound))
-                    .ToArray();
-                Population.RelatedFunction.SetParaValues(decodedValues);
+                SetFunctionParaValues();
                 return Population.RelatedFunction.Fitness;
             }
         }
@@ -95,11 +90,13 @@ namespace TestDataGenerator
         private void SetFunctionParaValues()
         {
             var paras = Population.RelatedFunction.Paras;
-            var decodedValues = SubValues.Select(v =>
-                    GetDecodedValue(v, paras[SubValues.IndexOf(v)].LowerBound,
-                        paras[SubValues.IndexOf(v)].UpperBound))
-                .ToArray();
-            Population.RelatedFunction.SetParaValues(decodedValues);
+            for (var i = 0; i < paras.Count; i++)
+            {
+                paras[i].Value = SubValues.Select(v =>
+                        GetDecodedValue(v, paras[SubValues.IndexOf(v)].LowerBound,
+                            paras[SubValues.IndexOf(v)].UpperBound))
+                    .ToArray()[i];
+            }
         }
 
         //得到将染色体值转换为在解空间对应的值
