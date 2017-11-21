@@ -10,7 +10,7 @@ namespace TestDataGenerator
 
         public long Value { get; set; }
 
-        public List<int> SubValues
+        private List<int> SubValues
         {
             get
             {
@@ -64,9 +64,13 @@ namespace TestDataGenerator
         {
             get
             {
-                SetFunctionParaValues();
-
-                return Population.RelatedFunction.GetFitness();
+                var paras = Population.RelatedFunction.Paras;
+                var decodedValues = SubValues.Select(v =>
+                        GetDecodedValue(v, paras[SubValues.IndexOf(v)].LowerBound,
+                            paras[SubValues.IndexOf(v)].UpperBound))
+                    .ToArray();
+                Population.RelatedFunction.SetParaValues(decodedValues);
+                return Population.RelatedFunction.Fitness;
             }
         }
 
@@ -75,7 +79,6 @@ namespace TestDataGenerator
             get
             {
                 SetFunctionParaValues();
-
                 return Population.RelatedFunction.ExecutionPath;
             }
         }
@@ -85,7 +88,6 @@ namespace TestDataGenerator
             get
             {
                 SetFunctionParaValues();
-
                 return Population.RelatedFunction.Result;
             }
         }
@@ -93,14 +95,15 @@ namespace TestDataGenerator
         private void SetFunctionParaValues()
         {
             var paras = Population.RelatedFunction.Paras;
-
-            for (var i = 0; i < paras.Count; i++)
-                paras[i].Value = SubValues.Select(v => GetDecodedValue(v, paras[i].LowerBound, paras[i].UpperBound))
-                    .ToList()[i];
+            var decodedValues = SubValues.Select(v =>
+                    GetDecodedValue(v, paras[SubValues.IndexOf(v)].LowerBound,
+                        paras[SubValues.IndexOf(v)].UpperBound))
+                .ToArray();
+            Population.RelatedFunction.SetParaValues(decodedValues);
         }
 
         //得到将染色体值转换为在解空间对应的值
-        public double GetDecodedValue(double value, double lowerBound, double upperBound)
+        private double GetDecodedValue(double value, double lowerBound, double upperBound)
         {
             return lowerBound + value * (upperBound - lowerBound) /
                    (Math.Pow(2, Convert.ToInt32(Population.ChromosomeLength / Population.SubValueQuantity)) - 1);

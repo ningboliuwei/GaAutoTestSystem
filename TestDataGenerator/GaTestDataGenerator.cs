@@ -30,7 +30,7 @@ namespace TestDataGenerator
                         $"value(s): {string.Join(" ", mostFittest.DecodedSubValues.Select(v => v).ToArray())} | target path: {targetPath} | execution path: {mostFittest.ExecutionPath} | fitness: {mostFittest.Fitness} | result: {mostFittest.Result}";
                     writer.WriteLine(line);
                     // 以上为写文件操作
-                    
+
                     //以下为终止条件
                     if (mostFittest.ExecutionPath.ToString().Contains(targetPath))
                     {
@@ -38,10 +38,11 @@ namespace TestDataGenerator
                         var assertion = new AssertionInfo();
                         assertion.InputValues.AddRange(mostFittest.DecodedSubValues.Select(v => v).ToList());
                         assertions.Add(assertion);
-
+                   
                         writer.WriteLine("-----------------FOUND-----------------");
+                     
 
-//                        break;
+                        break;
                     }
 
                     //进化

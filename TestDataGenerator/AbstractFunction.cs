@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Reflection;
 
 namespace TestDataGenerator
 {
@@ -17,9 +16,9 @@ namespace TestDataGenerator
         public string ExecutionPath => GetExecutionPath();
         public object Result => GetResult();
         public double Fitness => GetFitness();
-        public string TargetPath { get; set; }
+        public string TargetPath { protected get; set; }
 
-        public FitnessType FitnessCaculationType { get; set; } = FitnessType.Basic;
+        public FitnessType FitnessCaculationType { private get; set; } = FitnessType.Basic;
 
         public abstract object GetResult();
 
@@ -33,7 +32,7 @@ namespace TestDataGenerator
 
         protected abstract double GetFitnessByNodeMatch();
 
-        public virtual double GetFitness()
+        protected virtual double GetFitness()
         {
             if (FitnessCaculationType == FitnessType.Basic)
                 return GetFitnessByCoverageRate();
@@ -54,9 +53,17 @@ namespace TestDataGenerator
         public static AbstractFunction CreateInstance(string functionName)
         {
             var assemblyName = "GaAutoTestSystem";
-            var namespaceString = "GaAutoTestSystem";
-            
+            const string namespaceString = "GaAutoTestSystem";
+
             return ReflectionHelper.CreateInstance<AbstractFunction>($"{namespaceString}.{functionName}", assemblyName);
+        }
+
+        public void SetParaValues(params double[] values)
+        {
+            foreach (var para in Paras)
+            {
+                para.Value = values[Paras.IndexOf(para)];
+            }
         }
     }
 }

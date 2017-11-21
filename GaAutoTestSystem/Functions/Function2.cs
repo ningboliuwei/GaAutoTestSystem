@@ -32,12 +32,7 @@ namespace GaAutoTestSystem
             throw new NotImplementedException();
         }
 
-        protected override double GetFitnessByNodeMatch()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override double GetFitness()
+        protected override double GetFitnessByNodeMatch()        {            throw new NotImplementedException();        }        protected override double GetFitness()
         {
             return (double) GetResult();
         }
