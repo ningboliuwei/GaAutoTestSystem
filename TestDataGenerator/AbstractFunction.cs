@@ -16,7 +16,7 @@ namespace TestDataGenerator
         public string ExecutionPath => GetExecutionPath();
         public object Result => GetResult();
         public double Fitness => GetFitness();
-        public string TargetPath { protected get; set; }
+        public string TargetPath { private get; set; }
 
         public FitnessType FitnessCaculationType { private get; set; } = FitnessType.Basic;
 
@@ -54,14 +54,14 @@ namespace TestDataGenerator
             return ReflectionHelper.CreateInstance<AbstractFunction>($"{namespaceString}.{functionName}", assemblyName);
         }
 
-        protected double GetFitnessByPathMatch()
+        private double GetFitnessByPathMatch()
         {
-            return CaculationHelper.CaculatePathMatchFitness(GetExecutionPath(), TargetPath);
+            return CaculationHelper.CaculatePathMatchFitness(ExecutionPath, TargetPath);
         }
 
-        protected double GetFitnessByNodeMatch()
+        private double GetFitnessByNodeMatch()
         {
-            return CaculationHelper.CaculateNodeMatchFitness(GetExecutionPath(), TargetPath);
+            return CaculationHelper.CaculateNodeMatchFitness(ExecutionPath, TargetPath);
         }
     }
 }

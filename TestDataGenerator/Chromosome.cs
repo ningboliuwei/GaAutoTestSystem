@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace TestDataGenerator
 {
@@ -92,10 +91,7 @@ namespace TestDataGenerator
             var paras = Population.RelatedFunction.Paras;
             for (var i = 0; i < paras.Count; i++)
             {
-                paras[i].Value = SubValues.Select(v =>
-                        GetDecodedValue(v, paras[SubValues.IndexOf(v)].LowerBound,
-                            paras[SubValues.IndexOf(v)].UpperBound))
-                    .ToArray()[i];
+                paras[i].Value = DecodedSubValues[i];
             }
         }
 
