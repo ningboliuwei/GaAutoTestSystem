@@ -18,17 +18,17 @@
       <Parameter>
         <DataType>Integer</DataType>
         <LowerBound>1</LowerBound>
-        <UpperBound>10</UpperBound>
+        <UpperBound>15</UpperBound>
       </Parameter>
       <Parameter>
         <DataType>Integer</DataType>
         <LowerBound>1</LowerBound>
-        <UpperBound>10</UpperBound>
+        <UpperBound>15</UpperBound>
       </Parameter>
       <Parameter>
         <DataType>Integer</DataType>
         <LowerBound>1</LowerBound>
-        <UpperBound>10</UpperBound>
+        <UpperBound>15</UpperBound>
       </Parameter>
     </Parameters>
     <TargetPaths>

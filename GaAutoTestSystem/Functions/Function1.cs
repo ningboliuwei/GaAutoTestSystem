@@ -5,31 +5,27 @@ namespace GaAutoTestSystem
 {
     internal class Function1 : AbstractFunction
     {
-        public override object GetResult()
+        public override object OriginalFunction(params double[] paras)
         {
-            var x = Paras[0].Value;
+            var x = (int) paras[0];
 
             return x * Math.Sin(10 * Math.PI * x) + 2.0;
         }
 
-        protected override string GetExecutionPath()
+        public override string StubbedFunction(params double[] paras)
+
         {
             throw new NotImplementedException();
         }
 
-        protected override double GetFitnessByCoverageRate()
+        protected override double GetFitnessByCoverageRate(Chromosome chromosome)
         {
             throw new NotImplementedException();
         }
 
-        protected override double GetFitnessByDistance()
+        protected override double GetFitnessByDistance(Chromosome chromosome)
         {
             throw new NotImplementedException();
-        }
-
-        protected override double GetFitness()
-        {
-            return (double) GetResult();
         }
     }
 }

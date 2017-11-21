@@ -5,13 +5,13 @@ namespace GaAutoTestSystem
 {
     internal class Branch2 : AbstractFunction
     {
-        public override object GetResult()
+        public override object OriginalFunction(params double[] paras)
         {
             double k = 0;
             double j = 0;
-            var x = (int) Paras[0].Value;
-            var y = (int) Paras[1].Value;
-            var z = (int) Paras[2].Value;
+            var x = (int) paras[0];
+            var y = (int) paras[1];
+            var z = (int) paras[2];
 
             if (x > 1 && z < 10)
             {
@@ -27,11 +27,11 @@ namespace GaAutoTestSystem
             return j;
         }
 
-        protected override string GetExecutionPath()
+        public override string StubbedFunction(params double[] paras)
         {
-            var x = (int) Paras[0].Value;
-            var y = (int) Paras[1].Value;
-            var z = (int) Paras[2].Value;
+            var x = (int) paras[0];
+            var y = (int) paras[1];
+            var z = (int) paras[2];
             var path = "#";
 
             if (x > 1)
@@ -56,15 +56,15 @@ namespace GaAutoTestSystem
             return path;
         }
 
-        protected override double GetFitnessByCoverageRate()
+        protected override double GetFitnessByCoverageRate(Chromosome chromosome)
         {
-            return GetExecutionPath().Length / (double) "#abcde".Length;
+            return GetExecutionPath(chromosome).Length / (double) "#abcde".Length;
         }
 
-        protected override double GetFitnessByDistance()
+        protected override double GetFitnessByDistance(Chromosome chromosome)
         {
-            var x = Paras[0].Value;
-            var y = Paras[1].Value;
+            var x = (int) chromosome.DecodedSubValues[0];
+            var y = (int) chromosome.DecodedSubValues[1];
 
             var conditions = new List<ConditionInfo>
             {

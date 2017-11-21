@@ -6,41 +6,52 @@ namespace TestDataGenerator
     {
         public enum FitnessType
         {
-            Basic,
+            Value,
+            CoverageRate,
             Distance,
             PathMatch,
             NodeMatch
         }
 
         public List<ParaInfo> Paras { get; set; } = new List<ParaInfo>();
-        public string ExecutionPath => GetExecutionPath();
-        public object Result => GetResult();
-        public double Fitness => GetFitness();
-        public string TargetPath { private get; set; }
+        public string TargetPath { get; set; }
 
-        public FitnessType FitnessCaculationType { private get; set; } = FitnessType.Basic;
+        public FitnessType FitnessCaculationType { private get; set; } = FitnessType.Value;
 
-        public abstract object GetResult();
-
-        protected abstract string GetExecutionPath();
-
-        protected abstract double GetFitnessByCoverageRate();
-
-        protected abstract double GetFitnessByDistance();
-
-        protected virtual double GetFitness()
+        public object GetResult(Chromosome chromosome)
         {
-            if (FitnessCaculationType == FitnessType.Basic)
-                return GetFitnessByCoverageRate();
+            return OriginalFunction(chromosome.DecodedSubValues.ToArray());
+        }
+
+        public abstract object OriginalFunction(params double[] paras);
+
+        public abstract string StubbedFunction(params double[] paras);
+
+        public string GetExecutionPath(Chromosome chromosome)
+        {
+            return StubbedFunction(chromosome.DecodedSubValues.ToArray());
+        }
+
+        protected abstract double GetFitnessByCoverageRate(Chromosome chromosome);
+
+        protected abstract double GetFitnessByDistance(Chromosome chromosome);
+
+        public double GetFitness(Chromosome chromosome)
+        {
+            if (FitnessCaculationType == FitnessType.Value)
+                return (double) GetResult(chromosome);
+
+            if (FitnessCaculationType == FitnessType.CoverageRate)
+                return GetFitnessByCoverageRate(chromosome);
 
             if (FitnessCaculationType == FitnessType.Distance)
-                return GetFitnessByDistance();
+                return GetFitnessByDistance(chromosome);
 
             if (FitnessCaculationType == FitnessType.PathMatch)
-                return GetFitnessByPathMatch();
+                return GetFitnessByPathMatch(chromosome);
 
             if (FitnessCaculationType == FitnessType.NodeMatch)
-                return GetFitnessByNodeMatch();
+                return GetFitnessByNodeMatch(chromosome);
 
             return double.MinValue;
         }
@@ -54,14 +65,16 @@ namespace TestDataGenerator
             return ReflectionHelper.CreateInstance<AbstractFunction>($"{namespaceString}.{functionName}", assemblyName);
         }
 
-        private double GetFitnessByPathMatch()
+        private double GetFitnessByPathMatch(Chromosome chromosome)
         {
-            return CaculationHelper.CaculatePathMatchFitness(ExecutionPath, TargetPath);
+            var executionPath = GetExecutionPath(chromosome);
+            return CaculationHelper.CaculatePathMatchFitness(executionPath, TargetPath);
         }
 
-        private double GetFitnessByNodeMatch()
+        private double GetFitnessByNodeMatch(Chromosome chromosome)
         {
-            return CaculationHelper.CaculateNodeMatchFitness(ExecutionPath, TargetPath);
+            var executionPath = GetExecutionPath(chromosome);
+            return CaculationHelper.CaculateNodeMatchFitness(executionPath, TargetPath);
         }
     }
 }
