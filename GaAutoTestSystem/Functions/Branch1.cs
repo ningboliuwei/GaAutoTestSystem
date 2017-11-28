@@ -14,8 +14,12 @@ namespace GaAutoTestSystem
             if (x >= 80)
             {
                 result = 1;
-                if (y < 50)
-                    result = 2;
+                {
+                    if (y < 50)
+                    {
+                        result = 2;
+                    }
+                }
             }
 
             return result;
@@ -25,20 +29,23 @@ namespace GaAutoTestSystem
         {
             var x = (int) paras[0];
             var y = (int) paras[1];
-            var result = 0;
-            var path = "#";
-
+            // var result = 0;
+            var path = "a";
+            
             if (x >= 80)
             {
-                result = 1;
-                path += "a";
-                if (y < 50)
+                path += "b";
+                // result = 1;
                 {
-                    result = 2;
-                    path += "b";
+                    path += "c";
+                    if (y < 50)
+                    {
+                        path += "d";
+                        // result = 2;
+                    }
                 }
             }
-            path += "c";
+            path += "e";
 
             return path;
         }

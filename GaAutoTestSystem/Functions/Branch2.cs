@@ -7,8 +7,8 @@ namespace GaAutoTestSystem
     {
         public override object OriginalFunction(params double[] paras)
         {
-            double k = 0;
-            double j = 0;
+            var k = 0;
+            var j = 0;
             var x = (int) paras[0];
             var y = (int) paras[1];
             var z = (int) paras[2];
@@ -20,7 +20,9 @@ namespace GaAutoTestSystem
             }
 
             if (y == 4 || z > 1)
+            {
                 j = z * y + 10;
+            }
 
             j = j % 3;
 
@@ -29,30 +31,42 @@ namespace GaAutoTestSystem
 
         public override string StubbedFunction(params double[] paras)
         {
+            var k = 0;
+            var j = 0;
             var x = (int) paras[0];
             var y = (int) paras[1];
             var z = (int) paras[2];
-            var path = "#";
+
+            var path = "a";
 
             if (x > 1)
             {
-                path += "a";
+                path += "b";
                 if (z < 10)
-                    path += "b";
+                {
+                    path += "c";
+                    // k = x + z;
+                    // j = k * k;
+                }
             }
 
-            if (y == 4)
+            path += "d";
+            if (y == 4 )
             {
-                path += "c";
-            }
-            else
-            {
-                path += "d";
-                if (z > 1)
-                    path += "e";
+                path += "e";
+                // j = z * y + 10;
             }
 
-            path += "f";
+            if (z > 1)
+            {
+                path += "f";
+                // j = z * y + 10;
+            }
+
+            path += "g";
+            // j = j % 3;
+
+            path += "h";
             return path;
         }
 

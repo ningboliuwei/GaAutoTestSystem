@@ -16,26 +16,28 @@
     <FitnessCaculationType>PathMatch</FitnessCaculationType>
     <Parameters>
       <Parameter>
-        <DataType>Double</DataType>
-        <LowerBound>0</LowerBound>
+        <DataType>Integer</DataType>
+        <LowerBound>-20</LowerBound>
         <UpperBound>20</UpperBound>
       </Parameter>
       <Parameter>
-        <DataType>Double</DataType>
-        <LowerBound>0</LowerBound>
+        <DataType>Integer</DataType>
+        <LowerBound>-20</LowerBound>
         <UpperBound>20</UpperBound>
       </Parameter>
       <Parameter>
-        <DataType>Double</DataType>
-        <LowerBound>0</LowerBound>
+        <DataType>Integer</DataType>
+        <LowerBound>-20</LowerBound>
         <UpperBound>20</UpperBound>
       </Parameter>
     </Parameters>
     <TargetPaths>
-      <TargetPath>#f</TargetPath>
-      <TargetPath>#abf</TargetPath>
-      <TargetPath>#cf</TargetPath>
-      <TargetPath>#def</TargetPath>
+      <TargetPath>abcdefgh</TargetPath>
+      <TargetPath>adgh</TargetPath>
+      <TargetPath>abcdegh</TargetPath>
+      <TargetPath>abcdfgh</TargetPath>
+      <TargetPath>abdefgh</TargetPath>
+      <TargetPath>abdfgh</TargetPath>
     </TargetPaths>
   </FunctionSettings>
 </TestSettings>
