@@ -98,7 +98,7 @@ namespace GaAutoTestSystem
 
         protected override double GetFitnessByCoverageRate(Chromosome chromosome)
         {
-            return GetExecutionPath(chromosome).Length / (double) "#abcde".Length;
+            return GetExecutionPath(chromosome).Length / (double) "abcdefghij".Length;
         }
 
         protected override double GetFitnessByDistance(Chromosome chromosome)
