@@ -111,116 +111,118 @@ namespace GaAutoTestSystem
 
             var errorMessage = "Invalid date";
 
-            var path = "#";
+            var path = "a";
             if (year >= 1950 && year <= 2050 && month >= 1 && month <= 12 && day >= 1 && day <= 31)
             {
-                path += "a";
+                path += "b";
                 //大月
                 if (month == 12)
                 {
-                    path += "b";
+                    path += "c";
                     if (day == 31)
                     {
-                        path += "c";
+                        path += "d";
                         year++;
-                        day = 1;
-                        month = 1;
+                        // day = 1;
+                        // month = 1;
                     }
                     else
                     {
-                        path += "d";
-                        day++;
+                        path += "e";
+                        // day++;
                     }
                 }
                 else
                 {
-                    path += "e";
+                    path += "f";
                     if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 ||
                         month == 10)
                     {
-                        path += "f";
+                        path += "g";
                         if (day == 31)
                         {
-                            path += "g";
-                            day = 1;
-                            month++;
+                            path += "h";
+                            // day = 1;
+                            // month++;
                         }
                         else
                         {
-                            path += "h";
-                            day++;
+                            path += "i";
+                            // day++;
                         }
                     }
                     else
                     {
-                        path += "i";
+                        path += "j";
                         if (month == 4 || month == 6 || month == 9 || month == 11)
                         {
-                            path += "j";
+                            path += "k";
                             if (day == 31)
-                                path += "k";
+                            {
+                                path += "l";
+                            }
 
                             if (day == 30)
                             {
-                                path += "l";
+                                path += "m";
                                 day = 1;
                                 month++;
                             }
                             else
                             {
-                                path += "m";
+                                path += "n";
                                 day++;
                             }
                         }
                         else
                         {
-                            path += "n";
+                            path += "o";
                             if (month == 2)
                             {
-                                path += "o";
+                                path += "p";
                                 var endDay = 0;
 
                                 if (year % 400 == 0)
                                 {
-                                    path += "p";
+                                    path += "q";
                                     endDay = 29;
                                 }
                                 else
                                 {
-                                    path += "q";
+                                    path += "r";
                                     if (year % 100 == 0)
                                     {
-                                        path += "r";
+                                        path += "s";
                                         endDay = 28;
                                     }
                                     else
                                     {
-                                        path += "s";
+                                        path += "t";
                                         if (year % 4 == 0)
                                         {
-                                            path += "t";
+                                            path += "u";
                                             endDay = 29;
                                         }
                                         else
                                         {
-                                            path += "u";
+                                            path += "v";
                                             endDay = 28;
                                         }
                                     }
                                 }
 
                                 if (day > endDay)
-                                    path += "v";
+                                    path += "w";
 
                                 if (day == endDay)
                                 {
-                                    path += "w";
+                                    path += "x";
                                     day = 1;
                                     month++;
                                 }
                                 else
                                 {
-                                    path += "x";
+                                    path += "y";
                                     day++;
                                 }
                             }
@@ -228,6 +230,8 @@ namespace GaAutoTestSystem
                     }
                 }
             }
+
+            path += "z";
             return path;
         }
 

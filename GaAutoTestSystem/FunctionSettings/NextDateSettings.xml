@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <TestSettings>
   <GaSettings>
     <ChromosomeSettings>
@@ -33,11 +32,7 @@
       </Parameter>
     </Parameters>
     <TargetPaths>
-      <TargetPath>#abc</TargetPath>
-      <TargetPath>#abd</TargetPath>
-      <TargetPath>#aefg</TargetPath>
-      <TargetPath>#aefh</TargetPath>
-      <TargetPath>#aeinop</TargetPath>
+      <TargetPath>abopqxz</TargetPath>
     </TargetPaths>
   </FunctionSettings>
 </TestSettings>
