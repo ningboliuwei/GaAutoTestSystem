@@ -17,18 +17,18 @@
     <Parameters>
       <Parameter>
         <DataType>Integer</DataType>
-        <LowerBound>-20</LowerBound>
-        <UpperBound>20</UpperBound>
+        <LowerBound>-2000</LowerBound>
+        <UpperBound>2000</UpperBound>
       </Parameter>
       <Parameter>
         <DataType>Integer</DataType>
-        <LowerBound>-20</LowerBound>
-        <UpperBound>20</UpperBound>
+        <LowerBound>-2000</LowerBound>
+        <UpperBound>2000</UpperBound>
       </Parameter>
       <Parameter>
         <DataType>Integer</DataType>
-        <LowerBound>-20</LowerBound>
-        <UpperBound>20</UpperBound>
+        <LowerBound>-2000</LowerBound>
+        <UpperBound>2000</UpperBound>
       </Parameter>
     </Parameters>
     <TargetPaths>

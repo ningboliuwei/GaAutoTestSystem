@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace TestDataGenerator
@@ -23,6 +24,8 @@ namespace TestDataGenerator
             stopwatch.Start();
             foreach (var targetPath in targetPaths)
             {
+                
+                var found = false;
                 // 下面这句漏掉会出错！
                 function.TargetPath = targetPath;
                 for (long i = 0; i < gaParameters.ChromosomeQuantity * gaParameters.GenerationQuantity; i++)
@@ -36,18 +39,15 @@ namespace TestDataGenerator
 
                     var result = function.OriginalFunction(values);
                     var executionPath = function.StubbedFunction(values);
-                    // 输出信息部分不计时
-                    stopwatch.Stop();
-                    //每个信息占的宽度
-                    const int width = -30;
                     var line =
-                        $"{$"value(s): {string.Join(" ", values.ToArray())}",width} | {$"target path: {function.TargetPath}",width} | {$"execution path: {executionPath}",width} | {$"result: {result}",width}";
+                        $"{$"{i + 1}",-6} | {$"value(s): {string.Join(" ", values.ToArray())}",-30} | {$"target path: {function.TargetPath}",-30} | {$"execution path: {executionPath}",-30} | {$"result: {result}",-20}";
                     builder.AppendLine(line);
-                   
+
                     //以下为终止条件
                     //如果当前执行路径包含任何目标路径
-                    if (executionPath.Contains(targetPath))
+                    if (executionPath == targetPath)
                     {
+                        found = true;
                         //将找到的数据添加到测试数据集中
                         var assertion = new AssertionInfo();
                         assertion.InputValues.AddRange(values.ToList());
@@ -55,8 +55,11 @@ namespace TestDataGenerator
                         builder.AppendLine("FOUND".PadLeft((line.Length - 5) / 2, '-').PadRight(line.Length, '-'));
                         break;
                     }
+                }
 
-                    stopwatch.Start();
+                if (!found)
+                {
+                    builder.AppendLine("NOT FOUND".PadLeft(130 / 2, '-').PadRight(130, '-'));
                 }
             }
 

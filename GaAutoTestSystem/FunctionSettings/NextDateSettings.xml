@@ -3,7 +3,7 @@
   <GaSettings>
     <ChromosomeSettings>
       <ChromosomeQuantity>1000</ChromosomeQuantity>
-      <GenerationQuantity>200</GenerationQuantity>
+      <GenerationQuantity>1000</GenerationQuantity>
       <ChromosomeLengthForOneSubValue>10</ChromosomeLengthForOneSubValue>
       <RetainRate>0.2</RetainRate>
       <MutationRate>0.3</MutationRate>
@@ -17,8 +17,8 @@
     <Parameters>
       <Parameter>
         <DataType>Integer</DataType>
-        <LowerBound>1950</LowerBound>
-        <UpperBound>2050</UpperBound>
+        <LowerBound>1</LowerBound>
+        <UpperBound>10000</UpperBound>
       </Parameter>
       <Parameter>
         <DataType>Integer</DataType>
@@ -32,7 +32,7 @@
       </Parameter>
     </Parameters>
     <TargetPaths>
-      <TargetPath>abopqxz</TargetPath>
+      <TargetPath>abfjopqxz</TargetPath>
     </TargetPaths>
   </FunctionSettings>
 </TestSettings>

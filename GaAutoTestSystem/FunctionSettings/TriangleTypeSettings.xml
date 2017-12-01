@@ -2,7 +2,7 @@
 <TestSettings>
   <GaSettings>
     <ChromosomeSettings>
-      <ChromosomeQuantity>1000</ChromosomeQuantity>
+      <ChromosomeQuantity>100</ChromosomeQuantity>
       <GenerationQuantity>200</GenerationQuantity>
       <ChromosomeLengthForOneSubValue>10</ChromosomeLengthForOneSubValue>
       <RetainRate>0.2</RetainRate>
