@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestSettings>
+  <GaSettings>
+    <ChromosomeSettings>
+      <ChromosomeQuantity>500</ChromosomeQuantity>
+      <GenerationQuantity>10000</GenerationQuantity>
+      <ChromosomeLengthForOneSubValue>9</ChromosomeLengthForOneSubValue>
+      <RetainRate>0.2</RetainRate>
+      <MutationRate>0.3</MutationRate>
+      <SelectionRate>0.01</SelectionRate>
+      <EvolutionStrategy>Hybrid</EvolutionStrategy>
+    </ChromosomeSettings>
+  </GaSettings>
+  <FunctionSettings>
+    <FunctionName>TriangleType</FunctionName>
+    <FitnessCaculationType>PathMatch</FitnessCaculationType>
+    <Parameters>
+      <Parameter>
+        <DataType>Integer</DataType>
+        <LowerBound>1</LowerBound>
+        <UpperBound>200</UpperBound>
+      </Parameter>
+      <Parameter>
+        <DataType>Integer</DataType>
+        <LowerBound>1</LowerBound>
+        <UpperBound>200</UpperBound>
+      </Parameter>
+      <Parameter>
+        <DataType>Integer</DataType>
+        <LowerBound>1</LowerBound>
+        <UpperBound>200</UpperBound>
+      </Parameter>
+    </Parameters>
+    <TargetPaths>
+      <TargetPath>abcdj</TargetPath>
+    </TargetPaths>
+  </FunctionSettings>
+</TestSettings>

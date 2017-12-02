@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestSettings>
+  <GaSettings>
+    <ChromosomeSettings>
+      <ChromosomeQuantity>200</ChromosomeQuantity>
+      <GenerationQuantity>1000</GenerationQuantity>
+      <ChromosomeLengthForOneSubValue>10</ChromosomeLengthForOneSubValue>
+      <RetainRate>0.2</RetainRate>
+      <MutationRate>0.3</MutationRate>
+      <SelectionRate>0.01</SelectionRate>
+      <EvolutionStrategy>Hybrid</EvolutionStrategy>
+    </ChromosomeSettings>
+  </GaSettings>
+  <FunctionSettings>
+    <FunctionName>NextDate</FunctionName>
+    <FitnessCaculationType>NodeMatch</FitnessCaculationType>
+    <Parameters>
+      <Parameter>
+        <DataType>Integer</DataType>
+        <LowerBound>1950</LowerBound>
+        <UpperBound>2050</UpperBound>
+      </Parameter>
+      <Parameter>
+        <DataType>Integer</DataType>
+        <LowerBound>1</LowerBound>
+        <UpperBound>12</UpperBound>
+      </Parameter>
+      <Parameter>
+        <DataType>Integer</DataType>
+        <LowerBound>1</LowerBound>
+        <UpperBound>31</UpperBound>
+      </Parameter>
+    </Parameters>
+    <TargetPaths>
+      <TargetPath>abfjopqxz</TargetPath>
+    </TargetPaths>
+  </FunctionSettings>
+</TestSettings>

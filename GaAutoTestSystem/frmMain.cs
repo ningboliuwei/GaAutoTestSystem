@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -100,7 +101,9 @@ namespace GaAutoTestSystem
             LoadParameters();
             txtResult.Clear();
             //通过遗传算法得到测试数据
-            gaAssertions.AddRange(GaTestDataGenerator.GetAssertions(_gaParameters, _function, _targetPaths));
+            var assertions = Task.Run(() => GaTestDataGenerator.GetAssertions(_gaParameters, _function, _targetPaths))
+                .Result;
+            gaAssertions.AddRange(assertions);
 
             //得到边界值测试数据
             //            bounaryTestAssertions.AddRange(BoundaryTestDataGenerator.GetAssertions(_function));
@@ -119,7 +122,9 @@ namespace GaAutoTestSystem
 
             //将 galog 显示到文本框中
             const string logPath = @"c:\#GA_DEMO\galog.txt";
-            txtResult.Text = File.ReadAllText(logPath);
+            txtResult.AppendText(File.ReadAllText(logPath));
+            //滚动到光标处
+            txtResult.ScrollToCaret();
         }
 
         private TestSuiteInfo GetTestSuiteInfoFromTestSuiteFile(string filePath)
@@ -220,11 +225,15 @@ namespace GaAutoTestSystem
             txtResult.Clear();
 
             var randomAssertions = new List<AssertionInfo>();
-            randomAssertions.AddRange(RandomTestDataGenerator.GetAssertions(_gaParameters, _function, _targetPaths));
+            var result = Task.Run(() => RandomTestDataGenerator.GetAssertions(_gaParameters, _function, _targetPaths))
+                .Result;
+            randomAssertions.AddRange(result);
 
             //将 rndlog 显示到文本框中
             const string logPath = @"c:\#GA_DEMO\rndlog.txt";
-            txtResult.Text = File.ReadAllText(logPath);
+            txtResult.AppendText(File.ReadAllText(logPath));
+            //滚动到光标处
+            txtResult.ScrollToCaret();
         }
 
         //通过 UI 添加被测函数参数
@@ -278,6 +287,9 @@ namespace GaAutoTestSystem
                     //染色体个数
                     txtChromosomeQuantity.Text =
                         xdoc.Descendants("ChromosomeQuantity").Select(n => n.Value).FirstOrDefault();
+                    //单个染色体编码长度
+                    txtChromosomeLength.Text =
+                        xdoc.Descendants("ChromosomeLengthForOneSubValue").Select(n => n.Value).FirstOrDefault();
                     //染色体进化代数
                     txtGenerationQuantity.Text =
                         xdoc.Descendants("GenerationQuantity").Select(n => n.Value).FirstOrDefault();

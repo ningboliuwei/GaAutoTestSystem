@@ -2,8 +2,8 @@
 <TestSettings>
   <GaSettings>
     <ChromosomeSettings>
-      <ChromosomeQuantity>100</ChromosomeQuantity>
-      <GenerationQuantity>200</GenerationQuantity>
+      <ChromosomeQuantity>400</ChromosomeQuantity>
+      <GenerationQuantity>10000</GenerationQuantity>
       <ChromosomeLengthForOneSubValue>10</ChromosomeLengthForOneSubValue>
       <RetainRate>0.2</RetainRate>
       <MutationRate>0.3</MutationRate>
@@ -18,17 +18,17 @@
       <Parameter>
         <DataType>Integer</DataType>
         <LowerBound>1</LowerBound>
-        <UpperBound>100</UpperBound>
+        <UpperBound>200</UpperBound>
       </Parameter>
       <Parameter>
         <DataType>Integer</DataType>
         <LowerBound>1</LowerBound>
-        <UpperBound>100</UpperBound>
+        <UpperBound>200</UpperBound>
       </Parameter>
       <Parameter>
         <DataType>Integer</DataType>
         <LowerBound>1</LowerBound>
-        <UpperBound>100</UpperBound>
+        <UpperBound>200</UpperBound>
       </Parameter>
     </Parameters>
     <TargetPaths>
