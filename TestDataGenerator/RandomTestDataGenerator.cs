@@ -48,9 +48,9 @@ namespace TestDataGenerator
                     {
                         found = true;
                         //将找到的数据添加到测试数据集中
-//                        var assertion = new AssertionInfo();
-//                        assertion.InputValues.AddRange(values.ToList());
-//                        assertions.Add(assertion);
+                        var assertion = new AssertionInfo();
+                        assertion.InputValues.AddRange(values.ToList());
+                        assertions.Add(assertion);
                         builder.AppendLine("FOUND".PadLeft((line.Length - 5) / 2, '-').PadRight(line.Length, '-'));
                         break;
                     }
