@@ -46,6 +46,7 @@ namespace TestDataGenerator
                         //将找到的数据添加到测试数据集中
                         var assertion = new AssertionInfo();
                         assertion.InputValues.AddRange(mostFittest.DecodedSubValues.Select(v => v).ToList());
+                        assertions.Add(assertion);
                         builder.AppendLine("FOUND".PadLeft(130 / 2, '-').PadRight(130, '-'));
                         break;
                     }

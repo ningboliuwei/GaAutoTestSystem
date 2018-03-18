@@ -100,25 +100,22 @@ namespace GaAutoTestSystem
             //加载参数
             LoadParameters();
             txtResult.Clear();
-            //通过遗传算法得到测试数据
-            var assertions = Task.Run(() => GaTestDataGenerator.GetAssertions(_gaParameters, _function, _targetPaths))
-                .Result;
-            gaAssertions.AddRange(assertions);
-
+            //通过遗传算法得到路径覆盖测试数据
+            gaAssertions.AddRange(Task.Run(() => GaTestDataGenerator.GetAssertions(_gaParameters, _function, _targetPaths)).Result);
             //得到边界值测试数据
-            //            bounaryTestAssertions.AddRange(BoundaryTestDataGenerator.GetAssertions(_function));
+            bounaryTestAssertions.AddRange(Task.Run(() => BoundaryTestDataGenerator.GetAssertions(_function)).Result);
 
-            //            var testSuite = new TestSuiteInfo
-            //            {
-            //                Name = $"针对{cmbFunction.Text}函数的测试套件",
-            //                Target = $"{AbstractFunction.CreateInstance(cmbFunction.SelectedValue.ToString())}"
-            //            };
-            //            testSuite.TestCases.Add(new TestCaseInfo {Name = "路径覆盖测试", Assertions = gaAssertions});
-            //            testSuite.TestCases.Add(new TestCaseInfo {Name = "边界值测试", Assertions = bounaryTestAssertions});
-            //
-            //            GenerateTestSuiteFile(testSuite);
-            //            ShowTestData(gaAssertions.Union(bounaryTestAssertions).ToList());
-            //            ShowAssertions(gaAssertions);
+            var testSuite = new TestSuiteInfo
+            {
+                Name = $"针对{cmbFunction.Text}函数的测试套件",
+                Target = $"{AbstractFunction.CreateInstance(cmbFunction.SelectedValue.ToString())}"
+            };
+            testSuite.TestCases.Add(new TestCaseInfo {Name = "路径覆盖测试", Assertions = gaAssertions});
+            testSuite.TestCases.Add(new TestCaseInfo {Name = "边界值测试", Assertions = bounaryTestAssertions});
+
+            GenerateTestSuiteFile(testSuite);
+//                        ShowTestData(gaAssertions.Union(bounaryTestAssertions).ToList());
+//            ShowAssertions(gaAssertions);
 
             //将 galog 显示到文本框中
             const string logPath = @"c:\#GA_DEMO\galog.txt";
